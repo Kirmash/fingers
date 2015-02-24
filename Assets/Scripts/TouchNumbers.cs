@@ -6,6 +6,7 @@ using System.Linq;
 
 public class TouchNumbers : MonoBehaviour 
 {
+	//private ToyTouch toyTouch;
 
 	public AudioClip number1;
 	public AudioClip number2;
@@ -31,15 +32,17 @@ public class TouchNumbers : MonoBehaviour
 
 	public int currentSceneNum;
 
+	private CloseScript closeScript;
+	private NumChange numChange;
+
 	[HideInInspector] public int numberFingers = 1;
 
 	[HideInInspector] public bool isDoorOpen = false;
 
 	[HideInInspector] public bool isInputLocked = false;
-	[HideInInspector] public float inputLockingTime = 2f;
+	[HideInInspector] public float inputLockingTime = 0.5f;
 
-	[HideInInspector] public float destroyingTime = 1f;
-	private float openingTime = 1f;
+	//private float openingTime = 1f;
 
 	[HideInInspector]public Animator animator;
 
@@ -57,6 +60,8 @@ public class TouchNumbers : MonoBehaviour
 	//arrays and assets for PlatesScene 1
 	[HideInInspector] public Object[] plates;
 	[HideInInspector] public GameObject[] scenePlates;
+	[HideInInspector] public GameObject[] cake;
+	[HideInInspector] public GameObject[] cakeScene;
 	Vector3 centerPlatePosition;
 
 
@@ -81,6 +86,11 @@ public class TouchNumbers : MonoBehaviour
 		animator = GetComponent<Animator>();
 		toys = Resources.LoadAll ("toys", typeof(GameObject)).Cast<GameObject> ().ToArray ();
 		plates = Resources.LoadAll("plates", typeof(GameObject)).Cast<GameObject> ().ToArray ();
+		cake = Resources.LoadAll("cakes", typeof(GameObject)).Cast<GameObject> ().ToArray ();
+
+		closeScript = (CloseScript)GameObject.Find("Redcross").GetComponent(typeof(CloseScript));
+		numChange = (NumChange)GameObject.Find("numb_container").GetComponent(typeof(NumChange));
+
 	}
 
 	void Update () 
@@ -97,52 +107,36 @@ public class TouchNumbers : MonoBehaviour
 //				}
 //					}	
 //		numTouch = nbTouches;
-	if(Input.GetMouseButton(0) && !isInputLocked && !isDoorOpen) {
+	if(Input.GetMouseButton(0) && !isInputLocked && !isDoorOpen &&!closeScript.inputLocked) {
 		//if (touchKey == 6 && !isInputLocked && !isDoorOpen) {
 			InputLock ();
+			numChange.changeBack = true;
 			touchKey = 0;
 			openSesame ();
 			
 		}
-//		if(Input.GetMouseButton(0) && !isInputLocked && isDoorOpen) {
-////if (touchKey == 6 && !isInputLocked && isDoorOpen) {
-//			InputLock ();
-//			touchKey = 0;
-//			Invoke ("DestroySomeToys", destroyingTime);
-//			Invoke ("openSesame", openingTime);
-//			animator.SetFloat ("isOpen", 0);
-//			animator.SetFloat ("isClosed", 2);
-//
-//	}
-
 	}
 
 
 	void openSesame ()
 	{
 		numberFingers = Random.Range(1, 11);
-		//numberFingers = numTouch;
-
 		setNumber (numberFingers);
 		animator.SetFloat ("isOpen", 2);
 		animator.SetFloat ("isClosed", 0);
-		InputLock ();
 		DoorOpen ();
-
-		Debug.Log (isDoorOpen);
-
 		}
 
 
-	void InputUnlock()
+ public	void InputUnlock()
 	{
 		isInputLocked = false;
 	}
 
-	void InputLock()
+public	void InputLock()
 	{
 		isInputLocked = true;
-		Invoke("InputUnlock",inputLockingTime);
+		Invoke("InputUnlock",1f);
 	}
 
 
@@ -164,55 +158,62 @@ public class TouchNumbers : MonoBehaviour
 			
 			audio.PlayOneShot(number1);
 			currentSceneNum = randomScene1[Random.Range(0, randomScene1.Length)];
-		    GetTheToys1();
+			GetTheToys1();
 			break;
 			
 		case 2: 
 			print(2);
 			audio.PlayOneShot(number2);
-			currentSceneNum = randomScene2[Random.Range(0, randomScene2.Length)];
+			//currentSceneNum = randomScene2[Random.Range(0, randomScene2.Length)];
+			currentSceneNum = 1;
 			GetTheToys2();
 			break;
 			
 		case 3: 
 			print(3);
 			audio.PlayOneShot(number3);
-			currentSceneNum = randomScene3[Random.Range(0, randomScene3.Length)];
+		//	currentSceneNum = randomScene3[Random.Range(0, randomScene3.Length)];
+			currentSceneNum = 1;
 			GetTheToys3();
 			break;
 			
 		case 4: 
 			print(4);
 			audio.PlayOneShot(number4);
-			currentSceneNum = randomScene4[Random.Range(0, randomScene4.Length)];
+			//currentSceneNum = randomScene4[Random.Range(0, randomScene4.Length)];
+			currentSceneNum = 1;
 			GetTheToys4();
 			break;
 			
 		case 5: 
 			print(5);
 			audio.PlayOneShot(number5);
-			currentSceneNum = randomScene5[Random.Range(0, randomScene5.Length)];
+			//currentSceneNum = randomScene5[Random.Range(0, randomScene5.Length)];
+			currentSceneNum = 1;
 			GetTheToys5();
 			break;
 			
 		case 6: 
 			print(6);
 			audio.PlayOneShot(number6);
-			currentSceneNum = randomScene6[Random.Range(0, randomScene6.Length)];
+			//currentSceneNum = randomScene6[Random.Range(0, randomScene6.Length)];
+			currentSceneNum = 1;
 			GetTheToys6();
 			break;
 			
 		case 7: 
 			print(7);
 			audio.PlayOneShot(number7);
-			currentSceneNum = randomScene7[Random.Range(0, randomScene7.Length)];
+			//currentSceneNum = randomScene7[Random.Range(0, randomScene7.Length)];
+			currentSceneNum = 1;
 			GetTheToys7();
 			break;
 			
 		case 8: 
 			print(8);
 			audio.PlayOneShot(number8);
-			currentSceneNum = randomScene8[Random.Range(0, randomScene8.Length)];
+			//currentSceneNum = randomScene8[Random.Range(0, randomScene8.Length)];
+			currentSceneNum = 1;
 			GetTheToys8();
 			break;
 			
@@ -227,10 +228,7 @@ public class TouchNumbers : MonoBehaviour
 	}
 
 
-
-
-
-		//Choosing the scene for particular numbers
+	//Choosing the scene for particular numbers
 	void GetTheToys1 () {
 				switch (currentSceneNum) {
 				case 0:
@@ -354,10 +352,11 @@ public class TouchNumbers : MonoBehaviour
 	//testscene
 	void LoadScene0 (int numberF)
 	{
+
 		activeToys = new GameObject[numberF];
 		for (int i = 0; i < numberF; i++) {
 			toyIndex = Random.Range(0, toys.Length);
-			Vector3 screenPosition = Camera.main.ScreenToWorldPoint(new Vector3(Random.Range(50,Screen.width-50), Random.Range(50,Screen.height-50), Camera.main.farClipPlane/2));
+			Vector3 screenPosition = Camera.main.ScreenToWorldPoint(new Vector3(Random.Range(50,Screen.width-50), Random.Range(50,Screen.height-50), 10));
 			activeToys [i] = GameObject.Instantiate (toys [toyIndex], screenPosition, Quaternion.identity) as GameObject;
 		}
 
@@ -365,48 +364,49 @@ public class TouchNumbers : MonoBehaviour
 //tort
 	void LoadScene1 (int numberF)
 	{
+
 		scenePlates = new GameObject[numberF+1];
-
-		centerPlatePosition = new Vector3 (0.27f, 0f, Camera.main.farClipPlane / 2);
-		Vector3[] platePositionArray2 = new [] { new Vector3(-5.95f,0f,Camera.main.farClipPlane / 2), new Vector3(6.3f,0f,Camera.main.farClipPlane / 2) };
-		Vector3[] platePositionArray3 = new [] { new Vector3(-3.52f,4.55f,Camera.main.farClipPlane / 2), new Vector3(5.85f,-1.65f,Camera.main.farClipPlane / 2), new Vector3(-3.74f,-4.33f,Camera.main.farClipPlane / 2) };
-		Vector3[] platePositionArray4 = new [] { new Vector3(-5.57f,1.07f,Camera.main.farClipPlane / 2), new Vector3(-3.29f,-4.64f,Camera.main.farClipPlane / 2), new Vector3(5.79f,-1.37f,Camera.main.farClipPlane / 2), new Vector3(3.55f,4.76f,Camera.main.farClipPlane / 2) };
-		Vector3[] platePositionArray5 = new [] { new Vector3(-5.9f,-0.05f,Camera.main.farClipPlane / 2), new Vector3(-3.31f,-4.92f,Camera.main.farClipPlane / 2), new Vector3(3.58f,-4.91f,Camera.main.farClipPlane / 2), new Vector3(6.3f,-0.03f,Camera.main.farClipPlane / 2), new Vector3(0.16f,5.48f,Camera.main.farClipPlane / 2) };
-		Vector3[] platePositionArray6 = new [] { new Vector3(-3.27f,4.89f,Camera.main.farClipPlane / 2), new Vector3(-5.88f,0.02f,Camera.main.farClipPlane / 2), new Vector3(-3.26f,-4.77f,Camera.main.farClipPlane / 2), new Vector3(3.62f,-4.71f,Camera.main.farClipPlane / 2), new Vector3(6.35f,0f,Camera.main.farClipPlane / 2), new Vector3(3.63f,4.9f,Camera.main.farClipPlane / 2) };
-		Vector3[] platePositionArray7 = new [] { new Vector3(3.56f,4.89f,Camera.main.farClipPlane / 2), new Vector3(-3.29f,4.89f,Camera.main.farClipPlane / 2), new Vector3(-5.92f,0f,Camera.main.farClipPlane / 2), new Vector3(-5.77f,-4.81f,Camera.main.farClipPlane / 2), new Vector3(0.15f,-5.55f,Camera.main.farClipPlane / 2), new Vector3(6.12f,-4.75f,Camera.main.farClipPlane / 2), new Vector3(6.32f,0f,Camera.main.farClipPlane / 2) };
-		Vector3[] platePositionArray8 = new [] { new Vector3(-5.92f,0f,Camera.main.farClipPlane / 2), new Vector3(-5.77f,-4.81f,Camera.main.farClipPlane / 2), new Vector3(0.15f,-5.55f,Camera.main.farClipPlane / 2), new Vector3(6.12f,-4.75f,Camera.main.farClipPlane / 2), new Vector3(6.32f,0f,Camera.main.farClipPlane / 2), new Vector3(6.12f,4.89f,Camera.main.farClipPlane / 2), new Vector3(0.14f,5.57f,Camera.main.farClipPlane / 2), new Vector3(-5.75f,4.86f,Camera.main.farClipPlane / 2) };
-
-		Debug.Log ("We are here!");
+		cakeScene = new GameObject[8];
+		centerPlatePosition = new Vector3 (0.27f, 0f, 0);
 		scenePlates[0] = GameObject.Instantiate (plates[0], centerPlatePosition, Quaternion.identity) as GameObject;
+		for (int j = 0; j<8; j++) {
+			cakeScene[j] = GameObject.Instantiate (cake[j], Vector3.zero, Quaternion.identity) as GameObject;
+		}
+
+
 	switch (numberF) 
 		{
 
 		case 2:
-
+			Vector3[] platePositionArray2 = new [] { new Vector3(6.3f,0f,0), new Vector3(-5.95f,0f,0) };
 			for (int i = 1; i < numberF+1; i++) {
 						scenePlates [i] = GameObject.Instantiate (plates[1], platePositionArray2[i-1], Quaternion.identity) as GameObject;
 			}
 			break;
 
 		case 3:
+			Vector3[] platePositionArray3 = new [] { new Vector3(-3.52f,4.55f,0), new Vector3(5.85f,-1.65f,0), new Vector3(-3.74f,-4.33f,0) };
 			for (int i = 1; i < numberF+1; i++) {
 				scenePlates [i] = GameObject.Instantiate (plates[1], platePositionArray3[i-1], Quaternion.identity) as GameObject;
 			}
 			break;
 
 		case 4:
+			Vector3[] platePositionArray4 = new [] { new Vector3(3.55f,4.76f,0), new Vector3(5.79f,-1.37f,0), new Vector3(-3.29f,-4.64f,0), new Vector3(-5.57f,1.07f,0) };
 				for (int i = 1; i < numberF+1; i++) {
 				scenePlates [i] = GameObject.Instantiate (plates[1], platePositionArray4[i-1], Quaternion.identity) as GameObject;
 			}
 				break;
 
 		case 5:
+			Vector3[] platePositionArray5 = new [] { new Vector3(0.16f,5.48f,0), new Vector3(6.3f,-0.03f,0), new Vector3(3.58f,-4.91f,0), new Vector3(-3.31f,-4.92f,0), new Vector3(-5.9f,-0.05f,0) };
 					for (int i = 1; i < numberF+1; i++) {
 				scenePlates [i] = GameObject.Instantiate (plates[1], platePositionArray5[i-1], Quaternion.identity) as GameObject;
 			}
 				break;
 
 		case 6:
+			Vector3[] platePositionArray6 = new [] {  new Vector3(3.63f,4.9f,0), new Vector3(6.35f,0f,0), new Vector3(3.62f,-4.71f,0), new Vector3(-3.26f,-4.77f,0), new Vector3(-5.88f,0.02f,0), new Vector3(-3.27f,4.89f,0) };
 						for (int i = 1; i < numberF+1; i++) {
 				
 				scenePlates [i] = GameObject.Instantiate (plates[1], platePositionArray6[i-1], Quaternion.identity) as GameObject;
@@ -414,25 +414,20 @@ public class TouchNumbers : MonoBehaviour
 					break;
 
 		case 7:
+			Vector3[] platePositionArray7 = new [] { new Vector3(3.56f,4.89f,0), new Vector3(6.32f,0f,0), new Vector3(6.12f,-4.75f,0), new Vector3(0.15f,-5.55f,0), new Vector3(-5.77f,-4.81f,0), new Vector3(-5.92f,0f,0), new Vector3(-3.29f,4.89f,0) };
 							for (int i = 1; i < numberF+1; i++) {
 				scenePlates [i] = GameObject.Instantiate (plates[1], platePositionArray7[i-1], Quaternion.identity) as GameObject;
 				}
 					break;
 
 		case 8:
+			Vector3[] platePositionArray8 = new [] {new Vector3(6.12f,4.89f,0), new Vector3(6.32f,0f,0), new Vector3(6.12f,-4.75f,0), new Vector3(0.15f,-5.55f,0), new Vector3(-5.77f,-4.81f,0), new Vector3(-5.92f,0f,0), new Vector3(-5.75f,4.86f,0), new Vector3(0.14f,5.57f,0) };
 								for (int i = 1; i < numberF+1; i++) {
 				scenePlates [i] = GameObject.Instantiate (plates[1], platePositionArray8[i-1], Quaternion.identity) as GameObject;
 				}
 					break;
 
 		}
-
-//		activeToys = new GameObject[numberFingers];
-//		for (int i = 0; i < numberF; i++) {
-//			toyIndex = Random.Range(0, toys.Length);
-//			Vector3 screenPosition = Camera.main.ScreenToWorldPoint(new Vector3(Random.Range(50,Screen.width-50), Random.Range(50,Screen.height-50), Camera.main.farClipPlane/2));
-//			activeToys [i] = GameObject.Instantiate (toys [toyIndex], screenPosition, Quaternion.identity) as GameObject;
-//		}
 		}
 
 }

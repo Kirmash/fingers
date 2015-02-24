@@ -9,6 +9,7 @@ public class BackChange : MonoBehaviour {
 	void Start () {
 		spriteRenderer = renderer as SpriteRenderer;
 		touchNumbers = GameObject.Find("shirmas").GetComponent<TouchNumbers>();
+
 	}
 	
 	// Update is called once per frame
@@ -18,5 +19,7 @@ public class BackChange : MonoBehaviour {
 			//Debug.Log("Back_num: " + touchNumbers.currentSceneNum);
 			spriteRenderer.sprite = backs [touchNumbers.currentSceneNum];
 	}
+
+
 }
 }
