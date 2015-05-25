@@ -6,7 +6,6 @@ public class ToyTouch : MonoBehaviour {
 
 	private TouchNumbers touchNumbers;
 	private CloseScript closeScript;
-	private bool inputLocked = false;
 	private bool isInvoking = false;
 
 
@@ -19,14 +18,14 @@ public class ToyTouch : MonoBehaviour {
 
 		void Update () {
 
-		//int nbTouches = Input.touchCount;
+		int nbTouches = Input.touchCount;
 		
-			//	if (nbTouches > 0) {
-			//	if (Input.GetTouch (0).phase == TouchPhase.Began & !touchNumbers.isInputLocked && touchNumbers.isDoorOpen && !isTouched) {
-		if (Input.GetMouseButton(0) && !touchNumbers.isInputLocked && !closeScript.inputLocked && touchNumbers.isDoorOpen) {
-		//RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint(Input.GetTouch (0).position), Vector2.zero);
+				if (nbTouches > 0) {
+			if (Input.GetTouch (0).phase == TouchPhase.Began && !touchNumbers.isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_open_idle")) {
+		//if (Input.GetMouseButton(0) && !touchNumbers.isInputLocked && !closeScript.inputLocked && touchNumbers.isDoorOpen) {
+		RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint(Input.GetTouch (0).position), Vector2.zero);
 	
-			RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+		//	RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 				
 			if ( hit.collider != null && hit.transform != null && hit.collider.tag == "toy")
 				{		
@@ -45,3 +44,4 @@ public class ToyTouch : MonoBehaviour {
 				}
 
 		}
+}

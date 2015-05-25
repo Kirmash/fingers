@@ -3,103 +3,53 @@ using System.Collections;
 
 public class CloseScript : MonoBehaviour {
 
-	private float destroyingTime = 1f;
 	private TouchNumbers touchNumbers;
-//	private NumChange numChange;
+	private TouchController touchController;
 	[HideInInspector]public int touchCounter = 0;
 	private int touchKey = 0;
-	public bool inputLocked = false;
-	private float time = 1f;
+//	public bool inputLocked = false;
+	[HideInInspector]public bool closeProcessOnline;
 
-	//CakeScene
-	public bool cakeEndMove = false;
+
 
 
 	// Use this for initialization
 	void Start () {
 		touchNumbers = (TouchNumbers)GameObject.Find("shirmas").GetComponent(typeof(TouchNumbers));
+		touchController = (TouchController)GameObject.Find("Main Camera").GetComponent(typeof(TouchController));
+	}
+
+  private void nullCounter () {
+
+		touchCounter = 0;
 		
 	}
-	
-	// Update is called once per frame
-	//void OnMouseDown () {
-	
-	//	startClosing ();
-	
-	//			}
-	
-	void InputUnlock()
-	{
-		inputLocked = false;
-	}
-	
-	void InputLock()
-	{
-		inputLocked = true;
-		Invoke("InputUnlock",2.5f);
-	}
-	
-	public void DoorClosed ()
-	{
-		touchNumbers.isDoorOpen = false;
-	}
-	
-	void DestroySomeToys()
-	{
-		//Debug.Log ("I am destroying!");
-		cakeEndMove = false;
-		switch (touchNumbers.currentSceneNum) {
-				case 0:
-						for (int i = 0; i < touchNumbers.activeToys.Length; i++) {
-			
-								Destroy (touchNumbers.activeToys [i]);
-			
-						}
-						break;
 
-		case 1: 
-			for (int i = 0; i<9; i++) {
-				if (i <touchNumbers.scenePlates.Length)
-				{
-				Destroy (touchNumbers.scenePlates[i]);
-				}
-				if (i <touchNumbers.cakeScene.Length)
-				{
-					Destroy (touchNumbers.cakeScene[i]);
-				}
-
-
-			}
-		break;
-				}
-		
-	}
 	public void Update() {
 	
-	//int nbTouches = Input.touchCount;
+	int nbTouches = Input.touchCount;
 		
-	//if (nbTouches > 0) {
-			//if (!touchNumbers.isInputLocked && touchNumbers.isDoorOpen) {
-			if (Input.GetMouseButton(0) && !inputLocked && !touchNumbers.isInputLocked && touchNumbers.isDoorOpen) {
-	//RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint(Input.GetTouch (0).position), Vector2.zero);
-			RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+	if (nbTouches > 0) {
+						if (Input.GetTouch (0).phase == TouchPhase.Began && !touchNumbers.isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo (0).IsName ("curtains_open_idle")) {
+								//if (Input.GetMouseButton(0) && !touchNumbers.isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_open_idle")) {
+								RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.GetTouch (0).position), Vector2.zero);
+								//		RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 
-				if ( hit.collider != null && hit.transform != null && hit.collider.tag == "cross" )
-				{
-					touchKey +=1;
-			       }
+								if (hit.collider != null && hit.transform != null && hit.collider.tag == "cross") {
+										touchKey += 1;
+								}
 	
-					if (touchKey == 66)
-					{
-				CloseShirmas();
-				InputLock ();
-				touchKey = 0;
+								if (touchKey == 66) {
+										CloseShirmas ();
+										touchNumbers.InputLock ();
+										touchKey = 0;
 
-					}
-				}	
-			//}
-		if (!Input.GetMouseButton(0) && touchKey != 0) {
-		//if (Input.touchCount == 0 && touchKey != 0) {
+								}
+						}	
+				}
+
+		//if (!Input.GetMouseButton(0) && touchKey != 0) {
+		if (Input.touchCount == 0 && touchKey != 0) {
 			touchKey -= 1;
 		}
 				//    Debug.Log("TouchKey: " + touchKey);
@@ -112,36 +62,26 @@ public class CloseScript : MonoBehaviour {
 	
 	public void startClosing() 
 	{
-
-		InputLock ();
-
-		switch (touchNumbers.currentSceneNum) {
-			
-		case 0:
-		
-			break;
-			
-		case 1:
-			cakeEndMove = true;
-			break;
-		}
-
+		touchNumbers.cakeEndMove = true;
+		touchNumbers.InputLock ();
+		Invoke ("CloseShirmas", 1f);
 		//CloseShirmas ();
 		//Debug.Log ("Invoking closing!");
-		Invoke ("CloseShirmas", 1f);
 
 
-	}
+		}
 
+
+		
 	void CloseShirmas()
 	{
 		touchNumbers.animator.SetFloat ("isOpen", 0);
 		touchNumbers.animator.SetFloat ("isClosed", 2);
-		Invoke ("DestroySomeToys", 0.9f);
-		DoorClosed ();
-		touchCounter = 0;
+		Invoke ("nullCounter", 1f);
+		closeProcessOnline = false;
 		touchNumbers.touchKey = 0;
 		touchKey = 0;
+
 	}
 
 	public void PlaySound() {
