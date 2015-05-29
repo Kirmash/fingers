@@ -75,6 +75,7 @@ public class TouchController : MonoBehaviour {
 						//	Debug.Log ("Touched first!");
 						if (!distanceGet) {
 							distance = Vector3.Distance (tObject.transform.position, Camera.main.transform.position);
+								childStartPoint = tObject.transform.Find ("cake1").localPosition;
 							distanceGet = true;
 						}
 					}
@@ -97,7 +98,6 @@ public class TouchController : MonoBehaviour {
 					}
 					//Debug.Log("ArrayCounter: " + arrayCounter);
 					usedPlates.Add (touchNumbers.scenePlates [arrayCounter]);
-					childStartPoint = tObject.transform.Find ("cake1").localPosition;
 					endPoint = touchNumbers.scenePlates [arrayCounter].transform.position - childStartPoint;
 					cakeMove = true;
 					closeScript.PlaySound ();
@@ -107,7 +107,6 @@ public class TouchController : MonoBehaviour {
 					//Debug.Log("Moving to plate, baby");
 					usedCakes.Add (tObject);
 					usedPlates.Add (activePlate);
-					childStartPoint = tObject.transform.Find ("cake1").localPosition;
 					endPoint = plateCoordinates - childStartPoint; 
 					cakeMove = true;
 					closeScript.PlaySound ();
@@ -124,13 +123,13 @@ public class TouchController : MonoBehaviour {
 			}
 
 			if (isTouched) {
-				if (counter < 10) {
+				if (counter < 6) {
 					//	Debug.Log ("Counting is on!");
 					counter += 1;
 					//		Debug.Log("Counting: " + counter);
 				}
 				
-				if (counter == 10) {
+				if (counter == 6) {
 					// Debug.Log ("Dragging is on!");
 					isDragging = true;
 					
@@ -142,7 +141,7 @@ public class TouchController : MonoBehaviour {
 				ray = Camera.main.ScreenPointToRay(Input.GetTouch (0).position);
 			//	ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 				Vector3 rayPoint = ray.GetPoint (distance);
-				tObject.rigidbody2D.transform.position = rayPoint;
+				tObject.rigidbody2D.transform.position = rayPoint - childStartPoint;
 				
 			}
 			
@@ -160,20 +159,7 @@ public class TouchController : MonoBehaviour {
 			
 			
 			//move cake if touched
-			if (cakeMove) {
-				lerpMoving += Time.deltaTime;
-				Quaternion newRotation = Quaternion.AngleAxis (5, Vector3.forward);
-				tObject.transform.position = Vector3.MoveTowards (tObject.transform.position, endPoint, speed * lerpMoving);
-				tObject.transform.rotation = Quaternion.Slerp (tObject.transform.rotation, newRotation, .05f); 
-				if (tObject.transform.position == endPoint) {
-					cakeMove = false;
-					closeScript.touchCounter += 1;
-					lerpMoving = 0f;
-				}
-				
-				
-			}
-			
+						
 			// close after every plate has been touched
 			if (closeScript.touchCounter == touchNumbers.numberFingers && !closeScript.closeProcessOnline) {
 				//			Debug.Log ("if ToyTouch " + touchNumbers.isInputLocked);
@@ -192,13 +178,27 @@ public class TouchController : MonoBehaviour {
 			
 			//finishing move for cakes
 			if (touchNumbers.cakeEndMove) {
-				for (int i=1; i<touchNumbers.scenePlates.Length; i++) {
-					usedCakes [i - 1].transform.position = Vector3.MoveTowards (usedCakes [i - 1].transform.position, 2 * usedCakes [i - 1].transform.position, speedExit [i - 1] / 25);
-					touchNumbers.scenePlates [i].transform.position = Vector3.MoveTowards (touchNumbers.scenePlates [i].transform.position, 2 * touchNumbers.scenePlates [i].transform.position, speedExit [i - 1] / 25);
+				for (int i=0; i<usedPlates.Count; i++) {
+					usedCakes [i].transform.position = Vector3.MoveTowards (usedCakes [i].transform.position, 2 * usedCakes [i].transform.position, speedExit [i] / 25);
+					usedPlates [i].transform.position = Vector3.MoveTowards (usedPlates [i].transform.position, 2 * usedPlates [i].transform.position, speedExit [i] / 25);
 				}
 			}
 
 
+		}
+
+		if (cakeMove) {
+			lerpMoving += Time.deltaTime;
+			Quaternion newRotation = Quaternion.AngleAxis (5, Vector3.forward);
+			tObject.transform.position = Vector3.MoveTowards (tObject.transform.position, endPoint, speed * lerpMoving);
+			tObject.transform.rotation = Quaternion.Slerp (tObject.transform.rotation, newRotation, .05f); 
+			if (tObject.transform.position == endPoint) {
+				cakeMove = false;
+				closeScript.touchCounter += 1;
+				lerpMoving = 0f;
+			}
+			
+			
 		}
 		//counter for touch/drag choose
 			

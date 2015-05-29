@@ -93,28 +93,7 @@ public class BallTouchScript : MonoBehaviour {
 
 			}
 
-			if (ballMove) {
-				lerpMoving += Time.deltaTime;
-				//Debug.Log ("LerpMoving: " + lerpMoving); 
-				//Debug.Log(endPoint);
-				tObject.transform.position = Vector3.MoveTowards (tObject.transform.position, endPoint, speed * lerpMoving);
-				
-				if (tObject.transform.position == endPoint) {
-					vorotaAnim.animation.Stop();
-					ballMove = false;
-					Debug.Log(vorotaAnim.animation.isPlaying);
-					if (!vorotaAnim.animation.isPlaying) {
-						vorotaAnim.animation.Play();
-					}
-
-					numChange.BackChange();
-					//finishedMoving = true;
-					closeScript.touchCounter += 1;
-					lerpMoving = 0f;
-				}
-				
-				
-			}
+		
 
 			if (closeScript.touchCounter == touchNumbers.numberFingers && !closeScript.closeProcessOnline) {
 			//	Debug.Log ("Close process");
@@ -131,5 +110,28 @@ public class BallTouchScript : MonoBehaviour {
 			}
 
 				}
+		if (ballMove) {
+			lerpMoving += Time.deltaTime;
+			//Debug.Log ("LerpMoving: " + lerpMoving); 
+			//Debug.Log(endPoint);
+			tObject.transform.position = Vector3.MoveTowards (tObject.transform.position, endPoint, speed * lerpMoving);
+			
+			if (tObject.transform.position == endPoint) {
+				vorotaAnim.animation.Stop();
+				ballMove = false;
+				Debug.Log(vorotaAnim.animation.isPlaying);
+				if (!vorotaAnim.animation.isPlaying) {
+					vorotaAnim.animation.Play();
+				}
+				
+				numChange.BackChange();
+				//finishedMoving = true;
+				closeScript.touchCounter += 1;
+				lerpMoving = 0f;
+			}
+			
+			
+		}
+
 			}
 }

@@ -8,6 +8,7 @@ public class RocketScript : MonoBehaviour {
 
 	private TouchNumbers touchNumbers;
 	private CloseScript closeScript;
+	private NumChange numChange;
 	private Quaternion rotationWhileMoving;
 	private GameObject tObject;
 	private Ray ray;
@@ -38,6 +39,7 @@ public class RocketScript : MonoBehaviour {
 		usedSpaceObjects = new List<GameObject>();
 		touchNumbers = (TouchNumbers)GameObject.Find("shirmas").GetComponent(typeof(TouchNumbers));
 		closeScript = (CloseScript)GameObject.Find("Redcross").GetComponent(typeof(CloseScript));
+		numChange = GameObject.Find("numb_container").GetComponent<NumChange>();
 	}
 	
 	// Update is called once per frame
@@ -135,21 +137,6 @@ public class RocketScript : MonoBehaviour {
 				
 			}
 
-			if (rocketMove) {
-				lerpMoving += Time.deltaTime;
-				//Debug.Log ("LerpMoving: " + lerpMoving); 
-				//Debug.Log(endPoint);
-				tObject.transform.position = Vector3.MoveTowards (tObject.transform.position, endPoint, speed * lerpMoving);
-
-				if (tObject.transform.position == endPoint) {
-					rocketMove = false;
-					closeScript.touchCounter += 1;
-					usedSpaceObjects[closeScript.touchCounter-1].transform.FindChild("flag_3").GetComponent<SpriteRenderer>().color = new Color(1,1,1,1);
-					lerpMoving = 0f;
-				}
-				
-				
-			}
 
 			if (closeScript.touchCounter == touchNumbers.numberFingers && !closeScript.closeProcessOnline) {
 										closeScript.startClosing ();
@@ -162,6 +149,23 @@ public class RocketScript : MonoBehaviour {
 			}
 
 
+		}
+
+		if (rocketMove) {
+			lerpMoving += Time.deltaTime;
+			//Debug.Log ("LerpMoving: " + lerpMoving); 
+			//Debug.Log(endPoint);
+			tObject.transform.position = Vector3.MoveTowards (tObject.transform.position, endPoint, speed * lerpMoving);
+			
+			if (tObject.transform.position == endPoint) {
+				rocketMove = false;
+				numChange.BackChange();
+				closeScript.touchCounter += 1;
+				usedSpaceObjects[closeScript.touchCounter-1].transform.FindChild("flag_3").GetComponent<SpriteRenderer>().color = new Color(1,1,1,1);
+				lerpMoving = 0f;
+			}
+			
+			
 		}
 
 	}

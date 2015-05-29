@@ -4,7 +4,7 @@ using System.Collections;
 public class CloseScript : MonoBehaviour {
 
 	private TouchNumbers touchNumbers;
-	private TouchController touchController;
+//	private TouchController touchController;
 	[HideInInspector]public int touchCounter = 0;
 	private int touchKey = 0;
 //	public bool inputLocked = false;
@@ -16,7 +16,7 @@ public class CloseScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		touchNumbers = (TouchNumbers)GameObject.Find("shirmas").GetComponent(typeof(TouchNumbers));
-		touchController = (TouchController)GameObject.Find("Main Camera").GetComponent(typeof(TouchController));
+	//	touchController = (TouchController)GameObject.Find("Main Camera").GetComponent(typeof(TouchController));
 	}
 
   private void nullCounter () {

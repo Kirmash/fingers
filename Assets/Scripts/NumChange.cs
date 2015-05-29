@@ -8,14 +8,14 @@ public class NumChange : MonoBehaviour {
 	private TouchController touchController;
 	private CloseScript closeScript;
 	[HideInInspector] public bool changeBack = false;
-	private BallTouchScript ballTouchScript;
+	//private BallTouchScript ballTouchScript;
 	// Use this for initialization
 	void Start () {
 		spriteRenderer = renderer as SpriteRenderer;
 		touchNumbers = GameObject.Find("shirmas").GetComponent<TouchNumbers>();
 		touchController = GameObject.Find ("Main Camera").GetComponent<TouchController> ();
 		closeScript = GameObject.Find ("Redcross").GetComponent<CloseScript> ();
-		ballTouchScript = (BallTouchScript)GameObject.Find("Main Camera").GetComponent(typeof(BallTouchScript));
+	//	ballTouchScript = (BallTouchScript)GameObject.Find("Main Camera").GetComponent(typeof(BallTouchScript));
 
 
 	}
@@ -34,7 +34,6 @@ public class NumChange : MonoBehaviour {
 		switch (touchNumbers.currentSceneNum) {
 		case 0:
 			spriteRenderer.color = new Color(1f,1f,1f,1f);
-			int nbTouches = Input.touchCount;
 			
 			if (Input.touchCount > 0) {
 			//if (Input.GetMouseButton (0) && !touchNumbers.isInputLocked && touchNumbers.isDoorOpen && !closeScript.inputLocked) {

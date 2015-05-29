@@ -32,7 +32,7 @@ public class TouchNumbers : MonoBehaviour
 
 	[HideInInspector] public int currentSceneNum;
 
-	private CloseScript closeScript;
+	//private CloseScript closeScript;
 	private NumChange numChange;
 	private TouchController touchController;
 	private RocketScript rocketScript;
@@ -107,7 +107,7 @@ public class TouchNumbers : MonoBehaviour
 
 		soccerObjects = Resources.LoadAll("footballBalls", typeof(GameObject)).Cast<GameObject> ().ToArray (); 
 
-		closeScript = (CloseScript)GameObject.Find("Redcross").GetComponent(typeof(CloseScript));
+		//closeScript = (CloseScript)GameObject.Find("Redcross").GetComponent(typeof(CloseScript));
 		numChange = (NumChange)GameObject.Find("numb_container").GetComponent(typeof(NumChange));
 		touchController = (TouchController)GameObject.Find("Main Camera").GetComponent(typeof(TouchController));
 	}
@@ -119,8 +119,10 @@ public class TouchNumbers : MonoBehaviour
 		if (nbTouches > 0) {
 						RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.GetTouch (0).position), Vector2.zero);
 						if (hit.collider != null && hit.transform != null && hit.collider.tag == "shirma") {	
-										if (numTouch == nbTouches && !isInputLocked && this.animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_idle")) {
-										touchKey += 1;
+									
+				if (numTouch == nbTouches && !isInputLocked && this.animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_idle")) {
+					animator.SetBool("isShirmasOpen",true);				
+					touchKey += 1;
 
 								}
 						}	
@@ -128,8 +130,6 @@ public class TouchNumbers : MonoBehaviour
 		numTouch = nbTouches;
 		//Debug.Log (isInputLocked);
 //		if (Input.GetMouseButton (0) && !isInputLocked && this.animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_idle")) {
-//
-//		
 //			RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.mousePosition), Vector2.zero);
 //			if (hit.collider != null && hit.transform != null && hit.collider.tag == "shirma") {
 //				animator.SetBool("isShirmasOpen",true);
@@ -141,8 +141,7 @@ public class TouchNumbers : MonoBehaviour
 
 			//	if (touchKey == 6 && !isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_idle")) {
 			InputLock ();
-			//	numberFingers = nbTouches;
-			//	touchKey = 0;
+			numberFingers = nbTouches;
 			openSesame ();
 
 			touchKey = 0;
@@ -157,7 +156,7 @@ public class TouchNumbers : MonoBehaviour
 
 	void openSesame ()
 	{
-		numberFingers = Random.Range(1, 11);
+		//numberFingers = Random.Range(1, 11);
 		numChange.changeBack = true;
 		setNumber (numberFingers);
 		animator.SetFloat ("isOpen", 2);
