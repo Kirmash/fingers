@@ -12,6 +12,7 @@ public class BallTouchScript : MonoBehaviour {
 
 	private bool isTouched = false;
 	private bool ballMove = false;
+	private bool closeProcessOnline = false;
 
 	private GameObject tObject;
 	private Ray ray;
@@ -27,7 +28,7 @@ public class BallTouchScript : MonoBehaviour {
 
 	private Animator animator;
 
-	float speed = 2f;
+	float speed = 8f;
 	float lerpMoving = 0;
 
 	// Use this for initialization
@@ -53,6 +54,10 @@ public class BallTouchScript : MonoBehaviour {
 			//if (Input.GetMouseButtonDown (0) && !touchNumbers.isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_open_idle") && !ballMove) {
 				//Debug.Log("Trying to hit");
 				//hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.mousePosition), Vector2.zero);
+					if (closeProcessOnline) 
+					{
+						closeProcessOnline = false;
+					}
 					hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.GetTouch (0).position), Vector2.zero);
 				if (hit.transform != null && hit.collider != null && hit.collider.tag == "ball") {
 					
@@ -101,20 +106,17 @@ public class BallTouchScript : MonoBehaviour {
 				////			touchNumbers.isInputLocked = true;
 				////			Invoke("InputUnlock",touchLockTime);
 				//			Debug.Log ("InputUnlock " + touchNumbers.isInputLocked);
+				closeProcessOnline = true;
 				closeScript.startClosing ();
 				lerpMoving = 0f;
-				
-				closeScript.closeProcessOnline = true;
-				
-				
 			}
 
 				}
 		if (ballMove) {
-			lerpMoving += Time.deltaTime;
+			//lerpMoving += Time.deltaTime;
 			//Debug.Log ("LerpMoving: " + lerpMoving); 
 			//Debug.Log(endPoint);
-			tObject.transform.position = Vector3.MoveTowards (tObject.transform.position, endPoint, speed * lerpMoving);
+			tObject.transform.position = Vector3.MoveTowards (tObject.transform.position, endPoint, speed);
 			
 			if (tObject.transform.position == endPoint) {
 				vorotaAnim.animation.Stop();

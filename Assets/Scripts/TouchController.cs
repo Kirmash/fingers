@@ -36,6 +36,7 @@ public class TouchController : MonoBehaviour {
 	[HideInInspector]public List<GameObject> usedCakes;
 
 	[HideInInspector]public bool cakeMove;
+	private bool closeProcessOnline;
 	private RaycastHit2D hit;
 
 	[HideInInspector]public GameObject activePlate;
@@ -59,10 +60,13 @@ public class TouchController : MonoBehaviour {
 		if (touchNumbers.currentSceneNum == 1) {
 						int nbTouches = Input.touchCount;
 		
-				if (nbTouches > 0) {
+							if (nbTouches > 0) {
 											if (Input.GetTouch (0).phase == TouchPhase.Began && !touchNumbers.isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_open_idle") && !touchNumbers.cakeEndMove && !cakeMove) {
 			//if (Input.GetMouseButtonDown (0) && !touchNumbers.isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo (0).IsName ("curtains_open_idle") && !touchNumbers.cakeEndMove && !cakeMove) {
-				
+				if (closeProcessOnline) 
+					{
+						closeProcessOnline = false;
+					}
 			//	hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.mousePosition), Vector2.zero);
 					hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.GetTouch (0).position), Vector2.zero);
 				if (hit.transform != null && hit.collider != null && hit.collider.tag == "cake") {
@@ -161,11 +165,12 @@ public class TouchController : MonoBehaviour {
 			//move cake if touched
 						
 			// close after every plate has been touched
-			if (closeScript.touchCounter == touchNumbers.numberFingers && !closeScript.closeProcessOnline) {
+			if (closeScript.touchCounter == touchNumbers.numberFingers && !closeProcessOnline) {
 				//			Debug.Log ("if ToyTouch " + touchNumbers.isInputLocked);
 				////			touchNumbers.isInputLocked = true;
 				////			Invoke("InputUnlock",touchLockTime);
 				//			Debug.Log ("InputUnlock " + touchNumbers.isInputLocked);
+				closeProcessOnline = true;
 				closeScript.startClosing ();
 				lerpMoving = 0f;
 				
@@ -173,7 +178,7 @@ public class TouchController : MonoBehaviour {
 					speedExit [i] = Random.Range (1, 10);
 				}
 				audio.PlayOneShot (munch);
-				closeScript.closeProcessOnline = true;
+
 			}
 			
 			//finishing move for cakes
@@ -188,9 +193,9 @@ public class TouchController : MonoBehaviour {
 		}
 
 		if (cakeMove) {
-			lerpMoving += Time.deltaTime;
+			//lerpMoving += Time.deltaTime;
 			Quaternion newRotation = Quaternion.AngleAxis (5, Vector3.forward);
-			tObject.transform.position = Vector3.MoveTowards (tObject.transform.position, endPoint, speed * lerpMoving);
+			tObject.transform.position = Vector3.MoveTowards (tObject.transform.position, endPoint, speed);
 			tObject.transform.rotation = Quaternion.Slerp (tObject.transform.rotation, newRotation, .05f); 
 			if (tObject.transform.position == endPoint) {
 				cakeMove = false;

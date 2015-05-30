@@ -137,7 +137,7 @@ public class TouchNumbers : MonoBehaviour
 ////				Debug.Log(touchKey);
 //			}
 //		}
-		if (touchKey == 40) {
+		if (touchKey == 30) {
 
 			//	if (touchKey == 6 && !isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_idle")) {
 			InputLock ();

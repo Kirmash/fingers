@@ -22,6 +22,7 @@ public class RocketScript : MonoBehaviour {
 
 	private bool isTouched;
 	private bool distanceGet;
+	private bool closeProcessOnline = false;
 	[HideInInspector]public bool isDragging;
 	[HideInInspector]public bool rocketMove;
 
@@ -31,7 +32,7 @@ public class RocketScript : MonoBehaviour {
 	[HideInInspector]public Vector3 hoveredOverSpaceObjectCoordinates;
 	[HideInInspector]public bool finishedMoving;
 
-	float speed = 2f;
+	float speed = 6f;
 	float lerpMoving = 0;
 
 	// Use this for initialization
@@ -53,6 +54,10 @@ public class RocketScript : MonoBehaviour {
 			//if (Input.GetMouseButtonDown (0) && !touchNumbers.isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_open_idle") && !rocketMove) {
 				//Debug.Log("Trying to hit");
 			//	hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.mousePosition), Vector2.zero);
+					if (closeProcessOnline) 
+					{
+						closeProcessOnline = false;
+					}
 					hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.GetTouch (0).position), Vector2.zero);
 				if (hit.transform != null && hit.collider != null && hit.collider.tag == "rocket") {
 						
@@ -99,7 +104,7 @@ public class RocketScript : MonoBehaviour {
 					endPoint = touchNumbers.activeSpaceObjects [arrayCounter].transform.position;
 					tObject.transform.LookAt(Vector3.forward,Vector3.Cross(Vector3.forward,endPoint - tObject.transform.position));
 					rotationWhileMoving = Quaternion.LookRotation(endPoint - tObject.transform.position, tObject.transform.TransformDirection(Vector3.up));
-					Debug.Log(rotationWhileMoving.eulerAngles);
+					//Debug.Log(rotationWhileMoving.eulerAngles);
 					rotationWhileMoving = new Quaternion(0, 0, rotationWhileMoving.z, rotationWhileMoving.w);
 					rotationWhileMoving.eulerAngles = new Vector3 (rotationWhileMoving.eulerAngles.x,rotationWhileMoving.eulerAngles.y,rotationWhileMoving.eulerAngles.z-180);
 					tObject.transform.rotation = rotationWhileMoving;
@@ -138,12 +143,13 @@ public class RocketScript : MonoBehaviour {
 			}
 
 
-			if (closeScript.touchCounter == touchNumbers.numberFingers && !closeScript.closeProcessOnline) {
-										closeScript.startClosing ();
+			if (closeScript.touchCounter == touchNumbers.numberFingers && !closeProcessOnline) {
+				closeProcessOnline = true;	
+				closeScript.startClosing ();
 				audio.PlayOneShot (endSpace);
 				lerpMoving = 0f;
 
-				closeScript.closeProcessOnline = true;
+
 
 
 			}
@@ -152,10 +158,10 @@ public class RocketScript : MonoBehaviour {
 		}
 
 		if (rocketMove) {
-			lerpMoving += Time.deltaTime;
+		//	lerpMoving += Time.deltaTime;
 			//Debug.Log ("LerpMoving: " + lerpMoving); 
 			//Debug.Log(endPoint);
-			tObject.transform.position = Vector3.MoveTowards (tObject.transform.position, endPoint, speed * lerpMoving);
+			tObject.transform.position = Vector3.MoveTowards (tObject.transform.position, endPoint, speed);
 			
 			if (tObject.transform.position == endPoint) {
 				rocketMove = false;
