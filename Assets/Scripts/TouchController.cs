@@ -25,7 +25,7 @@ public class TouchController : MonoBehaviour {
 
 	private int counter = 0;
 		
-	float speed = 16f;
+	float speed = 12f;
 	float lerpMoving = 0;
 	
 	Vector3 endPoint;
@@ -193,9 +193,9 @@ public class TouchController : MonoBehaviour {
 		}
 
 		if (cakeMove) {
-			//lerpMoving += Time.deltaTime;
+			lerpMoving += Time.deltaTime;
 			Quaternion newRotation = Quaternion.AngleAxis (5, Vector3.forward);
-			tObject.transform.position = Vector3.MoveTowards (tObject.transform.position, endPoint, speed);
+			tObject.transform.position = Vector3.MoveTowards (tObject.transform.position, endPoint, speed*lerpMoving);
 			tObject.transform.rotation = Quaternion.Slerp (tObject.transform.rotation, newRotation, .05f); 
 			if (tObject.transform.position == endPoint) {
 				cakeMove = false;

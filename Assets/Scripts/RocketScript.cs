@@ -158,10 +158,8 @@ public class RocketScript : MonoBehaviour {
 		}
 
 		if (rocketMove) {
-		//	lerpMoving += Time.deltaTime;
-			//Debug.Log ("LerpMoving: " + lerpMoving); 
-			//Debug.Log(endPoint);
-			tObject.transform.position = Vector3.MoveTowards (tObject.transform.position, endPoint, speed);
+		lerpMoving += Time.deltaTime;
+			tObject.transform.position = Vector3.MoveTowards (tObject.transform.position, endPoint, speed*lerpMoving);
 			
 			if (tObject.transform.position == endPoint) {
 				rocketMove = false;

@@ -113,10 +113,10 @@ public class BallTouchScript : MonoBehaviour {
 
 				}
 		if (ballMove) {
-			//lerpMoving += Time.deltaTime;
+			lerpMoving += Time.deltaTime;
 			//Debug.Log ("LerpMoving: " + lerpMoving); 
 			//Debug.Log(endPoint);
-			tObject.transform.position = Vector3.MoveTowards (tObject.transform.position, endPoint, speed);
+			tObject.transform.position = Vector3.MoveTowards (tObject.transform.position, endPoint, speed*lerpMoving);
 			
 			if (tObject.transform.position == endPoint) {
 				vorotaAnim.animation.Stop();
