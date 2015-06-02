@@ -3,23 +3,19 @@ using System.Collections;
 
 public class AnimationVorotaScript : MonoBehaviour {
 
-	private Animator animator;
-	//private BallTouchScript ballTouchScript;
+	private BallTouchScript ballTouchScript;
 
 	void Start () {
-
-		animator = GetComponent<Animator>();
-		//ballTouchScript = (BallTouchScript)GameObject.Find("Main Camera").GetComponent(typeof(BallTouchScript));
+		
+		ballTouchScript = (BallTouchScript)GameObject.Find("Main Camera").GetComponent(typeof(BallTouchScript));
 	}
 
+    void Update () {
 
-public void hitClose ()
-{
-	animator.SetFloat("strike", 1f);
-}
+		if (ballTouchScript.isStriked) {
+			animation.Play ("vorota_strike");
+			ballTouchScript.isStriked = false;
+				}
 
-public void hitAnim ()
-{
-	animator.SetFloat("strike", 3f);
-}
+	}
 }

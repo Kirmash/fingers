@@ -14,8 +14,7 @@ public class PlateController : MonoBehaviour {
 	void Update() {
 
 		if (touchController.isDragging) {
-		//	hitPlate = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.mousePosition), Vector2.zero);
-		
+	//		hitPlate = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.mousePosition), Vector2.zero);
 			hitPlate = Physics2D.Raycast (Camera.main.ScreenToWorldPoint(Input.GetTouch (0).position), Vector2.zero);
 			if (hitPlate != null && hitPlate.collider != null && hitPlate.collider.tag == "plate") {
 				if (!touchController.usedPlates.Contains(hitPlate.transform.gameObject)) {

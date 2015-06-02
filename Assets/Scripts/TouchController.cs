@@ -89,7 +89,7 @@ public class TouchController : MonoBehaviour {
 			}
 
 			//check and execute touch 
-			 if (Input.GetTouch (0).phase == TouchPhase.Ended && !touchNumbers.isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_open_idle") && isTouched && !cakeMove) {
+			if (Input.GetTouch (0).phase == TouchPhase.Ended && !touchNumbers.isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_open_idle") && isTouched && !cakeMove) {
 			//if (Input.GetMouseButtonUp (0) && !touchNumbers.isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo (0).IsName ("curtains_open_idle") && isTouched && !cakeMove) {
 				isTouched = false;
 				
@@ -142,8 +142,8 @@ public class TouchController : MonoBehaviour {
 			//cake follows after the mouse/touch
 			if (isDragging) {
 				//Debug.Log ("Over plate: " + overPlate);
-				ray = Camera.main.ScreenPointToRay(Input.GetTouch (0).position);
-			//	ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+				//ray = Camera.main.ScreenPointToRay(Input.GetTouch (0).position);
+			ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 				Vector3 rayPoint = ray.GetPoint (distance);
 				tObject.rigidbody2D.transform.position = rayPoint - childStartPoint;
 				
@@ -166,10 +166,6 @@ public class TouchController : MonoBehaviour {
 						
 			// close after every plate has been touched
 			if (closeScript.touchCounter == touchNumbers.numberFingers && !closeProcessOnline) {
-				//			Debug.Log ("if ToyTouch " + touchNumbers.isInputLocked);
-				////			touchNumbers.isInputLocked = true;
-				////			Invoke("InputUnlock",touchLockTime);
-				//			Debug.Log ("InputUnlock " + touchNumbers.isInputLocked);
 				closeProcessOnline = true;
 				closeScript.startClosing ();
 				lerpMoving = 0f;
@@ -205,9 +201,6 @@ public class TouchController : MonoBehaviour {
 			
 			
 		}
-		//counter for touch/drag choose
-			
-
 
 	}
 	}

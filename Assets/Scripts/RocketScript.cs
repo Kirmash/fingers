@@ -25,6 +25,7 @@ public class RocketScript : MonoBehaviour {
 	private bool closeProcessOnline = false;
 	[HideInInspector]public bool isDragging;
 	[HideInInspector]public bool rocketMove;
+	private bool rocketRotate;
 
 	[HideInInspector]public bool overSpaceObject = false; 
 	[HideInInspector]public List<GameObject> usedSpaceObjects;
@@ -32,8 +33,14 @@ public class RocketScript : MonoBehaviour {
 	[HideInInspector]public Vector3 hoveredOverSpaceObjectCoordinates;
 	[HideInInspector]public bool finishedMoving;
 
-	float speed = 6f;
+	float speed = 3f;
 	float lerpMoving = 0;
+	float rotationSpeed = 200;
+	float rotationErrorFraction = 0.06f;
+	
+	Vector3 targetDirection;
+	Vector3 rocketDirection;
+	Vector3 cross;
 
 	// Use this for initialization
 	void Start () {
@@ -51,7 +58,7 @@ public class RocketScript : MonoBehaviour {
 					
 									if (nbTouches > 0) {
 											if (Input.GetTouch (0).phase == TouchPhase.Began && !touchNumbers.isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_open_idle") && !touchNumbers.cakeEndMove && !rocketMove) {
-			//if (Input.GetMouseButtonDown (0) && !touchNumbers.isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_open_idle") && !rocketMove) {
+			//if (Input.GetMouseButtonDown (0) && !touchNumbers.isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_open_idle") && !rocketMove && !rocketRotate) {
 				//Debug.Log("Trying to hit");
 			//	hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.mousePosition), Vector2.zero);
 					if (closeProcessOnline) 
@@ -88,8 +95,8 @@ public class RocketScript : MonoBehaviour {
 				}
 			}
 
-		//	if (Input.GetMouseButtonUp (0) && !touchNumbers.isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_open_idle") && isTouched && !rocketMove) {
-				if (Input.GetTouch (0).phase == TouchPhase.Ended  && !touchNumbers.isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_open_idle") && isTouched && !rocketMove) {
+			//if (Input.GetMouseButtonUp (0) && !touchNumbers.isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_open_idle") && isTouched && !rocketMove && !rocketRotate) {
+			if (Input.GetTouch (0).phase == TouchPhase.Ended  && !touchNumbers.isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_open_idle") && isTouched && !rocketMove) {
 		
 				isTouched = false;
 				
@@ -99,24 +106,16 @@ public class RocketScript : MonoBehaviour {
 					while (usedSpaceObjects.Contains(touchNumbers.activeSpaceObjects[arrayCounter])) {
 						arrayCounter += 1;
 					}
-					//Debug.Log("ArrayCounter: " + arrayCounter);
 					usedSpaceObjects.Add (touchNumbers.activeSpaceObjects[arrayCounter]);
 					endPoint = touchNumbers.activeSpaceObjects [arrayCounter].transform.position;
-					tObject.transform.LookAt(Vector3.forward,Vector3.Cross(Vector3.forward,endPoint - tObject.transform.position));
-					rotationWhileMoving = Quaternion.LookRotation(endPoint - tObject.transform.position, tObject.transform.TransformDirection(Vector3.up));
-					//Debug.Log(rotationWhileMoving.eulerAngles);
-					rotationWhileMoving = new Quaternion(0, 0, rotationWhileMoving.z, rotationWhileMoving.w);
-					rotationWhileMoving.eulerAngles = new Vector3 (rotationWhileMoving.eulerAngles.x,rotationWhileMoving.eulerAngles.y,rotationWhileMoving.eulerAngles.z-180);
-					tObject.transform.rotation = rotationWhileMoving;
-					Debug.Log(tObject.transform.rotation.eulerAngles);
-					rocketMove = true;
+					rocketRotate = true;
 					closeScript.PlaySound ();
+
 				}
 
 			
 
 				if (overSpaceObject && isDragging) {
-				//	Debug.Log("Moving to plate, baby");
 					usedSpaceObjects.Add (hoveredOverSpaceObject);
 					endPoint = hoveredOverSpaceObjectCoordinates;
 					rocketMove = true;
@@ -134,7 +133,7 @@ public class RocketScript : MonoBehaviour {
 
 			if (isDragging) {
 				//Debug.Log ("Over plate: " + overSpaceObject);
-					ray = Camera.main.ScreenPointToRay(Input.GetTouch (0).position);
+				ray = Camera.main.ScreenPointToRay(Input.GetTouch (0).position);
 				//ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 				Vector3 rayPoint = ray.GetPoint (distance);
 				tObject.rigidbody2D.transform.position = rayPoint;
@@ -149,15 +148,36 @@ public class RocketScript : MonoBehaviour {
 				audio.PlayOneShot (endSpace);
 				lerpMoving = 0f;
 
-
-
-
 			}
-
 
 		}
 
+		if (rocketRotate) {
+			Transform nose = tObject.transform.FindChild("nose");
+			targetDirection = (endPoint - nose.position);
+		//	Debug.Log ("Target dir " + targetDirection);
+			targetDirection.z = 0;
+			rocketDirection = (nose.position - tObject.transform.position);
+			targetDirection.Normalize();
+			rocketDirection.Normalize ();
+			cross = Vector3.Cross(rocketDirection, targetDirection);
+			Debug.Log ( cross.z); 
+			if(cross.z < rotationErrorFraction && cross.z > -rotationErrorFraction)
+			{
+				rocketRotate = false;
+				rocketMove = true;
+			}
+			else
+			{
+				if(cross.z > 0)
+					tObject.transform.Rotate(Vector3.forward, Time.deltaTime*rotationSpeed);
+				else
+					tObject.transform.Rotate(Vector3.back, Time.deltaTime*rotationSpeed);
+			}
+
+				}
 		if (rocketMove) {
+
 		lerpMoving += Time.deltaTime;
 			tObject.transform.position = Vector3.MoveTowards (tObject.transform.position, endPoint, speed*lerpMoving);
 			

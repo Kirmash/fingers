@@ -8,15 +8,23 @@ public class BallTouchScript : MonoBehaviour {
 	private CloseScript closeScript;
 	private NumChange numChange;
 
-	public GameObject vorotaAnim;
 
 	private bool isTouched = false;
 	private bool ballMove = false;
 	private bool closeProcessOnline = false;
+	[HideInInspector]public bool isStriked = false;
+	[HideInInspector]public byte animationIndex = 0;
+	[HideInInspector]public byte ballAnimationIndex = 0;
 
-	private GameObject tObject;
+	[HideInInspector]public GameObject tObject;
 	private Ray ray;
-	
+	float startFlickPositionY;
+	float differenceFlickPositions;
+	float errorMarginFlick = 0.01f;
+	float flickStartTime;
+	float flickFinishTime;
+	bool flickStarted;
+
 	private RaycastHit2D hit;
 	private int arrayCounter;
 	private Vector3 endPoint;
@@ -25,8 +33,6 @@ public class BallTouchScript : MonoBehaviour {
 	private Vector3 rightBallEndPoint = new Vector3 (2,2,0);
 
 	[HideInInspector]public List<GameObject> usedBallObjects;
-
-	private Animator animator;
 
 	float speed = 8f;
 	float lerpMoving = 0;
@@ -49,63 +55,66 @@ public class BallTouchScript : MonoBehaviour {
 								
 												if (nbTouches > 0) {
 														if (Input.GetTouch (0).phase == TouchPhase.Began && !touchNumbers.isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_open_idle") && !touchNumbers.cakeEndMove && !ballMove) {
-
-
-			//if (Input.GetMouseButtonDown (0) && !touchNumbers.isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_open_idle") && !ballMove) {
+		//		if (Input.GetMouseButtonDown (0) && !touchNumbers.isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_open_idle") && !ballMove) {
 				//Debug.Log("Trying to hit");
 				//hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.mousePosition), Vector2.zero);
+					hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.GetTouch (0).position), Vector2.zero);
 					if (closeProcessOnline) 
 					{
 						closeProcessOnline = false;
 					}
-					hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.GetTouch (0).position), Vector2.zero);
 				if (hit.transform != null && hit.collider != null && hit.collider.tag == "ball") {
-					
 					tObject = GameObject.Find (hit.transform.gameObject.name);
-					//Debug.Log ("I am a TObject: " + tObject);
+					//startFlickPositionY = Input.mousePosition.y;
+					startFlickPositionY = Input.GetTouch (0).position.y;
+					flickStartTime = Time.time;
+					flickStarted = true;
 					isTouched = true;
-					//	Debug.Log ("Touched first!");
-									
+				}	
 				}
-				
 			}
-			}
+		if (flickStarted && !(Input.GetTouch (0).phase == TouchPhase.Ended)) {
+		//	if (flickStarted && !Input.GetMouseButtonUp (0)) {
+				Debug.Log ("Flick started: " + flickStarted);
+				differenceFlickPositions = Input.mousePosition.y - startFlickPositionY;
+				flickFinishTime = Mathf.Abs(flickStartTime - Time.time);
+				Debug.Log ("Difference pos: " + differenceFlickPositions);
+				Debug.Log ("Time: " + flickFinishTime);
+				if (differenceFlickPositions < 0 || flickFinishTime >= 1f) {
+					flickStarted = false;
+					}
+				}
+
 			//if (Input.GetMouseButtonUp (0) && !touchNumbers.isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_open_idle") && isTouched && !ballMove) {
 			if (Input.GetTouch (0).phase == TouchPhase.Ended  && !touchNumbers.isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_open_idle") && isTouched && !ballMove) {
+			if (flickStarted) {
 				isTouched = false;
-			
-					//	Debug.Log ("Executed let go");
+					flickStarted = false;
 					arrayCounter = 0;
 					while (usedBallObjects.Contains(touchNumbers.activeBalls[arrayCounter])) {
 						arrayCounter += 1;
 					}
-					//Debug.Log("ArrayCounter: " + arrayCounter);
 					usedBallObjects.Add (touchNumbers.activeBalls[arrayCounter]);
 				if (tObject.transform.position.x <= 0) 
 				{
+					animationIndex = 1;
 					endPoint = leftBallEndPoint;
 
 				}
 
 				else {
-
+					animationIndex = 2;
 					endPoint = rightBallEndPoint;
 				}
 
 					ballMove = true;
 				tObject.transform.FindChild("football_ten").GetComponent<SpriteRenderer>().color = new Color(1,1,1,0);
-					closeScript.PlaySound ();
-
+					
+				}
 			}
 
 		
-
 			if (closeScript.touchCounter == touchNumbers.numberFingers && !closeScript.closeProcessOnline) {
-			//	Debug.Log ("Close process");
-				//			Debug.Log ("if ToyTouch " + touchNumbers.isInputLocked);
-				////			touchNumbers.isInputLocked = true;
-				////			Invoke("InputUnlock",touchLockTime);
-				//			Debug.Log ("InputUnlock " + touchNumbers.isInputLocked);
 				closeProcessOnline = true;
 				closeScript.startClosing ();
 				lerpMoving = 0f;
@@ -114,25 +123,20 @@ public class BallTouchScript : MonoBehaviour {
 				}
 		if (ballMove) {
 			lerpMoving += Time.deltaTime;
-			//Debug.Log ("LerpMoving: " + lerpMoving); 
-			//Debug.Log(endPoint);
 			tObject.transform.position = Vector3.MoveTowards (tObject.transform.position, endPoint, speed*lerpMoving);
-			
 			if (tObject.transform.position == endPoint) {
-				vorotaAnim.animation.Stop();
+				closeScript.PlaySound ();
 				ballMove = false;
-				Debug.Log(vorotaAnim.animation.isPlaying);
-				if (!vorotaAnim.animation.isPlaying) {
-					vorotaAnim.animation.Play();
+				isStriked = true;
+				if (endPoint == leftBallEndPoint) {
+					ballAnimationIndex = 1;
 				}
-				
+				else { ballAnimationIndex = 2; }
 				numChange.BackChange();
-				//finishedMoving = true;
 				closeScript.touchCounter += 1;
 				lerpMoving = 0f;
 			}
-			
-			
+
 		}
 
 			}

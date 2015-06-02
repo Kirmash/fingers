@@ -128,26 +128,24 @@ public class TouchNumbers : MonoBehaviour
 						}	
 				}
 		numTouch = nbTouches;
-		//Debug.Log (isInputLocked);
 //		if (Input.GetMouseButton (0) && !isInputLocked && this.animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_idle")) {
+//		//Debug.Log ("Button hit!");
 //			RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.mousePosition), Vector2.zero);
 //			if (hit.collider != null && hit.transform != null && hit.collider.tag == "shirma") {
+//
 //				animator.SetBool("isShirmasOpen",true);
 //				touchKey += 1;
-////				Debug.Log(touchKey);
 //			}
 //		}
 		if (touchKey == 30) {
-
-			//	if (touchKey == 6 && !isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_idle")) {
 			InputLock ();
 			numberFingers = nbTouches;
 			openSesame ();
-
 			touchKey = 0;
 		}
 
 		if (nbTouches == 0) {
+		//if (Input.GetMouseButtonUp (0) && !isInputLocked) {
 			StopTheOpening();
 			touchKey = 0;
 		}
@@ -156,7 +154,7 @@ public class TouchNumbers : MonoBehaviour
 
 	void openSesame ()
 	{
-		//numberFingers = Random.Range(1, 11);
+	//	numberFingers = Random.Range(1, 11);
 		numChange.changeBack = true;
 		setNumber (numberFingers);
 		animator.SetFloat ("isOpen", 2);
@@ -172,7 +170,7 @@ public class TouchNumbers : MonoBehaviour
 public void InputLock()
 	{
 		isInputLocked = true;
-	//	Invoke("InputUnlock",1f);
+		Invoke ("InputUnlock", 1f);
 	}
 
 	public void StopTheOpening() 
@@ -215,15 +213,15 @@ public void InputLock()
 		case 3: 
 			print(3);
 			audio.PlayOneShot(number3);
-		currentSceneNum = randomScene3[Random.Range(0, randomScene3.Length)];
-		//	currentSceneNum = 3;
+		    currentSceneNum = randomScene3[Random.Range(0, randomScene3.Length)];
+		    //currentSceneNum = 3;
 			GetTheToys3();
 			break;
 			
 		case 4: 
 			print(4);
 			audio.PlayOneShot(number4);
-		currentSceneNum = randomScene4[Random.Range(0, randomScene4.Length)];
+		    currentSceneNum = randomScene4[Random.Range(0, randomScene4.Length)];
 		//	currentSceneNum = 3;
 			GetTheToys4();
 			break;
@@ -231,40 +229,40 @@ public void InputLock()
 		case 5: 
 			print(5);
 			audio.PlayOneShot(number5);
-		currentSceneNum = randomScene5[Random.Range(0, randomScene5.Length)];
-		//	currentSceneNum = 3;
+		    currentSceneNum = randomScene5[Random.Range(0, randomScene5.Length)];
+			//currentSceneNum = 3;
 			GetTheToys5();
 			break;
 			
 		case 6: 
 			print(6);
 			audio.PlayOneShot(number6);
-		currentSceneNum = randomScene6[Random.Range(0, randomScene6.Length)];
-		//	currentSceneNum = 3;
+		    currentSceneNum = randomScene6[Random.Range(0, randomScene6.Length)];
+			//currentSceneNum = 3;
 			GetTheToys6();
 			break;
 			
 		case 7: 
 			print(7);
 			audio.PlayOneShot(number7);
-		currentSceneNum = randomScene7[Random.Range(0, randomScene7.Length)];
-		//	currentSceneNum = 3;
+		    currentSceneNum = randomScene7[Random.Range(0, randomScene7.Length)];
+			//currentSceneNum = 3;
 			GetTheToys7();
 			break;
 			
 		case 8: 
 			print(8);
 			audio.PlayOneShot(number8);
-		currentSceneNum = randomScene8[Random.Range(0, randomScene8.Length)];
-		//	currentSceneNum = 3;
+		    currentSceneNum = randomScene8[Random.Range(0, randomScene8.Length)];
+			//currentSceneNum = 3;
 			GetTheToys8();
 			break;
 			
 		case 9: 
 			print(9);
 			audio.PlayOneShot(number9);
-		currentSceneNum = randomScene9[Random.Range(0, randomScene9.Length)];
-		//	currentSceneNum = 3;
+		    currentSceneNum = randomScene9[Random.Range(0, randomScene9.Length)];
+			//currentSceneNum = 3;
 			GetTheToys9 ();
 			break;
 		}
@@ -564,21 +562,16 @@ public void InputLock()
 	void LoadScene2 (int numberF)
 	{
 		spaceCoordinatesArray = new Vector3[] {new Vector3 (-3.852236f,3.519741f,0f), new Vector3 (0.2980204f,2.75679f,0f), new Vector3 (4.7626f,3.674817f,0f), new Vector3 (-5.007737f,0.8001435f,0f), new Vector3 (-2.534921f,-1.356382f,0f), new Vector3 (1.330779f,-2.177835f,0f), new Vector3 (5.939386f,-1.369833f,0f), new Vector3 (-3.846421f,-3.674136f,0f), new Vector3 (0.373147f,-4.332508f,0f), new Vector3 (4.802197f,-3.464654f,0f)};
-		//Debug.Log ("Scene 2 Load");
-		//Debug.Log (spaceObjects [3]);
 		backSpace = GameObject.Instantiate (spaceObjects[11], Vector3.zero, Quaternion.identity) as GameObject;
 		activeSpaceObjects = new GameObject[numberF+1];
 		activeSpaceObjects[0] = GameObject.Instantiate (spaceObjects[0], rocketCoordinates, Quaternion.identity) as GameObject;
 		currCoordinateIndex = Random.Range (0, 10);
 		numChange.spriteRenderer.color = new Color(1f,1f,1f,0.3f);
 		for (int i = 1; i <= numberF; i++) {
-		//	Debug.Log ("CurrCoorInd: " + currCoordinateIndex);
 			while (usedCoordinates.Contains(currCoordinateIndex))
 			{
 				currCoordinateIndex = Random.Range (0, 10);
 			}
-//			Debug.Log (spaceObjects[i]);
-//			Debug.Log ("SpaceCoord: " + spaceCoordinatesArray[currCoordinateIndex]);
 			activeSpaceObjects[i] = GameObject.Instantiate(spaceObjects[i], spaceCoordinatesArray[currCoordinateIndex],Quaternion.identity) as GameObject;
 
 			usedCoordinates.Add (currCoordinateIndex);
@@ -590,8 +583,6 @@ public void InputLock()
 //football
 	void LoadScene3 (int numberF)
 	{
-	//	Debug.Log("Scene loaded");
-
 		activeBalls = new GameObject[numberF];
 		vorota =  GameObject.Instantiate (soccerObjects[0], Vector3.zero, Quaternion.identity) as GameObject;
 		vratar =  GameObject.Instantiate (soccerObjects[1], Vector3.zero, Quaternion.identity) as GameObject;

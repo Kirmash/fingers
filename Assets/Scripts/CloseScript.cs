@@ -31,9 +31,9 @@ public class CloseScript : MonoBehaviour {
 		
 	if (nbTouches > 0) {
 						if (!touchNumbers.isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo (0).IsName ("curtains_open_idle")) {
-								//if (Input.GetMouseButton(0) && !touchNumbers.isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_open_idle")) {
+					//			if (Input.GetMouseButton(0) && !touchNumbers.isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_open_idle")) {
 								RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.GetTouch (0).position), Vector2.zero);
-								//		RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+					//		RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 
 								if (hit.collider != null && hit.transform != null && hit.collider.tag == "cross") {
 										touchKey += 1;
@@ -48,12 +48,10 @@ public class CloseScript : MonoBehaviour {
 						}	
 				}
 
-		//if (!Input.GetMouseButton(0) && touchKey != 0) {
+	//	if (!Input.GetMouseButton(0) && touchKey != 0) {
 		if (Input.touchCount == 0 && touchKey != 0) {
 			touchKey -= 1;
-		}
-				//    Debug.Log("TouchKey: " + touchKey);
-		
+		}	
 }
 
 	//}
@@ -65,10 +63,6 @@ public class CloseScript : MonoBehaviour {
 		touchNumbers.cakeEndMove = true;
 		touchNumbers.InputLock ();
 		Invoke ("CloseShirmas", 1f);
-		//CloseShirmas ();
-		//Debug.Log ("Invoking closing!");
-
-
 		}
 
 
