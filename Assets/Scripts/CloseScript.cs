@@ -72,6 +72,7 @@ public class CloseScript : MonoBehaviour {
 		touchNumbers.animator.SetFloat ("isOpen", 0);
 		touchNumbers.animator.SetFloat ("isClosed", 2);
 		Invoke ("nullCounter", 1f);
+		Invoke ("destroyToys", 1f);
 		closeProcessOnline = false;
 		touchNumbers.touchKey = 0;
 		touchKey = 0;
@@ -134,5 +135,9 @@ public class CloseScript : MonoBehaviour {
 		}
 	}
 
+	private void destroyToys() {
+
+		touchNumbers.DestroySomeToys ();
+	}
 
 }

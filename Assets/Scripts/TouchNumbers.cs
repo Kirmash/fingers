@@ -119,7 +119,6 @@ public class TouchNumbers : MonoBehaviour
 		if (nbTouches > 0) {
 						RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.GetTouch (0).position), Vector2.zero);
 						if (hit.collider != null && hit.transform != null && hit.collider.tag == "shirma") {	
-									
 				if (numTouch == nbTouches && !isInputLocked && this.animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_idle")) {
 					animator.SetBool("isShirmasOpen",true);				
 					touchKey += 1;
@@ -154,7 +153,7 @@ public class TouchNumbers : MonoBehaviour
 
 	void openSesame ()
 	{
-	//	numberFingers = Random.Range(1, 11);
+		//numberFingers = Random.Range(1, 11);
 		numChange.changeBack = true;
 		setNumber (numberFingers);
 		animator.SetFloat ("isOpen", 2);
@@ -273,10 +272,6 @@ public void InputLock()
 	//Choosing the scene for particular numbers
 	void GetTheToys1 () {
 				switch (currentSceneNum) {
-				case 0:
-			LoadScene0(numberFingers);
-						break;
-
 		case 2:
 			LoadScene2 (numberFingers);
 			break;
@@ -291,10 +286,6 @@ public void InputLock()
 	void GetTheToys2 () {
 			switch (currentSceneNum)
 			{
-			case 0:
-			LoadScene0(numberFingers);
-				break;
-
 		case 1:
 			LoadScene1(numberFingers);
 			break;
@@ -312,10 +303,6 @@ public void InputLock()
 	void GetTheToys3 () {
 			switch (currentSceneNum)
 			{
-			case 0:
-			LoadScene0(numberFingers);
-				break;
-
 			case 1:
 			LoadScene1(numberFingers);
 				break;
@@ -332,10 +319,6 @@ public void InputLock()
 	void GetTheToys4 () {
 			switch (currentSceneNum)
 			{
-			case 0:
-			LoadScene0(numberFingers);
-				break;
-
 			case 1:
 			LoadScene1(numberFingers);
 				break;
@@ -352,10 +335,6 @@ public void InputLock()
 	void GetTheToys5 () {
 			switch (currentSceneNum)
 			{
-			case 0:
-			LoadScene0(numberFingers);
-				break;
-
 			case 1:
 			LoadScene1(numberFingers);
 				break;
@@ -372,10 +351,6 @@ public void InputLock()
 	void GetTheToys6 () {
 			switch (currentSceneNum)
 			{
-			case 0:
-			LoadScene0(numberFingers);
-				break;
-
 			case 1:
 			LoadScene1(numberFingers);
 				break;
@@ -391,11 +366,6 @@ public void InputLock()
 	void GetTheToys7 () {
 			switch (currentSceneNum)
 			{
-
-			case 0:
-			LoadScene0(numberFingers);
-				break;
-
 			case 1:
 			LoadScene1(numberFingers);
 				break;
@@ -411,10 +381,6 @@ public void InputLock()
 	void GetTheToys8 () {
 			switch (currentSceneNum)
 			{
-			case 0:
-			LoadScene0(numberFingers);
-				break;
-
 			case 1:
 			LoadScene1(numberFingers);
 				break;
@@ -430,10 +396,6 @@ public void InputLock()
 	void GetTheToys9 () {
 			switch (currentSceneNum)
 			{
-			case 0:
-			LoadScene0(numberFingers);
-				break;
-
 			case 1:
 			LoadScene1(numberFingers);
 				break;
@@ -450,10 +412,6 @@ public void InputLock()
 	void GetTheToys10 () {
 			switch (currentSceneNum)
 			{
-			case 0:
-			LoadScene0(numberFingers);
-				break;
-
 			case 1:
 			LoadScene1(numberFingers);
 				break;
@@ -472,20 +430,6 @@ public void InputLock()
 
 
 	//Handler for loading the scenes
-
-	//testscene
-	void LoadScene0 (int numberF)
-	{
-		//Debug.Log("Scene 0 Load");
-
-		activeToys = new GameObject[numberF];
-		for (int i = 0; i < numberF; i++) {
-			toyIndex = Random.Range(0, toys.Length);
-			Vector3 screenPosition = Camera.main.ScreenToWorldPoint(new Vector3(Random.Range(50,Screen.width-50), Random.Range(50,Screen.height-50), 10));
-			activeToys [i] = GameObject.Instantiate (toys [toyIndex], screenPosition, Quaternion.identity) as GameObject;
-		}
-
-	}
 
 //tort
 	void LoadScene1 (int numberF)
@@ -661,8 +605,6 @@ public void InputLock()
 			{
 				Destroy(activeBalls[i]);
 			}
-
-
 			break;
 		}
 		

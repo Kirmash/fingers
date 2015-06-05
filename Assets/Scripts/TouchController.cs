@@ -72,8 +72,7 @@ public class TouchController : MonoBehaviour {
 				if (hit.transform != null && hit.collider != null && hit.collider.tag == "cake") {
 					if (!usedCakes.Contains (hit.transform.gameObject)) {
 						tObject = GameObject.Find (hit.transform.gameObject.name);
-						//Debug.Log ("I am a TObject: " + tObject);
-					
+						//Debug.Log ("I am a TObject: " + tObject);	
 						startPosition = tObject.transform.position;
 						isTouched = true;
 						//	Debug.Log ("Touched first!");
@@ -86,7 +85,7 @@ public class TouchController : MonoBehaviour {
 				}
 				
 			}
-			}
+
 
 			//check and execute touch 
 			if (Input.GetTouch (0).phase == TouchPhase.Ended && !touchNumbers.isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_open_idle") && isTouched && !cakeMove) {
@@ -112,6 +111,7 @@ public class TouchController : MonoBehaviour {
 					usedCakes.Add (tObject);
 					usedPlates.Add (activePlate);
 					endPoint = plateCoordinates - childStartPoint; 
+						//Debug.Log ("EndPoint: " + endPoint);
 					cakeMove = true;
 					closeScript.PlaySound ();
 				} else {
@@ -139,13 +139,14 @@ public class TouchController : MonoBehaviour {
 					
 				}
 			}
+			}
 			//cake follows after the mouse/touch
 			if (isDragging) {
 				//Debug.Log ("Over plate: " + overPlate);
-				//ray = Camera.main.ScreenPointToRay(Input.GetTouch (0).position);
-			ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+			ray = Camera.main.ScreenPointToRay(Input.GetTouch (0).position);
+			//ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 				Vector3 rayPoint = ray.GetPoint (distance);
-				tObject.rigidbody2D.transform.position = rayPoint - childStartPoint;
+				tObject.rigidbody2D.transform.position = rayPoint;
 				
 			}
 			
@@ -195,6 +196,7 @@ public class TouchController : MonoBehaviour {
 			tObject.transform.rotation = Quaternion.Slerp (tObject.transform.rotation, newRotation, .05f); 
 			if (tObject.transform.position == endPoint) {
 				cakeMove = false;
+				distanceGet = false;
 				closeScript.touchCounter += 1;
 				lerpMoving = 0f;
 			}

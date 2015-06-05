@@ -35,12 +35,13 @@ public class RocketScript : MonoBehaviour {
 
 	float speed = 3f;
 	float lerpMoving = 0;
-	float rotationSpeed = 200;
-	float rotationErrorFraction = 0.06f;
+	float rotationSpeed = 100;
+	float rotationErrorFraction = 0.02f;
 	
 	Vector3 targetDirection;
 	Vector3 rocketDirection;
 	Vector3 cross;
+	private byte isForwardRotate = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -55,8 +56,7 @@ public class RocketScript : MonoBehaviour {
 	
 		if (touchNumbers.currentSceneNum == 2) {
 									int nbTouches = Input.touchCount;
-					
-									if (nbTouches > 0) {
+								if (nbTouches > 0) {
 											if (Input.GetTouch (0).phase == TouchPhase.Began && !touchNumbers.isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_open_idle") && !touchNumbers.cakeEndMove && !rocketMove) {
 			//if (Input.GetMouseButtonDown (0) && !touchNumbers.isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_open_idle") && !rocketMove && !rocketRotate) {
 				//Debug.Log("Trying to hit");
@@ -80,7 +80,7 @@ public class RocketScript : MonoBehaviour {
 				}
 				
 			}
-			}
+			
 			if (isTouched) {
 				if (counter < 10) {
 						//Debug.Log ("Counting is on!");
@@ -130,7 +130,7 @@ public class RocketScript : MonoBehaviour {
 				
 				
 			}
-
+			
 			if (isDragging) {
 				//Debug.Log ("Over plate: " + overSpaceObject);
 				ray = Camera.main.ScreenPointToRay(Input.GetTouch (0).position);
@@ -140,7 +140,7 @@ public class RocketScript : MonoBehaviour {
 				tObject.transform.rotation = new Quaternion(0, 0, 0, 0);
 				
 			}
-
+			}
 
 			if (closeScript.touchCounter == touchNumbers.numberFingers && !closeProcessOnline) {
 				closeProcessOnline = true;	
@@ -161,18 +161,21 @@ public class RocketScript : MonoBehaviour {
 			targetDirection.Normalize();
 			rocketDirection.Normalize ();
 			cross = Vector3.Cross(rocketDirection, targetDirection);
-			Debug.Log ( cross.z); 
-			if(cross.z < rotationErrorFraction && cross.z > -rotationErrorFraction)
+			Debug.Log (cross.z);
+			if((cross.z < 0 && isForwardRotate == 1) || (cross.z > 0 && isForwardRotate == 2))
 			{
 				rocketRotate = false;
 				rocketMove = true;
+				isForwardRotate = 0;
 			}
 			else
 			{
-				if(cross.z > 0)
+				if(cross.z > 0) {
 					tObject.transform.Rotate(Vector3.forward, Time.deltaTime*rotationSpeed);
-				else
+					isForwardRotate = 1; }
+				else {
 					tObject.transform.Rotate(Vector3.back, Time.deltaTime*rotationSpeed);
+					isForwardRotate = 2; }
 			}
 
 				}

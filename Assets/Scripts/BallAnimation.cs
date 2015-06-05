@@ -5,7 +5,7 @@ public class BallAnimation : MonoBehaviour {
 
 	private BallTouchScript ballTouch;
 
-	int index;
+	int ballStateIndex;
 	string ballState;
 
 	// Use this for initialization
@@ -27,17 +27,26 @@ public class BallAnimation : MonoBehaviour {
 	}
 
 	void playLeft () {
+		ballStateIndex = Random.Range (1, 6);
 
-		ballState = string.Format("ballLeftStrike{0}", Random.Range (1, 4));
+		while (ballTouch.usedBallsAnimation.Contains (ballStateIndex)) {
+			ballStateIndex = Random.Range (1, 6);
+		}		
+		ballState = string.Format("ballLeftStrike{0}", ballStateIndex);
 		ballTouch.tObject.animation.Play (ballState);
+		ballTouch.usedBallsAnimation.Add (ballStateIndex);
 		ballTouch.ballAnimationIndex = 0;
-
 	}
 
 	void playRight () {
+		ballStateIndex = Random.Range (6, 11);
 		
-		ballState = string.Format("ballLeftStrike{0}", Random.Range (4, 7));
+		while (ballTouch.usedBallsAnimation.Contains (ballStateIndex)) {
+			ballStateIndex = Random.Range (6, 11);
+		}		
+		ballState = string.Format("ballLeftStrike{0}", ballStateIndex);
 		ballTouch.tObject.animation.Play (ballState);
+		ballTouch.usedBallsAnimation.Add (ballStateIndex);
 		ballTouch.ballAnimationIndex = 0;
 	}
 

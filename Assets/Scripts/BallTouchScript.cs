@@ -20,7 +20,7 @@ public class BallTouchScript : MonoBehaviour {
 	private Ray ray;
 	float startFlickPositionY;
 	float differenceFlickPositions;
-	float errorMarginFlick = 0.01f;
+//	float errorMarginFlick = 0.01f;
 	float flickStartTime;
 	float flickFinishTime;
 	bool flickStarted;
@@ -33,6 +33,7 @@ public class BallTouchScript : MonoBehaviour {
 	private Vector3 rightBallEndPoint = new Vector3 (2,2,0);
 
 	[HideInInspector]public List<GameObject> usedBallObjects;
+	[HideInInspector]public List<int> usedBallsAnimation;
 
 	float speed = 8f;
 	float lerpMoving = 0;
@@ -44,13 +45,15 @@ public class BallTouchScript : MonoBehaviour {
 		closeScript = (CloseScript)GameObject.Find("Redcross").GetComponent(typeof(CloseScript));
 		numChange = GameObject.Find("numb_container").GetComponent<NumChange>();
 		usedBallObjects = new List<GameObject>();
+		usedBallsAnimation = new List<int>();
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+//		Debug.Log ("Scene update");
 		if (touchNumbers.currentSceneNum == 3) {
+//			Debug.Log("SceneTouch");
 												int nbTouches = Input.touchCount;
 								
 												if (nbTouches > 0) {
@@ -72,19 +75,15 @@ public class BallTouchScript : MonoBehaviour {
 					isTouched = true;
 				}	
 				}
-			}
+			
 		if (flickStarted && !(Input.GetTouch (0).phase == TouchPhase.Ended)) {
 		//	if (flickStarted && !Input.GetMouseButtonUp (0)) {
-				Debug.Log ("Flick started: " + flickStarted);
 				differenceFlickPositions = Input.mousePosition.y - startFlickPositionY;
 				flickFinishTime = Mathf.Abs(flickStartTime - Time.time);
-				Debug.Log ("Difference pos: " + differenceFlickPositions);
-				Debug.Log ("Time: " + flickFinishTime);
 				if (differenceFlickPositions < 0 || flickFinishTime >= 1f) {
 					flickStarted = false;
 					}
 				}
-
 			//if (Input.GetMouseButtonUp (0) && !touchNumbers.isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_open_idle") && isTouched && !ballMove) {
 			if (Input.GetTouch (0).phase == TouchPhase.Ended  && !touchNumbers.isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_open_idle") && isTouched && !ballMove) {
 			if (flickStarted) {
@@ -112,14 +111,14 @@ public class BallTouchScript : MonoBehaviour {
 					
 				}
 			}
-
-		
+			}
+	
 			if (closeScript.touchCounter == touchNumbers.numberFingers && !closeScript.closeProcessOnline) {
 				closeProcessOnline = true;
 				closeScript.startClosing ();
+				usedBallObjects.Clear ();
 				lerpMoving = 0f;
 			}
-
 				}
 		if (ballMove) {
 			lerpMoving += Time.deltaTime;
