@@ -3,14 +3,14 @@ using System.Collections;
 
 public class BallAnimation : MonoBehaviour {
 
-	private BallTouchScript ballTouch;
+	private TouchController ballTouch;
 
 	int ballStateIndex;
 	string ballState;
 
 	// Use this for initialization
 	void Start () {
-		ballTouch = (BallTouchScript)GameObject.Find("Main Camera").GetComponent(typeof(BallTouchScript));
+		ballTouch = (TouchController)GameObject.Find("Main Camera").GetComponent(typeof(TouchController));
 	}
 	
 	// Update is called once per frame
@@ -28,10 +28,6 @@ public class BallAnimation : MonoBehaviour {
 
 	void playLeft () {
 		ballStateIndex = Random.Range (1, 6);
-
-		while (ballTouch.usedBallsAnimation.Contains (ballStateIndex)) {
-			ballStateIndex = Random.Range (1, 6);
-		}		
 		ballState = string.Format("ballLeftStrike{0}", ballStateIndex);
 		ballTouch.tObject.animation.Play (ballState);
 		ballTouch.usedBallsAnimation.Add (ballStateIndex);
@@ -40,10 +36,6 @@ public class BallAnimation : MonoBehaviour {
 
 	void playRight () {
 		ballStateIndex = Random.Range (6, 11);
-		
-		while (ballTouch.usedBallsAnimation.Contains (ballStateIndex)) {
-			ballStateIndex = Random.Range (6, 11);
-		}		
 		ballState = string.Format("ballLeftStrike{0}", ballStateIndex);
 		ballTouch.tObject.animation.Play (ballState);
 		ballTouch.usedBallsAnimation.Add (ballStateIndex);

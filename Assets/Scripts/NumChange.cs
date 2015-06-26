@@ -30,36 +30,7 @@ public class NumChange : MonoBehaviour {
 			changeBack = false;
 
 				}
-
-		switch (touchNumbers.currentSceneNum) {
-		case 0:
-			spriteRenderer.color = new Color(1f,1f,1f,1f);
-			
-			if (Input.touchCount > 0) {
-			//if (Input.GetMouseButton (0) && !touchNumbers.isInputLocked && touchNumbers.isDoorOpen && !closeScript.inputLocked) {
-				RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint(Input.GetTouch (0).position), Vector2.zero);
-				//RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-				if  (hit.collider != null && hit.transform != null && hit.collider.tag == "toy") {
-					BackChange();
-				}
-			}
-				break;
-
-		case 1:
-
-			if (touchController.cakeMove) {
-				BackChange();
-			}
-			break;
-
-		case 2:
-
-			break;
-
-		case 3:
-
-			break;
-		}
+		
 				}
 		
 	public void BackChange () {

@@ -3,12 +3,12 @@ using System.Collections;
 
 public class OctopusAnimation : MonoBehaviour {
 	
-	private BallTouchScript ballTouch;
+	private TouchController ballTouch;
 
 	// Use this for initialization
 	void Start () {
 	
-		ballTouch = (BallTouchScript)GameObject.Find("Main Camera").GetComponent(typeof(BallTouchScript));
+		ballTouch = (TouchController)GameObject.Find("Main Camera").GetComponent(typeof(TouchController));
 	}
 
 	void Update () {

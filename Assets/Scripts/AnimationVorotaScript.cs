@@ -3,11 +3,11 @@ using System.Collections;
 
 public class AnimationVorotaScript : MonoBehaviour {
 
-	private BallTouchScript ballTouchScript;
+	private TouchController ballTouchScript;
 
 	void Start () {
 		
-		ballTouchScript = (BallTouchScript)GameObject.Find("Main Camera").GetComponent(typeof(BallTouchScript));
+		ballTouchScript = (TouchController)GameObject.Find("Main Camera").GetComponent(typeof(TouchController));
 	}
 
     void Update () {

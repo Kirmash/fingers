@@ -49,17 +49,13 @@
      <Compile Include="Assets\Scripts\AnimationVorotaScript.cs" />
      <Compile Include="Assets\Scripts\BackChange.cs" />
      <Compile Include="Assets\Scripts\BallAnimation.cs" />
-     <Compile Include="Assets\Scripts\BallTouchScript.cs" />
      <Compile Include="Assets\Scripts\CloseScript.cs" />
      <Compile Include="Assets\Scripts\HandAnimationScript.cs" />
      <Compile Include="Assets\Scripts\NumChange.cs" />
      <Compile Include="Assets\Scripts\OctopusAnimation.cs" />
      <Compile Include="Assets\Scripts\PlateController.cs" />
-     <Compile Include="Assets\Scripts\RocketScript.cs" />
-     <Compile Include="Assets\Scripts\SpaceObjectController.cs" />
      <Compile Include="Assets\Scripts\TouchController.cs" />
      <Compile Include="Assets\Scripts\TouchNumbers.cs" />
-     <Compile Include="Assets\Scripts\ToyTouch.cs" />
      <Compile Include="Assets\Scripts\footballTabloScript.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -16,21 +16,21 @@ public class PlateController : MonoBehaviour {
 		if (touchController.isDragging) {
 	//		hitPlate = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.mousePosition), Vector2.zero);
 			hitPlate = Physics2D.Raycast (Camera.main.ScreenToWorldPoint(Input.GetTouch (0).position), Vector2.zero);
-			if (hitPlate != null && hitPlate.collider != null && hitPlate.collider.tag == "plate") {
-				if (!touchController.usedPlates.Contains(hitPlate.transform.gameObject)) {
+			if (hitPlate != null && hitPlate.collider != null && hitPlate.collider.tag == "object") {
+				if (!touchController.usedMainObjects.Contains(hitPlate.transform.gameObject)) {
 			hitPlate.collider.gameObject.transform.localScale = new Vector3(1.1f,1.1f,1.1f);
-					touchController.overPlate = true;
-					touchController.plateCoordinates = hitPlate.collider.gameObject.transform.position;
-					touchController.activePlate = hitPlate.collider.gameObject;
+					touchController.overMainObject = true;
+					touchController.mainObjectCoordinates = hitPlate.collider.gameObject.transform.position;
+					touchController.activeMainObject = hitPlate.collider.gameObject;
 
 				}
 								}
 			else { 
 				this.transform.localScale = new Vector3(1,1,1);	
-				touchController.overPlate = false;}
+				touchController.overMainObject = false;}
 	}
 
-		if (touchController.cakeMove) {
+		if (touchController.objectMove) {
 			this.transform.localScale = new Vector3(1,1,1);	
 		}
 
