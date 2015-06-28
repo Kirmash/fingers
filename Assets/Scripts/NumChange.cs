@@ -5,7 +5,6 @@ public class NumChange : MonoBehaviour {
 	public Sprite[] numbers;
 	[HideInInspector] public SpriteRenderer spriteRenderer;
 	private TouchNumbers touchNumbers;
-	private TouchController touchController;
 	private CloseScript closeScript;
 	[HideInInspector] public bool changeBack = false;
 	//private BallTouchScript ballTouchScript;
@@ -13,7 +12,6 @@ public class NumChange : MonoBehaviour {
 	void Start () {
 		spriteRenderer = renderer as SpriteRenderer;
 		touchNumbers = GameObject.Find("shirmas").GetComponent<TouchNumbers>();
-		touchController = GameObject.Find ("Main Camera").GetComponent<TouchController> ();
 		closeScript = GameObject.Find ("Redcross").GetComponent<CloseScript> ();
 	//	ballTouchScript = (BallTouchScript)GameObject.Find("Main Camera").GetComponent(typeof(BallTouchScript));
 

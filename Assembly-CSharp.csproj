@@ -49,6 +49,7 @@
      <Compile Include="Assets\Scripts\AnimationVorotaScript.cs" />
      <Compile Include="Assets\Scripts\BackChange.cs" />
      <Compile Include="Assets\Scripts\BallAnimation.cs" />
+     <Compile Include="Assets\Scripts\BubbleMove.cs" />
      <Compile Include="Assets\Scripts\CloseScript.cs" />
      <Compile Include="Assets\Scripts\HandAnimationScript.cs" />
      <Compile Include="Assets\Scripts\NumChange.cs" />

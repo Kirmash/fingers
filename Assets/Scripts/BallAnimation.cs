@@ -30,7 +30,6 @@ public class BallAnimation : MonoBehaviour {
 		ballStateIndex = Random.Range (1, 6);
 		ballState = string.Format("ballLeftStrike{0}", ballStateIndex);
 		ballTouch.tObject.animation.Play (ballState);
-		ballTouch.usedBallsAnimation.Add (ballStateIndex);
 		ballTouch.ballAnimationIndex = 0;
 	}
 
@@ -38,7 +37,6 @@ public class BallAnimation : MonoBehaviour {
 		ballStateIndex = Random.Range (6, 11);
 		ballState = string.Format("ballLeftStrike{0}", ballStateIndex);
 		ballTouch.tObject.animation.Play (ballState);
-		ballTouch.usedBallsAnimation.Add (ballStateIndex);
 		ballTouch.ballAnimationIndex = 0;
 	}
 

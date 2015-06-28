@@ -19,16 +19,16 @@ public class TouchNumbers : MonoBehaviour
 	public AudioClip number9;
 	public AudioClip number10;
 
-	int[] randomScene1 = new int[] {2,3};
-	int[] randomScene2 = new int[] {1,2,3};
-	int[] randomScene3 = new int[] {1,2,3};
-	int[] randomScene4 = new int[] {1,2,3};
-	int[] randomScene5 = new int[] {1,2,3};
-	int[] randomScene6 = new int[] {1,2,3};
-	int[] randomScene7 = new int[] {1,2,3};
-	int[] randomScene8 = new int[] {1,2,3};
-	int[] randomScene9 = new int[] {2,3};
-	int[] randomScene10 = new int[] {2,3};
+	int[] randomScene1 = new int[] {2,3,4};
+	int[] randomScene2 = new int[] {1,2,3,4};
+	int[] randomScene3 = new int[] {1,2,3,4};
+	int[] randomScene4 = new int[] {1,2,3,4};
+	int[] randomScene5 = new int[] {1,2,3,4};
+	int[] randomScene6 = new int[] {1,2,3,4};
+	int[] randomScene7 = new int[] {1,2,3,4};
+	int[] randomScene8 = new int[] {1,2,3,4};
+	int[] randomScene9 = new int[] {2,3,4};
+	int[] randomScene10 = new int[] {2,3,4};
 
 	[HideInInspector] public int currentSceneNum;
 
@@ -71,7 +71,6 @@ public class TouchNumbers : MonoBehaviour
 	[HideInInspector] public Vector3[] spaceCoordinatesArray;
 	[HideInInspector] public Vector3 rocketCoordinates = new Vector3 (3.635082f,0.4855805f,0f);
 	//[HideInInspector] public GameObject[] activeSpaceObjects;
-	private GameObject backSpace;
 	[HideInInspector] public GameObject rocket;
 	private List<int> usedCoordinates;
 
@@ -83,10 +82,16 @@ public class TouchNumbers : MonoBehaviour
 	private GameObject vratar;
 	[HideInInspector] public GameObject vorota;
 
+	//arrays and assets for FootballScene (4)
+	[HideInInspector] public GameObject[] bubbleObjects;
+	Vector3[] balloonPositionArray = new [] { new Vector3(-4.5f,-3.0f,0),new Vector3(4f,3f,0),new Vector3(-4f,-3f,0),new Vector3(5.2f,-4f,0),new Vector3(0f,0f,0),new Vector3(0f,-3.5f,0),new Vector3(5f,0f,0),new Vector3(-5f,0f,0),new Vector3(-2f,3f,0),new Vector3(2f,2f,0)};
 
 	[HideInInspector] public int touchKey = 0;
 	private int numTouch = 0;
 	private int nbTouches = 0;
+
+	
+	private GameObject backScene;
 
 
 	void Start () 
@@ -100,6 +105,8 @@ public class TouchNumbers : MonoBehaviour
 		usedCoordinates = new List<int>();
 
 		soccerObjects = Resources.LoadAll("footballBalls", typeof(GameObject)).Cast<GameObject> ().ToArray (); 
+
+		bubbleObjects = Resources.LoadAll("bubbles", typeof(GameObject)).Cast<GameObject> ().ToArray (); 
 
 		//closeScript = (CloseScript)GameObject.Find("Redcross").GetComponent(typeof(CloseScript));
 		numChange = (NumChange)GameObject.Find("numb_container").GetComponent(typeof(NumChange));
@@ -168,84 +175,73 @@ public void InputLock()
 		switch (number)
 		{
 		case 10: 
-			print(10);
 			audio.PlayOneShot(number10);
 			currentSceneNum = randomScene10[Random.Range(0, randomScene10.Length)];
-			//currentSceneNum = 3;
-			GetTheToys10();
+			//currentSceneNum = 4;
+			GetTheToys();
 		    break;
 			
 		case 1: 
-			print(1);
-			
 			audio.PlayOneShot(number1);
 			currentSceneNum = randomScene1[Random.Range(0, randomScene1.Length)];
 			//currentSceneNum = 1;
-			GetTheToys1();
+			GetTheToys();
 			break;
 			
 		case 2: 
-			print(2);
 			audio.PlayOneShot(number2);
 			currentSceneNum = randomScene2[Random.Range(0, randomScene2.Length)];
 			//currentSceneNum = 1;
-			GetTheToys2();
+			GetTheToys();
 			break;
 			
 		case 3: 
-			print(3);
 			audio.PlayOneShot(number3);
 		    currentSceneNum = randomScene3[Random.Range(0, randomScene3.Length)];
 		    //currentSceneNum = 1;
-			GetTheToys3();
+			GetTheToys();
 			break;
 			
 		case 4: 
-			print(4);
 			audio.PlayOneShot(number4);
 		    currentSceneNum = randomScene4[Random.Range(0, randomScene4.Length)];
-		    //currentSceneNum = 3;
-			GetTheToys4();
+		    //currentSceneNum = 4;
+			GetTheToys();
 			break;
 			
 		case 5: 
-			print(5);
 			audio.PlayOneShot(number5);
 		    currentSceneNum = randomScene5[Random.Range(0, randomScene5.Length)];
 			//currentSceneNum = 3;
-			GetTheToys5();
+			GetTheToys();
 			break;
 			
 		case 6: 
-			print(6);
 			audio.PlayOneShot(number6);
 		    currentSceneNum = randomScene6[Random.Range(0, randomScene6.Length)];
 			//currentSceneNum = 3;
-			GetTheToys6();
+			GetTheToys();
 			break;
 			
 		case 7: 
-			print(7);
 			audio.PlayOneShot(number7);
 		    currentSceneNum = randomScene7[Random.Range(0, randomScene7.Length)];
 			//currentSceneNum = 3;
-			GetTheToys7();
+			GetTheToys();
 			break;
 			
 		case 8: 
-			print(8);
 			audio.PlayOneShot(number8);
 		    currentSceneNum = randomScene8[Random.Range(0, randomScene8.Length)];
 			//currentSceneNum = 3;
-			GetTheToys8();
+			GetTheToys();
 			break;
 			
 		case 9: 
-			print(9);
 			audio.PlayOneShot(number9);
 		    currentSceneNum = randomScene9[Random.Range(0, randomScene9.Length)];
 			//currentSceneNum = 3;
-			GetTheToys9 ();
+			GetTheToys ();
 			break;
 		}
 		
@@ -253,168 +249,28 @@ public void InputLock()
 
 
 	//Choosing the scene for particular numbers
-	void GetTheToys1 () {
-
-
+	void GetTheToys () {
 				switch (currentSceneNum) {
+		case 1:
+			LoadScene1 (numberFingers);
+			break;
+
 		case 2:
 			LoadScene2 (numberFingers);
 			break;
 
 		case 3: 
 			LoadScene3 (numberFingers);
+			break;
+
+		case 4:
+			LoadScene4(numberFingers);
 			break;
 				}
-
-
-		}
-	void GetTheToys2 () {
-			switch (currentSceneNum)
-			{
-		case 1:
-			LoadScene1(numberFingers);
-			break;
-
-		case 2:
-			LoadScene2 (numberFingers);
-			break;
-		
-		case 3: 
-			LoadScene3 (numberFingers);
-		
-			break;
-		}
-	}
-	void GetTheToys3 () {
-			switch (currentSceneNum)
-			{
-			case 1:
-			LoadScene1(numberFingers);
-				break;
-
-		case 2:
-			LoadScene2 (numberFingers);
-			break;
-
-		case 3: 
-			LoadScene3 (numberFingers);
-			break;
-		}
-	}
-	void GetTheToys4 () {
-			switch (currentSceneNum)
-			{
-			case 1:
-			LoadScene1(numberFingers);
-				break;
-
-		    case 2:
-			LoadScene2 (numberFingers);
-			break;
-
-		case 3: 
-			LoadScene3 (numberFingers);
-			break;
-		}
-	}
-	void GetTheToys5 () {
-			switch (currentSceneNum)
-			{
-		case 1:
-			LoadScene1(numberFingers);
-				break;
-
-		case 2:
-			LoadScene2 (numberFingers);
-			break;
-
-		case 3: 
-			LoadScene3 (numberFingers);
-			break;
-		}
-	}
-	void GetTheToys6 () {
-			switch (currentSceneNum)
-			{
-			case 1:
-			LoadScene1(numberFingers);
-				break;
-		case 2:
-			LoadScene2 (numberFingers);
-			break;
-
-		case 3: 
-			LoadScene3 (numberFingers);
-			break;
-			}
-	}
-	void GetTheToys7 () {
-			switch (currentSceneNum)
-			{
-			case 1:
-			LoadScene1(numberFingers);
-				break;
-
-		case 2:
-			LoadScene2 (numberFingers);
-			break;
-		case 3: 
-			LoadScene3 (numberFingers);
-			break;
-		}
-	}
-	void GetTheToys8 () {
-			switch (currentSceneNum)
-			{
-			case 1:
-			LoadScene1(numberFingers);
-				break;
-		case 2:
-			LoadScene2 (numberFingers);
-			break;
-
-		case 3: 
-			LoadScene3 (numberFingers);
-			break;
-		}
-	}
-	void GetTheToys9 () {
-			switch (currentSceneNum)
-			{
-			case 1:
-			LoadScene1(numberFingers);
-				break;
-
-		case 2:
-			LoadScene2 (numberFingers);
-			break;
-		
-		case 3: 
-			LoadScene3 (numberFingers);
-			break;
-		}
-	}
-	void GetTheToys10 () {
-			switch (currentSceneNum)
-			{
-			case 1:
-			LoadScene1(numberFingers);
-				break;
-
-		    case 2:
-			LoadScene2 (numberFingers);
-			break;
-
-		case 3:
-			LoadScene3(numberFingers);
-			break;
 		}
 
 
-	}
-
-
-	//Handler for loading the scenes
+//Handler for loading the scenes
 
 //tort
 	void LoadScene1 (int numberF)
@@ -489,7 +345,7 @@ public void InputLock()
 	void LoadScene2 (int numberF)
 	{
 		spaceCoordinatesArray = new Vector3[] {new Vector3 (-3.852236f,3.519741f,0f), new Vector3 (0.2980204f,2.75679f,0f), new Vector3 (4.7626f,3.674817f,0f), new Vector3 (-5.007737f,0.8001435f,0f), new Vector3 (-2.534921f,-1.356382f,0f), new Vector3 (1.330779f,-2.177835f,0f), new Vector3 (5.939386f,-1.369833f,0f), new Vector3 (-3.846421f,-3.674136f,0f), new Vector3 (0.373147f,-4.332508f,0f), new Vector3 (4.802197f,-3.464654f,0f)};
-		backSpace = GameObject.Instantiate (spaceObjects[11], Vector3.zero, Quaternion.identity) as GameObject;
+		backScene = GameObject.Instantiate (spaceObjects[11], Vector3.zero, Quaternion.identity) as GameObject;
 		sceneObjects = new GameObject[numberF+1];
 		sceneObjects[0] = GameObject.Instantiate (spaceObjects[0], rocketCoordinates, Quaternion.identity) as GameObject;
 		currCoordinateIndex = Random.Range (0, 10);
@@ -509,6 +365,7 @@ public void InputLock()
 
 //football
 	void LoadScene3 (int numberF) {
+
 		sceneObjects = new GameObject[numberF];
 		vorota =  GameObject.Instantiate (soccerObjects[0], Vector3.zero, Quaternion.identity) as GameObject;
 		vratar =  GameObject.Instantiate (soccerObjects[1], Vector3.zero, Quaternion.identity) as GameObject;
@@ -520,12 +377,32 @@ public void InputLock()
 			{
 				currCoordinateIndex = Random.Range (0, 10);
 			}
-			sceneObjects[i] = GameObject.Instantiate(soccerObjects[i+3], ballPositionArray[currCoordinateIndex],Quaternion.identity) as GameObject;
-//			
+			sceneObjects[i] = GameObject.Instantiate(soccerObjects[i+3], ballPositionArray[currCoordinateIndex],Quaternion.identity) as GameObject;		
 			usedCoordinates.Add (currCoordinateIndex);
 	}
 		usedCoordinates.Clear ();
 	}
+
+//bubbles
+	void LoadScene4 (int numberF) {
+		sceneObjects = new GameObject[numberF];
+		backScene = GameObject.Instantiate (bubbleObjects[10], Vector3.zero, Quaternion.identity) as GameObject;
+		for (int i = 0; i < numberF; i++) {
+			while (usedCoordinates.Contains(currCoordinateIndex))
+			{
+				currCoordinateIndex = Random.Range (0, 10);
+			}
+			sceneObjects[i] = GameObject.Instantiate(bubbleObjects[i], balloonPositionArray[currCoordinateIndex], Quaternion.identity) as GameObject;
+			usedCoordinates.Add (currCoordinateIndex);
+		}
+		usedCoordinates.Clear ();
+	}
+		
+
+
+	/// <summary>
+	/// End of the scenes: destroying objects
+	/// </summary>
 
 	public void DestroySomeToys()
 	{
@@ -554,7 +431,7 @@ public void InputLock()
 			break;
 
 		case 2:
-			Destroy(backSpace);
+			Destroy(backScene);
 			for (int i = 0; i<sceneObjects.Length; i++)
 			{
 
@@ -580,6 +457,16 @@ public void InputLock()
 				}
 				Destroy(sceneObjects[i]);
 			}
+			break;
+
+		case 4:
+			Destroy(backScene);
+			for (int i = 0; i<sceneObjects.Length; i++)
+			{
+
+				Destroy(sceneObjects[i]);
+			}
+
 			break;
 		}
 		

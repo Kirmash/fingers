@@ -13,6 +13,7 @@ public class TouchController : MonoBehaviour {
 	
 	public AudioClip munch;
 	public AudioClip endSpace;
+	public AudioClip[] bubblePop;
 
 	private Vector3 startPosition;
 
@@ -51,7 +52,6 @@ public class TouchController : MonoBehaviour {
 //Scene 2
 	float speedRocket = 3f;
 	float rotationSpeed = 300;
-	float rotationErrorFraction = 0.02f;	
 	Vector3 targetDirection;
 	Vector3 rocketDirection;
 	Vector3 cross;
@@ -72,6 +72,9 @@ public class TouchController : MonoBehaviour {
 	[HideInInspector]public bool isStriked = false;
 	[HideInInspector]public byte ballAnimationIndex = 0;
 	[HideInInspector]public byte animationIndex = 0;
+
+//Scene 4
+	int randBubblePop;
 
 
 	void Start () {
@@ -122,6 +125,14 @@ public class TouchController : MonoBehaviour {
 							startFlickPositionY = Input.GetTouch (0).position.y;
 							flickStartTime = Time.time;
 							flickStarted = true;
+						}
+						if (touchNumbers.currentSceneNum == 4) {
+							tObject.animation.Play();
+							closeScript.PlaySound();
+							numChange.BackChange();
+							randBubblePop = Random.Range (0, 4);
+							audio.PlayOneShot (bubblePop[randBubblePop]);
+							closeScript.touchCounter += 1;
 						}
 						isTouched = true;
 										}
