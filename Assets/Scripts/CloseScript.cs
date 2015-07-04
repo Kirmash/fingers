@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using SmartLocalization;
 
 public class CloseScript : MonoBehaviour {
 
@@ -9,14 +10,13 @@ public class CloseScript : MonoBehaviour {
 	private int touchKey = 0;
 //	public bool inputLocked = false;
 	[HideInInspector]public bool closeProcessOnline;
-
-
+	private OptionsScript optionsScript;
 
 
 	// Use this for initialization
 	void Start () {
 		touchNumbers = (TouchNumbers)GameObject.Find("shirmas").GetComponent(typeof(TouchNumbers));
-	//	touchController = (TouchController)GameObject.Find("Main Camera").GetComponent(typeof(TouchController));
+		optionsScript = (OptionsScript)GameObject.Find("backOptions").GetComponent(typeof(OptionsScript));
 	}
 
   private void nullCounter () {
@@ -84,53 +84,53 @@ public class CloseScript : MonoBehaviour {
 		switch (touchCounter) {
 			
 		case 9: 
-			audio.PlayOneShot (touchNumbers.number10);
-			
+			//audio.PlayOneShot (touchNumbers.number10);
+			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("ten"));
 			break;
 			
 		case 0: 
-			audio.PlayOneShot (touchNumbers.number1);
-			
+			//audio.PlayOneShot (touchNumbers.number1);
+			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("one"));
 			break;
 			
 		case 1: 
-			audio.PlayOneShot (touchNumbers.number2);
-			
+			//audio.PlayOneShot (touchNumbers.number2);
+			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("two"));
 			break;
 			
 		case 2:
-			audio.PlayOneShot (touchNumbers.number3);
-			
+			//audio.PlayOneShot (touchNumbers.number3);
+			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("three"));
 			break;
 			
 		case 3:
-			audio.PlayOneShot (touchNumbers.number4);
-			
+			//audio.PlayOneShot (touchNumbers.number4);
+			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("four"));
 			break;
 			
 		case 4:
-			audio.PlayOneShot (touchNumbers.number5);
-			
+			//audio.PlayOneShot (touchNumbers.number5);
+			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("five"));
 			break;
 			
 		case 5:
-			audio.PlayOneShot (touchNumbers.number6);
-			
+			//audio.PlayOneShot (touchNumbers.number6);
+			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("six"));
 			break;
 			
 		case 6: 
-			audio.PlayOneShot (touchNumbers.number7);
-			
+			//audio.PlayOneShot (touchNumbers.number7);
+			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("seven"));
 			break;
 			
 		case 7: 
-			audio.PlayOneShot (touchNumbers.number8);
-			
+			//audio.PlayOneShot (touchNumbers.number8);
+			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("eight"));
 			break;
 			
 		case 8: 
-			audio.PlayOneShot (touchNumbers.number9);
-			
+			//audio.PlayOneShot (touchNumbers.number9);
+			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("nine"));
 			break;
 		}
 	}

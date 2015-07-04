@@ -5,6 +5,7 @@ public class BackChange : MonoBehaviour {
 	public Sprite[] backs;
 	private SpriteRenderer spriteRenderer;
 	private TouchNumbers touchNumbers;
+
 	// Use this for initialization
 	void Start () {
 		spriteRenderer = renderer as SpriteRenderer;

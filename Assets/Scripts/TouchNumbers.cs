@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
@@ -6,18 +7,17 @@ using System.Collections.Generic;
 
 public class TouchNumbers : MonoBehaviour 
 {
-	//private ToyTouch toyTouch;
 
-	public AudioClip number1;
-	public AudioClip number2;
-	public AudioClip number3;
-	public AudioClip number4;
-	public AudioClip number5;
-	public AudioClip number6;
-	public AudioClip number7;
-	public AudioClip number8;
-	public AudioClip number9;
-	public AudioClip number10;
+//	public AudioClip number1;
+//	public AudioClip number2;
+//	public AudioClip number3;
+//	public AudioClip number4;
+//	public AudioClip number5;
+//	public AudioClip number6;
+//	public AudioClip number7;
+//	public AudioClip number8;
+//	public AudioClip number9;
+//	public AudioClip number10;
 
 	int[] randomScene1 = new int[] {2,3,4};
 	int[] randomScene2 = new int[] {1,2,3,4};
@@ -35,13 +35,12 @@ public class TouchNumbers : MonoBehaviour
 	//private CloseScript closeScript;
 	private NumChange numChange;
 	private TouchController touchController;
+	private OptionsScript optionsScript;
 
 	[HideInInspector] public int numberFingers = 1;
 
 	[HideInInspector] public bool isInputLocked = false;
 	[HideInInspector] public float inputLockingTime = 0.5f;
-
-	//private float openingTime = 1f;
 
 	[HideInInspector]public Animator animator;
 
@@ -88,7 +87,7 @@ public class TouchNumbers : MonoBehaviour
 
 	[HideInInspector] public int touchKey = 0;
 	private int numTouch = 0;
-	private int nbTouches = 0;
+	[HideInInspector] public int nbTouches = 0;
 
 	
 	private GameObject backScene;
@@ -111,13 +110,14 @@ public class TouchNumbers : MonoBehaviour
 		//closeScript = (CloseScript)GameObject.Find("Redcross").GetComponent(typeof(CloseScript));
 		numChange = (NumChange)GameObject.Find("numb_container").GetComponent(typeof(NumChange));
 		touchController = (TouchController)GameObject.Find("Main Camera").GetComponent(typeof(TouchController));
+		optionsScript = (OptionsScript)GameObject.Find("backOptions").GetComponent(typeof(OptionsScript));
 	}
 
 	void Update () 
 	{
 	nbTouches = Input.touchCount;
 		
-		if (nbTouches > 0) {
+		if (nbTouches > 0 && !optionsScript.isOpenedSettings) {
 						RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.GetTouch (0).position), Vector2.zero);
 						if (hit.collider != null && hit.transform != null && hit.collider.tag == "shirma") {	
 				if (numTouch == nbTouches && !isInputLocked && this.animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_idle")) {
@@ -126,6 +126,11 @@ public class TouchNumbers : MonoBehaviour
 
 								}
 						}	
+			if (hit.collider != null && hit.transform != null && hit.collider.tag == "settings") {
+				optionsScript.isOpenedSettings = true;
+				transform.position = new Vector3 (-12f, 0f, 0f);
+				}
+
 				}
 		numTouch = nbTouches;
 		if (touchKey == 30) {
@@ -175,70 +180,80 @@ public void InputLock()
 		switch (number)
 		{
 		case 10: 
-			audio.PlayOneShot(number10);
+			//audio.PlayOneShot(number10);
+			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("ten"));
 			currentSceneNum = randomScene10[Random.Range(0, randomScene10.Length)];
 			//currentSceneNum = 4;
 			GetTheToys();
 		    break;
 			
 		case 1: 
-			audio.PlayOneShot(number1);
+			//audio.PlayOneShot(number1);
+			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("one"));
 			currentSceneNum = randomScene1[Random.Range(0, randomScene1.Length)];
 			//currentSceneNum = 1;
 			GetTheToys();
 			break;
 			
 		case 2: 
-			audio.PlayOneShot(number2);
+			//audio.PlayOneShot(number2);
+			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("two"));
 			currentSceneNum = randomScene2[Random.Range(0, randomScene2.Length)];
 			//currentSceneNum = 1;
 			GetTheToys();
 			break;
 			
 		case 3: 
-			audio.PlayOneShot(number3);
+			//audio.PlayOneShot(number3);
+			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("three"));
 		    currentSceneNum = randomScene3[Random.Range(0, randomScene3.Length)];
 		    //currentSceneNum = 1;
 			GetTheToys();
 			break;
 			
 		case 4: 
-			audio.PlayOneShot(number4);
+			//audio.PlayOneShot(number4);
+			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("four"));
 		    currentSceneNum = randomScene4[Random.Range(0, randomScene4.Length)];
 		    //currentSceneNum = 4;
 			GetTheToys();
 			break;
 			
 		case 5: 
-			audio.PlayOneShot(number5);
+			//audio.PlayOneShot(number5);
+			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("five"));
 		    currentSceneNum = randomScene5[Random.Range(0, randomScene5.Length)];
 			//currentSceneNum = 3;
 			GetTheToys();
 			break;
 			
 		case 6: 
-			audio.PlayOneShot(number6);
+			//audio.PlayOneShot(number6);
+			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("six"));
 		    currentSceneNum = randomScene6[Random.Range(0, randomScene6.Length)];
 			//currentSceneNum = 3;
 			GetTheToys();
 			break;
 			
 		case 7: 
-			audio.PlayOneShot(number7);
+			//audio.PlayOneShot(number7);
+			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("seven"));
 		    currentSceneNum = randomScene7[Random.Range(0, randomScene7.Length)];
 			//currentSceneNum = 3;
 			GetTheToys();
 			break;
 			
 		case 8: 
-			audio.PlayOneShot(number8);
+			//audio.PlayOneShot(number8);
+			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("eight"));
 		    currentSceneNum = randomScene8[Random.Range(0, randomScene8.Length)];
 			//currentSceneNum = 3;
 			GetTheToys();
 			break;
 			
 		case 9: 
-			audio.PlayOneShot(number9);
+			//audio.PlayOneShot(number9);
+			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("nine"));
 		    currentSceneNum = randomScene9[Random.Range(0, randomScene9.Length)];
 			//currentSceneNum = 3;
 			GetTheToys ();
@@ -407,6 +422,7 @@ public void InputLock()
 	public void DestroySomeToys()
 	{
 		cakeEndMove = false;
+		touchController.isDragging = false;
 		switch (currentSceneNum) {
 			
 		case 1: 

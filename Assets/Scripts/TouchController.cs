@@ -180,6 +180,8 @@ if ((touchNumbers.currentSceneNum == 1) || (touchNumbers.currentSceneNum == 2)) 
 						while (usedMainObjects.Contains(touchNumbers.sceneObjects[arrayCounter])) {
 							arrayCounter += 1;
 						}
+						Debug.Log("ArrayCount " + arrayCounter);
+						Debug.Log("sceneObj " + touchNumbers.sceneObjects[arrayCounter]);
 						usedMainObjects.Add (touchNumbers.sceneObjects [arrayCounter]);
 					}
 					if (touchNumbers.currentSceneNum == 1) {
@@ -256,13 +258,18 @@ if (flickStarted) {
 								//ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 								Vector3 rayPoint = ray.GetPoint (distance);
 				if ((touchNumbers.currentSceneNum == 3) || (touchNumbers.currentSceneNum == 2)) {
+					if (tObject != null) {
 					tObject.rigidbody2D.transform.position = rayPoint;
+					}
 				}
 				if (touchNumbers.currentSceneNum == 1) {
+					if (tObject != null) {
 					tObject.rigidbody2D.transform.position = rayPoint - childStartPoint;
+					}
 				}
-
+				if (tObject != null) {
 								tObject.transform.rotation = new Quaternion (0, 0, 0, 0);
+				}
 				
 						}
 		}
@@ -305,6 +312,7 @@ if (flickStarted) {
 				}
 				
 				lerpMoving = 0f;
+				isDragging = false;
 			}
 			
 		}

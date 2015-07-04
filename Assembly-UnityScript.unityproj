@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+	<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+	<ProductVersion>10.0.20506</ProductVersion>
+	<SchemaVersion>2.0</SchemaVersion>
+	<ProjectGuid>{270A7FB2-55C9-87D1-2D6B-92D8A1F5A57A}</ProjectGuid>
+	<OutputType>Library</OutputType>
+	<AppDesignerFolder>Properties</AppDesignerFolder>
+	<RootNamespace></RootNamespace>
+	<AssemblyName>Assembly-UnityScript</AssemblyName>
+	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+	<FileAlignment>512</FileAlignment>
+	<BaseDirectory>Assets</BaseDirectory>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+	<DebugSymbols>true</DebugSymbols>
+	<DebugType>full</DebugType>
+	<Optimize>false</Optimize>
+	<OutputPath>Temp\bin\Debug\</OutputPath>
+	<DefineConstants>DEBUG;TRACE;UNITY_4_5_5;UNITY_4_5;UNITY_IPHONE;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_UNITYEVENTS;ENABLE_NEW_HIERARCHY ;ENABLE_AUDIO_FMOD;ENABLE_MONO;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;INCLUDE_WP8SUPPORT;ENABLE_WWW;ENABLE_IMAGEEFFECTS;UNITY_IPHONE_API;INCLUDE_WP_BLUE_SUPPORT;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_2D_PHYSICS;ENABLE_GAMECENTER;UNITY_IOS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_WIN;UNITY_TEAM_LICENSE;UNITY_PRO_LICENSE</DefineConstants>
+	<ErrorReport>prompt</ErrorReport>
+	<WarningLevel>4</WarningLevel>
+	<NoWarn>0169</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+	<DebugType>pdbonly</DebugType>
+	<Optimize>true</Optimize>
+	<OutputPath>Temp\bin\Release\</OutputPath>
+	<DefineConstants>TRACE</DefineConstants>
+	<ErrorReport>prompt</ErrorReport>
+	<WarningLevel>4</WarningLevel>
+	<NoWarn>0169</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+	<Reference Include="System" />
+    <Reference Include="System.XML" />
+	<Reference Include="System.Core" />
+	<Reference Include="System.Xml.Linq" />
+	<Reference Include="UnityEngine">
+	  <HintPath>E:/Unity/Data/Managed/UnityEngine.dll</HintPath>
+	</Reference>
+	<Reference Include="UnityEditor">
+	  <HintPath>E:/Unity/Data/Managed/UnityEditor.dll</HintPath>
+	</Reference>
+  </ItemGroup>
+  <ItemGroup>
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\annotated.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_editor_1_1_android_store_presence_generator.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_editor_1_1_c_s_v_export_window.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_editor_1_1_c_s_v_exporter.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_editor_1_1_c_s_v_import_window.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_editor_1_1_c_s_v_update_window.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_editor_1_1_custom_resx_importer.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_editor_1_1_directory_utility.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_editor_1_1_edit_root_language_file_window.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_editor_1_1_file_utility.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_editor_1_1_h_o_editor_undo_manager.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_editor_1_1_i_o_s_store_presence_generator.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_editor_1_1_language_dictionary_helper.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_editor_1_1_language_handler_editor.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_editor_1_1_localization_window_utility.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_editor_1_1_localization_workspace.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_editor_1_1_localized_audio_source_inspector.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_editor_1_1_localized_g_u_i_text_inspector.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_editor_1_1_localized_g_u_i_texture_inspector.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_editor_1_1_localized_key_selector.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_editor_1_1_microsoft_automatic_translator.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_editor_1_1_mini_j_s_o_n_1_1_json.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_editor_1_1_serializable_localization_object_pair.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_editor_1_1_serializable_string_pair.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_editor_1_1_smart_culture_info_ex.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_editor_1_1_smart_localization_window.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_editor_1_1_string_extensions.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_editor_1_1_translate_language_window.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_language_manager.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_language_parser.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_language_runtime_data.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_localized_audio_source.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_localized_g_u_i_text.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_localized_g_u_i_texture.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_localized_object.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_reorderable_list_1_1_generic_list_adaptor_3_01_t_01_4.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_reorderable_list_1_1_item_inserted_event_args.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_reorderable_list_1_1_item_removing_event_args.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_reorderable_list_1_1_reorderable_list_control.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_reorderable_list_1_1_reorderable_list_g_u_i.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_reorderable_list_1_1_serialized_property_adaptor.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_smart_culture_info.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\class_smart_localization_1_1_smart_culture_info_collection.js" />
+     <Compile Include="Assets\SmartLocalization\Documentation\Documentation_HTML_2_1\Documentation_HTML_2_1\html\dynsections.js" />
+     <None Include="Assets\SmartLocalizationWorkspace\AutoGenerated\Resources\Language.ko.txt" />
+     <None Include="Assets\SmartLocalizationWorkspace\AutoGenerated\Resources\Language.ru.txt" />
+     <None Include="Assets\SmartLocalizationWorkspace\AutoGenerated\Resources\Language.en.txt" />
+     <None Include="Assets\SmartLocalizationWorkspace\AutoGenerated\Resources\AvailableCultures.xml" />
+     <None Include="Assets\SmartLocalizationWorkspace\Data\SmartCultureInfoData\SmartCultureInfo.xml" />
+     <None Include="Assets\SmartLocalization\Resources\EmptyResourceHeader.txt" />
+     <None Include="Assets\SmartLocalizationWorkspace\AutoGenerated\Resources\Language.txt" />
+ <Reference Include="SmartLocalization_Runtime">
+ <HintPath>E:/Unity/Fingers take 2/Assets/SmartLocalization/SmartLocalization_Runtime.dll</HintPath>
+ </Reference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+	   Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  
+</Project>
