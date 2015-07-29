@@ -4,12 +4,15 @@ using System.Collections;
 public class PlateController : MonoBehaviour {
 
 	private TouchController touchController;
+	private TouchNumbers touchNumbers;
+	private Vector3 lastScale;
 	int nbTouches;
 	private RaycastHit2D hitPlate;
 
 	void Start () {
 		
 		touchController = (TouchController)GameObject.Find("Main Camera").GetComponent(typeof(TouchController));
+		touchNumbers = (TouchNumbers)GameObject.Find("shirmas").GetComponent(typeof(TouchNumbers));
 	}
 
 	void Update() {
@@ -21,13 +24,17 @@ public class PlateController : MonoBehaviour {
 				if (!touchController.usedMainObjects.Contains(hitPlate.transform.gameObject)) {
 			hitPlate.collider.gameObject.transform.localScale = new Vector3(1.1f,1.1f,1.1f);
 					touchController.overMainObject = true;
+
 					touchController.mainObjectCoordinates = hitPlate.collider.gameObject.transform.position;
 					touchController.activeMainObject = hitPlate.collider.gameObject;
 
 				}
 								}
 			else { 
+
+
 				this.transform.localScale = new Vector3(1,1,1);	
+
 				touchController.overMainObject = false;}
 	}
 

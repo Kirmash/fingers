@@ -10,6 +10,7 @@ public class TouchController : MonoBehaviour {
 	[HideInInspector]public bool isReturning;
 	[HideInInspector]public bool distanceGet;
 
+	public Animation anim;
 	
 	public AudioClip munch;
 	public AudioClip endSpace;
@@ -51,11 +52,17 @@ public class TouchController : MonoBehaviour {
 
 //Scene 2
 	float speedRocket = 3f;
-	float rotationSpeed = 300;
+	float deltaSpeedRocket = 0.05f;
+	float rotationSpeed = 300f;
 	Vector3 targetDirection;
 	Vector3 rocketDirection;
 	Vector3 cross;
 	private byte isForwardRotate = 0;
+	private float targetScale = 0.3f;
+	private float shrinkSpeed = 12f;
+	private bool thisTouched;
+	private Quaternion rightAngle = Quaternion.Euler (0f,0f,180f);
+	private Quaternion leftAngle = Quaternion.Euler (0f,0f,0f);
 
 //Scene 3
 	private bool rocketRotate;
@@ -72,6 +79,9 @@ public class TouchController : MonoBehaviour {
 	[HideInInspector]public bool isStriked = false;
 	[HideInInspector]public byte ballAnimationIndex = 0;
 	[HideInInspector]public byte animationIndex = 0;
+	float distanceBetweenObjects;
+	float halfTheDistance;
+	bool isDistanceGot;
 
 //Scene 4
 	int randBubblePop;
@@ -100,8 +110,24 @@ public class TouchController : MonoBehaviour {
 								}
 								//	hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.mousePosition), Vector2.zero);
 								hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.GetTouch (0).position), Vector2.zero);
-					if (hit.transform != null && hit.collider != null && hit.collider.tag == "cakerocket") {
-										if (!usedTouchableObject.Contains (hit.transform.gameObject)) {
+//touch on space object 
+				if (hit.transform != null && hit.collider != null && hit.collider.tag == "spacestuff") {
+										if (!usedMainObjects.Contains (hit.transform.gameObject)) {
+						thisTouched = true;
+					tObject = GameObject.Find (hit.transform.gameObject.name);
+					usedMainObjects.Add (tObject);
+						endPoint = tObject.transform.position;
+						tObject.GetComponent<BoxCollider2D>().enabled = false;
+						tObject.GetComponent<Animator>().SetBool("isStill",true);	
+						tObject = GameObject.Find("spaceObject11(Clone)");
+						rocketRotate = true;
+
+
+					}
+				}
+				if (hit.transform != null && hit.collider != null && hit.collider.tag == "cakerocket" && !thisTouched) {
+					Debug.Log("Touch rocket!");				
+					if (!usedTouchableObject.Contains (hit.transform.gameObject)) {
 												tObject = GameObject.Find (hit.transform.gameObject.name);
 
 //return to start position control
@@ -112,8 +138,7 @@ public class TouchController : MonoBehaviour {
 //drag control
 												if ((touchNumbers.currentSceneNum == 1) || (touchNumbers.currentSceneNum == 2)) {
 														if (!distanceGet) {
-																distance = Vector3.Distance (tObject.transform.position, Camera.main.transform.position);
-								
+																distance = Vector3.Distance (tObject.transform.position, Camera.main.transform.position);								                         
 																if (touchNumbers.currentSceneNum == 1) {
 																		childStartPoint = tObject.transform.Find ("cake1").localPosition;
 																}
@@ -175,26 +200,27 @@ public class TouchController : MonoBehaviour {
 												usedTouchableObject.Add (tObject);
 										}
 
-if ((touchNumbers.currentSceneNum == 1) || (touchNumbers.currentSceneNum == 2)) {
+if ((touchNumbers.currentSceneNum == 1) || ((touchNumbers.currentSceneNum == 2)&&!thisTouched) ) {
+						//Debug.Log("And also here");
 												arrayCounter = 1;
 						while (usedMainObjects.Contains(touchNumbers.sceneObjects[arrayCounter])) {
 							arrayCounter += 1;
 						}
-						Debug.Log("ArrayCount " + arrayCounter);
-						Debug.Log("sceneObj " + touchNumbers.sceneObjects[arrayCounter]);
 						usedMainObjects.Add (touchNumbers.sceneObjects [arrayCounter]);
 					}
 					if (touchNumbers.currentSceneNum == 1) {
-												endPoint = touchNumbers.sceneObjects [arrayCounter].transform.position - childStartPoint;
+		endPoint = touchNumbers.sceneObjects [arrayCounter].transform.position - childStartPoint;
 												objectMove = true;
 
 										}
 
-										if (touchNumbers.currentSceneNum == 2) {
+										if (touchNumbers.currentSceneNum == 2 && !thisTouched) {
 												endPoint = touchNumbers.sceneObjects [arrayCounter].transform.position;
+						touchNumbers.sceneObjects [arrayCounter].GetComponent<Animator>().SetBool("isStill",true);
 												rocketRotate = true;
 										}
-								}
+					thisTouched = false;				
+				}
 
 //ball flick Scene 3 
 
@@ -225,9 +251,7 @@ if (flickStarted) {
 
 												if (touchNumbers.currentSceneNum == 1) {
 							                            usedTouchableObject.Add (tObject);
-							
-
-														endPoint = mainObjectCoordinates - childStartPoint; 
+												endPoint = mainObjectCoordinates - childStartPoint; 
 												}
 
 												if (touchNumbers.currentSceneNum == 2) {
@@ -242,7 +266,6 @@ if (flickStarted) {
 											
 										}
 
-		
 					                    distanceGet = false;
 										counter = 0;
 										isDragging = false;
@@ -254,6 +277,7 @@ if (flickStarted) {
 
 //object follows after the mouse/touch
 						if (isDragging) {
+
 								ray = Camera.main.ScreenPointToRay (Input.GetTouch (0).position);
 								//ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 								Vector3 rayPoint = ray.GetPoint (distance);
@@ -264,6 +288,7 @@ if (flickStarted) {
 				}
 				if (touchNumbers.currentSceneNum == 1) {
 					if (tObject != null) {
+						tObject.transform.FindChild("cake1").GetComponent<SpriteRenderer>().sortingOrder = 4;
 					tObject.rigidbody2D.transform.position = rayPoint - childStartPoint;
 					}
 				}
@@ -278,13 +303,38 @@ if (flickStarted) {
 		if (objectMove) {
 			lerpMoving += Time.deltaTime;
 			if (touchNumbers.currentSceneNum == 1) {
+				tObject.transform.FindChild("cake1").GetComponent<SpriteRenderer>().sortingOrder = 3;
 				Quaternion newRotation = Quaternion.AngleAxis (5, Vector3.forward);
 				tObject.transform.position = Vector3.MoveTowards (tObject.transform.position, endPoint, speedCake*lerpMoving);
 				tObject.transform.rotation = Quaternion.Slerp (tObject.transform.rotation, newRotation, .05f); 
 			}
 			
 			if (touchNumbers.currentSceneNum == 2) {
-				tObject.transform.position = Vector3.MoveTowards (tObject.transform.position, endPoint, speedRocket*lerpMoving);
+				distanceBetweenObjects =  Vector3.Distance (tObject.transform.position, endPoint);
+				if (!isDistanceGot) {
+					halfTheDistance = 3*distanceBetweenObjects/4;
+					isDistanceGot = true;
+				}
+
+				tObject.transform.position = Vector3.MoveTowards (tObject.transform.position, endPoint, lerpMoving*speedRocket);
+				tObject.transform.localScale = Vector3.Lerp(tObject.transform.localScale, new Vector3(targetScale, targetScale, targetScale), Time.deltaTime*shrinkSpeed); 
+				//Debug.Log(tObject.transform.rotation.z);
+				if (distanceBetweenObjects <=halfTheDistance) {
+					Debug.Log (speedRocket);
+					if (speedRocket > 0.3f) {
+						speedRocket -= deltaSpeedRocket;
+						deltaSpeedRocket += 0.05f;
+					}
+					if ((tObject.transform.rotation.z <0.5) &&(tObject.transform.rotation.z >-0.5)&& (tObject.transform.rotation.z !=0)) {
+//						Debug.Log (tObject.transform.rotation.z);
+//						Debug.Log("rotateRight");
+					tObject.transform.rotation = Quaternion.Slerp (tObject.transform.rotation, leftAngle, 0.2f);
+					} else if ((tObject.transform.rotation.z !=1) &&(tObject.transform.rotation.z !=0) ) {
+//					Debug.Log (tObject.transform.rotation.z);
+//					Debug.Log("rotateLeft");
+					tObject.transform.rotation = Quaternion.Slerp (tObject.transform.rotation, rightAngle, 0.2f);
+				}
+				}
 			}
 			
 			if (touchNumbers.currentSceneNum == 3) {
@@ -295,6 +345,7 @@ if (flickStarted) {
 			if (tObject.transform.position == endPoint) {
 				closeScript.PlaySound ();
 				objectMove = false;
+				thisTouched = false;
 				if (touchNumbers.currentSceneNum == 3) {
 					isStriked = true;
 					if (endPoint == leftBallEndPoint) {
@@ -308,7 +359,11 @@ if (flickStarted) {
 				closeScript.touchCounter += 1;
 				
 				if (touchNumbers.currentSceneNum == 2) {
+					speedRocket = 3f;
+					deltaSpeedRocket = 0.05f;
+					isDistanceGot = false;
 					usedMainObjects[closeScript.touchCounter-1].transform.FindChild("flag_3").GetComponent<SpriteRenderer>().color = new Color(1,1,1,1);
+				    
 				}
 				
 				lerpMoving = 0f;
@@ -349,6 +404,7 @@ if (flickStarted) {
 		//return object to the start point after drag
 		if (isReturning) {
 			lerpMoving += Time.deltaTime;
+			tObject.transform.FindChild("cake1").GetComponent<SpriteRenderer>().sortingOrder = 3;
 			tObject.transform.position = Vector3.MoveTowards (tObject.transform.position, startPosition, speedCake * lerpMoving);
 			if (tObject.transform.position == startPosition) {
 				isReturning = false;

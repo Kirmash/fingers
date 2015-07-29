@@ -59,6 +59,8 @@
      <Compile Include="Assets\Scripts\TouchController.cs" />
      <Compile Include="Assets\Scripts\TouchNumbers.cs" />
      <Compile Include="Assets\Scripts\footballTabloScript.cs" />
+     <Compile Include="Assets\Scripts\numberLeftChange.cs" />
+     <Compile Include="Assets\Scripts\numberRightChange.cs" />
      <Compile Include="Assets\SmartLocalization\Scripts\NGUI\SL_NGUILabel.cs" />
      <Compile Include="Assets\SmartLocalization\Scripts\NGUI\SL_NGUISpriteAtlas.cs" />
      <Compile Include="Assets\SmartLocalization\Scripts\NGUI\SL_NGUISpriteName.cs" />

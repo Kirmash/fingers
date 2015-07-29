@@ -36,6 +36,8 @@ public class TouchNumbers : MonoBehaviour
 	private NumChange numChange;
 	private TouchController touchController;
 	private OptionsScript optionsScript;
+	private numberLeftChange numberLeftChange;
+	private numberRightChange numberRightChange;
 
 	[HideInInspector] public int numberFingers = 1;
 
@@ -74,16 +76,16 @@ public class TouchNumbers : MonoBehaviour
 	private List<int> usedCoordinates;
 
 	//arrays and assets for FootballScene (3)
-	Vector3[] ballPositionArray = new [] { new Vector3(-4.825f,-1.915f,0),new Vector3(-2.785f,-1.915f,0),new Vector3(-0.845f,-2.014f,0),new Vector3(1.1939f,-1.940f,0),new Vector3(3.1588f,-1.989f,0),new Vector3(5.1735f,-1.915f,0),new Vector3(-3.531f,-3.830f,0),new Vector3(-1.122f,-3.797f,0),new Vector3(1.2436f,-3.805f,0),new Vector3(3.6314f,-3.805f,0)};
+	Vector3[] ballPositionArray = new [] { new Vector3(1.1939f,-1.940f,0), new Vector3(-0.845f,-2.014f,0), new Vector3(-1.122f,-3.797f,0), new Vector3(1.2436f,-3.805f,0), new Vector3(-2.785f,-1.915f,0), new Vector3(3.1588f,-1.989f,0), new Vector3(-3.531f,-3.830f,0), new Vector3(3.6314f,-3.805f,0), new Vector3(-4.825f,-1.915f,0),new Vector3(5.1735f,-1.915f,0)};
 	[HideInInspector] public GameObject[] soccerObjects;
 	//[HideInInspector] public GameObject[] activeBalls;
 	private GameObject tablo;
 	private GameObject vratar;
 	[HideInInspector] public GameObject vorota;
 
-	//arrays and assets for FootballScene (4)
+	//arrays and assets for BubbleScene (4)
 	[HideInInspector] public GameObject[] bubbleObjects;
-	Vector3[] balloonPositionArray = new [] { new Vector3(-4.5f,-3.0f,0),new Vector3(4f,3f,0),new Vector3(-4f,-3f,0),new Vector3(5.2f,-4f,0),new Vector3(0f,0f,0),new Vector3(0f,-3.5f,0),new Vector3(5f,0f,0),new Vector3(-5f,0f,0),new Vector3(-2f,3f,0),new Vector3(2f,2f,0)};
+	Vector3[] balloonPositionArray = new [] { new Vector3(0f,0f,0),new Vector3(2f,2f,0),new Vector3(0f,-3.5f,0),new Vector3(-2f,3f,0),new Vector3(5f,0f,0),new Vector3(-5f,0f,0), new Vector3(-4.5f,-3.0f,0),new Vector3(4f,3f,0),new Vector3(-4f,-3f,0),new Vector3(5.2f,-4f,0)};
 
 	[HideInInspector] public int touchKey = 0;
 	private int numTouch = 0;
@@ -111,6 +113,8 @@ public class TouchNumbers : MonoBehaviour
 		numChange = (NumChange)GameObject.Find("numb_container").GetComponent(typeof(NumChange));
 		touchController = (TouchController)GameObject.Find("Main Camera").GetComponent(typeof(TouchController));
 		optionsScript = (OptionsScript)GameObject.Find("backOptions").GetComponent(typeof(OptionsScript));
+		numberLeftChange = (numberLeftChange)GameObject.Find("numberLeft").GetComponent(typeof(numberLeftChange));
+		numberRightChange = (numberRightChange)GameObject.Find("numberRight").GetComponent(typeof(numberRightChange));
 	}
 
 	void Update () 
@@ -121,7 +125,11 @@ public class TouchNumbers : MonoBehaviour
 						RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.GetTouch (0).position), Vector2.zero);
 						if (hit.collider != null && hit.transform != null && hit.collider.tag == "shirma") {	
 				if (numTouch == nbTouches && !isInputLocked && this.animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_idle")) {
-					animator.SetBool("isShirmasOpen",true);				
+					animator.SetBool("isShirmasOpen",true);	
+					numberRightChange.spriteNumberRight.sprite = numberRightChange.numRight [nbTouches - 1];
+					numberRightChange.ChangeNumber ();
+					numberLeftChange.spriteNumberLeft.sprite = numberLeftChange.numLeft [nbTouches - 1];
+					numberLeftChange.ChangeNumber ();
 					touchKey += 1;
 
 								}
@@ -154,12 +162,15 @@ public class TouchNumbers : MonoBehaviour
 		setNumber (numberFingers);
 		animator.SetFloat ("isOpen", 2);
 		animator.SetFloat ("isClosed", 0);
+
 		}
 
 
  public	void InputUnlock()
 	{
 		isInputLocked = false;
+		numberRightChange.numOpacity = false;
+		numberLeftChange.numOpacity = false;
 	}
 
 public void InputLock()
@@ -171,7 +182,8 @@ public void InputLock()
 	public void StopTheOpening() 
 	{
 		animator.SetBool ("isShirmasOpen", false);
-
+		numberRightChange.numOpacity = false;
+		numberLeftChange.numOpacity = false;
 		}
 
 
@@ -222,8 +234,8 @@ public void InputLock()
 		case 5: 
 			//audio.PlayOneShot(number5);
 			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("five"));
-		    currentSceneNum = randomScene5[Random.Range(0, randomScene5.Length)];
-			//currentSceneNum = 3;
+		   // currentSceneNum = randomScene5[Random.Range(0, randomScene5.Length)];
+			currentSceneNum = 2;
 			GetTheToys();
 			break;
 			
@@ -281,7 +293,12 @@ public void InputLock()
 		case 4:
 			LoadScene4(numberFingers);
 			break;
+
+		case 5:
+			LoadScene5(numberFingers);
+			break;
 				}
+	
 		}
 
 
@@ -359,11 +376,11 @@ public void InputLock()
 //space 
 	void LoadScene2 (int numberF)
 	{
-		spaceCoordinatesArray = new Vector3[] {new Vector3 (-3.852236f,3.519741f,0f), new Vector3 (0.2980204f,2.75679f,0f), new Vector3 (4.7626f,3.674817f,0f), new Vector3 (-5.007737f,0.8001435f,0f), new Vector3 (-2.534921f,-1.356382f,0f), new Vector3 (1.330779f,-2.177835f,0f), new Vector3 (5.939386f,-1.369833f,0f), new Vector3 (-3.846421f,-3.674136f,0f), new Vector3 (0.373147f,-4.332508f,0f), new Vector3 (4.802197f,-3.464654f,0f)};
+		spaceCoordinatesArray = new Vector3[] {new Vector3 (-3.852236f,3.519741f,0f), new Vector3 (-2.534921f,-1.356382f,0f), new Vector3 (-5.007737f,0.8001435f,0f), new Vector3 (-3.846421f,-3.674136f,0f), new Vector3 (0.2980204f,2.75679f,0f), new Vector3 (4.7626f,3.674817f,0f), new Vector3 (1.330779f,-2.177835f,0f), new Vector3 (5.939386f,-1.369833f,0f), new Vector3 (0.373147f,-4.332508f,0f), new Vector3 (4.802197f,-3.464654f,0f)};
 		backScene = GameObject.Instantiate (spaceObjects[11], Vector3.zero, Quaternion.identity) as GameObject;
 		sceneObjects = new GameObject[numberF+1];
 		sceneObjects[0] = GameObject.Instantiate (spaceObjects[0], rocketCoordinates, Quaternion.identity) as GameObject;
-		currCoordinateIndex = Random.Range (0, 10);
+		currCoordinateIndex = Random.Range (0, 4);
 		numChange.spriteRenderer.color = new Color(1f,1f,1f,0.3f);
 		for (int i = 1; i <= numberF; i++) {
 			while (usedCoordinates.Contains(currCoordinateIndex))
@@ -388,14 +405,9 @@ public void InputLock()
 		tablo =  GameObject.Instantiate (soccerObjects[2], soccerObjects[2].transform.position, Quaternion.identity) as GameObject;
 		currCoordinateIndex = Random.Range (0, 10);
 	for (int i = 0; i < numberF; i++) {
-			while (usedCoordinates.Contains(currCoordinateIndex))
-			{
-				currCoordinateIndex = Random.Range (0, 10);
-			}
-			sceneObjects[i] = GameObject.Instantiate(soccerObjects[i+3], ballPositionArray[currCoordinateIndex],Quaternion.identity) as GameObject;		
-			usedCoordinates.Add (currCoordinateIndex);
+			sceneObjects[i] = GameObject.Instantiate(soccerObjects[i+3], ballPositionArray[i],Quaternion.identity) as GameObject;		
+
 	}
-		usedCoordinates.Clear ();
 	}
 
 //bubbles
@@ -403,17 +415,17 @@ public void InputLock()
 		sceneObjects = new GameObject[numberF];
 		backScene = GameObject.Instantiate (bubbleObjects[10], Vector3.zero, Quaternion.identity) as GameObject;
 		for (int i = 0; i < numberF; i++) {
-			while (usedCoordinates.Contains(currCoordinateIndex))
-			{
-				currCoordinateIndex = Random.Range (0, 10);
-			}
-			sceneObjects[i] = GameObject.Instantiate(bubbleObjects[i], balloonPositionArray[currCoordinateIndex], Quaternion.identity) as GameObject;
-			usedCoordinates.Add (currCoordinateIndex);
+			sceneObjects[i] = GameObject.Instantiate(bubbleObjects[i], balloonPositionArray[i], Quaternion.identity) as GameObject;
 		}
-		usedCoordinates.Clear ();
 	}
 		
 
+//carrots
+	void LoadScene5 (int numberF) {
+		sceneObjects = new GameObject[numberF+5];
+
+
+	}
 
 	/// <summary>
 	/// End of the scenes: destroying objects
