@@ -60,7 +60,7 @@ public class TouchNumbers : MonoBehaviour
 
 	//arrays and assets for PlatesScene 1
 	[HideInInspector] public Object[] plates;
-
+	private int plateRandCounter;
 	[HideInInspector] public GameObject[] cake;
 	[HideInInspector] public GameObject[] cakeScene;
 	Vector3 centerPlatePosition;
@@ -323,50 +323,56 @@ public void InputLock()
 		case 2:
 			Vector3[] platePositionArray2 = new [] { new Vector3(6.3f,0f,0), new Vector3(-5.95f,0f,0) };
 			for (int i = 1; i < numberF+1; i++) {
-				sceneObjects [i] = GameObject.Instantiate (plates[1], platePositionArray2[i-1], Quaternion.identity) as GameObject;
+				plateRandCounter = Random.Range(1,7);
+				sceneObjects [i] = GameObject.Instantiate (plates[plateRandCounter], platePositionArray2[i-1], Quaternion.identity) as GameObject;
 			}
 			break;
 
 		case 3:
 			Vector3[] platePositionArray3 = new [] { new Vector3(-3.52f,4.55f,0), new Vector3(5.85f,-1.65f,0), new Vector3(-3.74f,-4.33f,0) };
 			for (int i = 1; i < numberF+1; i++) {
-				sceneObjects [i] = GameObject.Instantiate (plates[1], platePositionArray3[i-1], Quaternion.identity) as GameObject;
+				plateRandCounter = Random.Range(1,7);
+				sceneObjects [i] = GameObject.Instantiate (plates[plateRandCounter], platePositionArray3[i-1], Quaternion.identity) as GameObject;
 			}
 			break;
 
 		case 4:
 			Vector3[] platePositionArray4 = new [] { new Vector3(3.55f,4.76f,0), new Vector3(5.79f,-1.37f,0), new Vector3(-3.29f,-4.64f,0), new Vector3(-5.57f,1.07f,0) };
 				for (int i = 1; i < numberF+1; i++) {
-				sceneObjects [i] = GameObject.Instantiate (plates[1], platePositionArray4[i-1], Quaternion.identity) as GameObject;
+				plateRandCounter = Random.Range(1,7);
+				sceneObjects [i] = GameObject.Instantiate (plates[plateRandCounter], platePositionArray4[i-1], Quaternion.identity) as GameObject;
 			}
 				break;
 
 		case 5:
 			Vector3[] platePositionArray5 = new [] { new Vector3(0.16f,5.48f,0), new Vector3(6.3f,-0.03f,0), new Vector3(3.58f,-4.91f,0), new Vector3(-3.31f,-4.92f,0), new Vector3(-5.9f,-0.05f,0) };
 					for (int i = 1; i < numberF+1; i++) {
-				sceneObjects [i] = GameObject.Instantiate (plates[1], platePositionArray5[i-1], Quaternion.identity) as GameObject;
+				plateRandCounter = Random.Range(1,7);
+				sceneObjects [i] = GameObject.Instantiate (plates[plateRandCounter], platePositionArray5[i-1], Quaternion.identity) as GameObject;
 			}
 				break;
 
 		case 6:
 			Vector3[] platePositionArray6 = new [] {  new Vector3(3.63f,4.9f,0), new Vector3(6.35f,0f,0), new Vector3(3.62f,-4.71f,0), new Vector3(-3.26f,-4.77f,0), new Vector3(-5.88f,0.02f,0), new Vector3(-3.27f,4.89f,0) };
 						for (int i = 1; i < numberF+1; i++) {
-				
-				sceneObjects [i] = GameObject.Instantiate (plates[1], platePositionArray6[i-1], Quaternion.identity) as GameObject;
+				plateRandCounter = Random.Range(1,7);
+				sceneObjects [i] = GameObject.Instantiate (plates[plateRandCounter], platePositionArray6[i-1], Quaternion.identity) as GameObject;
 				}
 					break;
 
 		case 7:
 			Vector3[] platePositionArray7 = new [] { new Vector3(3.56f,4.89f,0), new Vector3(6.32f,0f,0), new Vector3(6.12f,-4.75f,0), new Vector3(0.15f,-5.55f,0), new Vector3(-5.77f,-4.81f,0), new Vector3(-5.92f,0f,0), new Vector3(-3.29f,4.89f,0) };
 							for (int i = 1; i < numberF+1; i++) {
-				sceneObjects [i] = GameObject.Instantiate (plates[1], platePositionArray7[i-1], Quaternion.identity) as GameObject;
+				plateRandCounter = Random.Range(1,7);
+				sceneObjects [i] = GameObject.Instantiate (plates[plateRandCounter], platePositionArray7[i-1], Quaternion.identity) as GameObject;
 				}
 					break;
 
 		case 8:
 			Vector3[] platePositionArray8 = new [] {new Vector3(6.12f,4.89f,0), new Vector3(6.32f,0f,0), new Vector3(6.12f,-4.75f,0), new Vector3(0.15f,-5.55f,0), new Vector3(-5.77f,-4.81f,0), new Vector3(-5.92f,0f,0), new Vector3(-5.75f,4.86f,0), new Vector3(0.14f,5.57f,0) };
 								for (int i = 1; i < numberF+1; i++) {
-				sceneObjects [i] = GameObject.Instantiate (plates[1], platePositionArray8[i-1], Quaternion.identity) as GameObject;
+				plateRandCounter = Random.Range(1,7);
+				sceneObjects [i] = GameObject.Instantiate (plates[plateRandCounter], platePositionArray8[i-1], Quaternion.identity) as GameObject;
 				}
 					break;
 
