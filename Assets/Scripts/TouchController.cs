@@ -30,6 +30,8 @@ public class TouchController : MonoBehaviour {
 		
 	float speedCake = 12f;
 	float lerpMoving = 0;
+
+	private Vector3 tempVectorY;
 	
 	Vector3 endPoint;
 	Vector3 childStartPoint;
@@ -50,22 +52,27 @@ public class TouchController : MonoBehaviour {
 	[HideInInspector]public bool overMainObject = false; 
 	[HideInInspector]public Vector3 mainObjectCoordinates;
 
-//Scene 2
-	float speedRocket = 3f;
+//Scene rocket 2
+	private bool rocketRotate;
+	float speedRocket = 2f;
 	float deltaSpeedRocket = 0.05f;
 	float rotationSpeed = 300f;
+	float rotationFlightSpeed = 0.2f;
+	float normalizedDistance = 1.9f;
 	Vector3 targetDirection;
 	Vector3 rocketDirection;
 	Vector3 cross;
 	private byte isForwardRotate = 0;
-	private float targetScale = 0.3f;
-	private float shrinkSpeed = 12f;
+	private float targetScale = 0.6f;
+	private float shrinkSpeed = 10f;
 	private bool thisTouched;
 	private Quaternion rightAngle = Quaternion.Euler (0f,0f,180f);
 	private Quaternion leftAngle = Quaternion.Euler (0f,0f,0f);
+	float distanceBetweenObjects;
+	float halfTheDistance;
+	bool isDistanceGot;
 
-//Scene 3
-	private bool rocketRotate;
+//Scene football 3
 	float startFlickPositionY;
 	float differenceFlickPositions;
 	//	float errorMarginFlick = 0.01f;
@@ -79,13 +86,17 @@ public class TouchController : MonoBehaviour {
 	[HideInInspector]public bool isStriked = false;
 	[HideInInspector]public byte ballAnimationIndex = 0;
 	[HideInInspector]public byte animationIndex = 0;
-	float distanceBetweenObjects;
-	float halfTheDistance;
-	bool isDistanceGot;
+	[HideInInspector]public bool isFinishingFootball = false;
 
-//Scene 4
+//Scene bubbles 4
 	int randBubblePop;
 
+//Scene carrots 5
+	float distanceBetweenCarrotHippo;
+	bool doneDraggingCarrot = false;
+
+//Scene apples 6
+	bool isForceNeedToBeAdded = false;
 
 	void Start () {
 		//plates, planets
@@ -122,21 +133,20 @@ public class TouchController : MonoBehaviour {
 						tObject = GameObject.Find("spaceObject11(Clone)");
 						rocketRotate = true;
 
-
 					}
 				}
 				if (hit.transform != null && hit.collider != null && hit.collider.tag == "cakerocket" && !thisTouched) {
-					Debug.Log("Touch rocket!");				
+					//Debug.Log("Touch carrot!");				
 					if (!usedTouchableObject.Contains (hit.transform.gameObject)) {
 												tObject = GameObject.Find (hit.transform.gameObject.name);
-
+					//	Debug.Log(tObject);
 //return to start position control
 												if (touchNumbers.currentSceneNum == 1) {
 
 														startPosition = tObject.transform.position;
 												}
 //drag control
-												if ((touchNumbers.currentSceneNum == 1) || (touchNumbers.currentSceneNum == 2)) {
+												if ((touchNumbers.currentSceneNum == 1) || (touchNumbers.currentSceneNum == 2) || (touchNumbers.currentSceneNum ==6)) {
 														if (!distanceGet) {
 																distance = Vector3.Distance (tObject.transform.position, Camera.main.transform.position);								                         
 																if (touchNumbers.currentSceneNum == 1) {
@@ -159,6 +169,8 @@ public class TouchController : MonoBehaviour {
 							audio.PlayOneShot (bubblePop[randBubblePop]);
 							closeScript.touchCounter += 1;
 						}
+
+
 						isTouched = true;
 										}
 								}
@@ -168,12 +180,14 @@ public class TouchController : MonoBehaviour {
 					
 
 						if (isTouched) {
-				if ((touchNumbers.currentSceneNum == 1) || (touchNumbers.currentSceneNum == 2)) {
+				if ((touchNumbers.currentSceneNum == 1) || (touchNumbers.currentSceneNum == 2) || (touchNumbers.currentSceneNum == 5) || (touchNumbers.currentSceneNum == 6)) {
 								if (counter < 10) {
+						Debug.Log("Counter counting");
 										counter += 1;
 								}
 				
 								if (counter == 10) {
+						Debug.Log("Here I am");
 										isDragging = true;
 					
 								}
@@ -195,7 +209,7 @@ public class TouchController : MonoBehaviour {
 	if (Input.GetTouch (0).phase == TouchPhase.Ended && !touchNumbers.isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo (0).IsName ("curtains_open_idle") && isTouched && !objectMove) {
 								//if (Input.GetMouseButtonUp (0) && !touchNumbers.isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo (0).IsName ("curtains_open_idle") && isTouched && !objectMove) {
 								isTouched = false;
-								if (counter < 10 && !isDragging) {
+								if (counter < 10 && !isDragging && (touchNumbers.currentSceneNum != 6)) {
 										if (touchNumbers.currentSceneNum == 1) {
 												usedTouchableObject.Add (tObject);
 										}
@@ -220,6 +234,12 @@ if ((touchNumbers.currentSceneNum == 1) || ((touchNumbers.currentSceneNum == 2)&
 												rocketRotate = true;
 										}
 					thisTouched = false;				
+				}
+				if (counter < 10 && !isDragging && (touchNumbers.currentSceneNum == 6) && (tObject.GetComponent<Rigidbody2D>().gravityScale!=1)) {
+					Debug.Log("Executing touch");
+					tObject.GetComponent<Rigidbody2D>().gravityScale = 9.81f;
+					tObject.GetComponent<Rigidbody2D>().angularDrag = 0.05f;
+					tObject.animation.Stop();
 				}
 
 //ball flick Scene 3 
@@ -272,18 +292,21 @@ if (flickStarted) {
 										overMainObject = false;
 								}
 						}
-
+//end check and execute touch
 		
 
 //object follows after the mouse/touch
 						if (isDragging) {
-
-								ray = Camera.main.ScreenPointToRay (Input.GetTouch (0).position);
+	ray = Camera.main.ScreenPointToRay (Input.GetTouch (0).position);
 								//ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 								Vector3 rayPoint = ray.GetPoint (distance);
-				if ((touchNumbers.currentSceneNum == 3) || (touchNumbers.currentSceneNum == 2)) {
+				if ((touchNumbers.currentSceneNum == 3) || (touchNumbers.currentSceneNum == 2) || (touchNumbers.currentSceneNum ==6)) {
 					if (tObject != null) {
 					tObject.rigidbody2D.transform.position = rayPoint;
+						if (touchNumbers.currentSceneNum == 6) {
+							distanceBetweenCarrotHippo = Vector3.Distance(tObject.transform.position,touchNumbers.basketPosition);
+							tObject.animation.Stop();
+						}
 					}
 				}
 				if (touchNumbers.currentSceneNum == 1) {
@@ -292,14 +315,150 @@ if (flickStarted) {
 					tObject.rigidbody2D.transform.position = rayPoint - childStartPoint;
 					}
 				}
+				if (touchNumbers.currentSceneNum == 5) {
+					if (tObject != null ) {
+					//Debug.Log ("Dragging carrots");
+						if (tObject.transform.FindChild("insideCarrot").gameObject.GetComponent<SpriteRenderer>().sortingLayerName != "octopus" ) {
+						tempVectorY = tObject.rigidbody2D.transform.position;
+						tempVectorY.y = rayPoint.y;
+						if ((tempVectorY.y - tObject.rigidbody2D.transform.position.y) > 0 ) {
+						tObject.rigidbody2D.transform.position = tempVectorY;
+						}
+							//Debug.Log(tObject.GetComponent<BoxCollider2D>().size.y/2);
+							if (tObject.rigidbody2D.transform.position.y > tObject.transform.FindChild("insideCarrot").gameObject.GetComponent<BoxCollider2D>().size.y) {
+								//tObject.GetComponent<Rigidbody2D>().mass = 1;
+							tObject.GetComponent<Rigidbody2D>().gravityScale = 1;
+								tObject.transform.FindChild("insideCarrot").gameObject.layer = 10;
+								tObject.transform.FindChild("insideCarrot").gameObject.GetComponent<SpriteRenderer>().sortingLayerName = "octopus";
+								tObject.layer = 11;
+
+						}
+							}
+						
+							else {
+							if (hit.transform != null && hit.collider != null && hit.collider.tag == "cakerocket") {
+							if (rayPoint.z != 0 ) {
+							rayPoint.z = 0;
+							}
+								tObject.rigidbody2D.transform.position = rayPoint;
+								distanceBetweenCarrotHippo = Vector3.Distance(tObject.transform.position,touchNumbers.sceneObjects[1].transform.position);
+								touchNumbers.sceneObjects[1].animation["scene4_hippoOpenMouth"].speed = 0f;
+								//distance-frameHippo relationship
+								if (distanceBetweenCarrotHippo > 6.5f) {
+									touchNumbers.sceneObjects[1].animation["scene4_hippoOpenMouth"].time = (1f/60f)*1;
+									touchNumbers.sceneObjects[1].animation.Play("scene4_hippoIdle");
+									touchNumbers.sceneObjects[1].animation.Stop("scene4_hippoOpenMouth");
+						    	}
+								else if ((distanceBetweenCarrotHippo <= 6.5f)&&(distanceBetweenCarrotHippo>6f))
+								{
+									touchNumbers.sceneObjects[1].animation["scene4_hippoOpenMouth"].time = (1f/60f)*5;
+									touchNumbers.sceneObjects[1].animation.Stop("scene4_hippoIdle");
+									touchNumbers.sceneObjects[1].animation.Play("scene4_hippoOpenMouth");
+								}
+								else if ((distanceBetweenCarrotHippo <= 6f)&&(distanceBetweenCarrotHippo>5.5f))
+								{
+									touchNumbers.sceneObjects[1].animation["scene4_hippoOpenMouth"].time = (1f/60f)*10;
+									touchNumbers.sceneObjects[1].animation.Stop("scene4_hippoIdle");
+									touchNumbers.sceneObjects[1].animation.Play("scene4_hippoOpenMouth");
+								}
+								else if ((distanceBetweenCarrotHippo <= 5.5f)&&(distanceBetweenCarrotHippo>5f))
+								{
+									touchNumbers.sceneObjects[1].animation["scene4_hippoOpenMouth"].time = (1f/60f)*15;
+									touchNumbers.sceneObjects[1].animation.Stop("scene4_hippoIdle");
+									touchNumbers.sceneObjects[1].animation.Play("scene4_hippoOpenMouth");
+								}
+								else if ((distanceBetweenCarrotHippo <= 5f)&&(distanceBetweenCarrotHippo>4.5f))
+								{
+									touchNumbers.sceneObjects[1].animation["scene4_hippoOpenMouth"].time = (1f/60f)*20;
+									touchNumbers.sceneObjects[1].animation.Stop("scene4_hippoIdle");
+									touchNumbers.sceneObjects[1].animation.Play("scene4_hippoOpenMouth");
+								}
+								else if ((distanceBetweenCarrotHippo <= 4.5f)&&(distanceBetweenCarrotHippo>4f))
+								{
+									touchNumbers.sceneObjects[1].animation["scene4_hippoOpenMouth"].time = (1f/60f)*25;
+									touchNumbers.sceneObjects[1].animation.Stop("scene4_hippoIdle");
+									touchNumbers.sceneObjects[1].animation.Play("scene4_hippoOpenMouth");
+								}
+								else if ((distanceBetweenCarrotHippo <= 4f)&&(distanceBetweenCarrotHippo>3.5f))
+								{
+									touchNumbers.sceneObjects[1].animation["scene4_hippoOpenMouth"].time = (1f/60f)*30;
+									touchNumbers.sceneObjects[1].animation.Stop("scene4_hippoIdle");
+									touchNumbers.sceneObjects[1].animation.Play("scene4_hippoOpenMouth");
+								}
+								else if ((distanceBetweenCarrotHippo <= 3.5f)&&(distanceBetweenCarrotHippo>3f))
+								{
+									touchNumbers.sceneObjects[1].animation["scene4_hippoOpenMouth"].time = (1f/60f)*35;
+									touchNumbers.sceneObjects[1].animation.Stop("scene4_hippoIdle");
+									touchNumbers.sceneObjects[1].animation.Play("scene4_hippoOpenMouth");
+								}
+								else if ((distanceBetweenCarrotHippo <= 3f)&&(distanceBetweenCarrotHippo>2.5f))
+								{
+									touchNumbers.sceneObjects[1].animation["scene4_hippoOpenMouth"].time = (1f/60f)*40;
+									touchNumbers.sceneObjects[1].animation.Stop("scene4_hippoIdle");
+									touchNumbers.sceneObjects[1].animation.Play("scene4_hippoOpenMouth");
+								}
+								else if (distanceBetweenCarrotHippo <= 2.5f)
+								{
+									touchNumbers.sceneObjects[1].animation["scene4_hippoOpenMouth"].time = (1f/60f)*40;
+									touchNumbers.sceneObjects[1].animation.Stop("scene4_hippoIdle");
+									touchNumbers.sceneObjects[1].animation.Play("scene4_hippoOpenMouth");
+								}
+							}
+							}
+
+							}
+				}
+
 				if (tObject != null) {
 								tObject.transform.rotation = new Quaternion (0, 0, 0, 0);
 				}
 				
 						}
 		}
+//end if_nbTouches>0
+//check if Drag is on for carrots/apples
+		if (nbTouches == 0 && isDragging && (touchNumbers.currentSceneNum == 5 ||touchNumbers.currentSceneNum == 6)) {
+						isDragging = false;
+			tObject.GetComponent<Rigidbody2D>().gravityScale = 5f;
+			tObject.GetComponent<Rigidbody2D>().angularDrag = 0.05f;
+			isForceNeedToBeAdded = true;
+			doneDraggingCarrot = true;
+		//	Debug.Log ("dragging off");
+				}
 
+		//return Hippo to idleANim
+		if (nbTouches == 0 && !isDragging && touchNumbers.currentSceneNum == 5 && doneDraggingCarrot) {
+		//	Debug.Log ("Here!");
+			touchNumbers.sceneObjects[1].animation.Play("scene4_hippoIdle");
+			touchNumbers.sceneObjects[1].animation.Stop("scene4_hippoOpenMouth");
+			doneDraggingCarrot = false;
+			if (distanceBetweenCarrotHippo <= 3.5f) {
+				tObject.transform.localScale -= new Vector3 (1f,1f,1f);
+				closeScript.PlaySound();
+				numChange.BackChange();
+				closeScript.touchCounter +=1;
+				distanceBetweenCarrotHippo = 100f;
+				counter = 0;
 
+			}
+		}
+//check if apple in the basket
+		if (nbTouches == 0 && !isDragging && touchNumbers.currentSceneNum == 6 && doneDraggingCarrot) {
+
+			doneDraggingCarrot = false;
+			if (distanceBetweenCarrotHippo <=2.5f) {
+				tObject.transform.localScale -= new Vector3 (1f,1f,1f);
+				closeScript.PlaySound();
+				numChange.BackChange();
+				closeScript.touchCounter +=1;
+				distanceBetweenCarrotHippo = 100f;
+				isTouched = false;
+				counter = 0;
+			}
+				}
+//end hippo/basket_Check_scene4-5
+
+// moving Objects control
 		if (objectMove) {
 			lerpMoving += Time.deltaTime;
 			if (touchNumbers.currentSceneNum == 1) {
@@ -313,27 +472,33 @@ if (flickStarted) {
 				distanceBetweenObjects =  Vector3.Distance (tObject.transform.position, endPoint);
 				if (!isDistanceGot) {
 					halfTheDistance = 3*distanceBetweenObjects/4;
+					rotationFlightSpeed = 0.2f;
+					Debug.Log(halfTheDistance);
+					rotationFlightSpeed = rotationFlightSpeed*((2*normalizedDistance)/halfTheDistance);
+					Debug.Log (rotationFlightSpeed);
 					isDistanceGot = true;
 				}
 
 				tObject.transform.position = Vector3.MoveTowards (tObject.transform.position, endPoint, lerpMoving*speedRocket);
 				tObject.transform.localScale = Vector3.Lerp(tObject.transform.localScale, new Vector3(targetScale, targetScale, targetScale), Time.deltaTime*shrinkSpeed); 
-				//Debug.Log(tObject.transform.rotation.z);
 				if (distanceBetweenObjects <=halfTheDistance) {
-					Debug.Log (speedRocket);
+					//Debug.Log (speedRocket);
 					if (speedRocket > 0.3f) {
 						speedRocket -= deltaSpeedRocket;
 						deltaSpeedRocket += 0.05f;
 					}
-					if ((tObject.transform.rotation.z <0.5) &&(tObject.transform.rotation.z >-0.5)&& (tObject.transform.rotation.z !=0)) {
-//						Debug.Log (tObject.transform.rotation.z);
-//						Debug.Log("rotateRight");
-					tObject.transform.rotation = Quaternion.Slerp (tObject.transform.rotation, leftAngle, 0.2f);
-					} else if ((tObject.transform.rotation.z !=1) &&(tObject.transform.rotation.z !=0) ) {
-//					Debug.Log (tObject.transform.rotation.z);
-//					Debug.Log("rotateLeft");
-					tObject.transform.rotation = Quaternion.Slerp (tObject.transform.rotation, rightAngle, 0.2f);
+
 				}
+				if (distanceBetweenObjects <= (halfTheDistance/2)) {
+					if ((tObject.transform.rotation.z <0.5) &&(tObject.transform.rotation.z >-0.5)&& (tObject.transform.rotation.z !=0)) {
+						//						Debug.Log (tObject.transform.rotation.z);
+						//						Debug.Log("rotateRight");
+						tObject.transform.rotation = Quaternion.Slerp (tObject.transform.rotation, leftAngle, rotationFlightSpeed);
+					} else if ((tObject.transform.rotation.z !=1) &&(tObject.transform.rotation.z !=0) ) {
+						//					Debug.Log (tObject.transform.rotation.z);
+						//					Debug.Log("rotateLeft");
+						tObject.transform.rotation = Quaternion.Slerp (tObject.transform.rotation, rightAngle, rotationFlightSpeed);
+					}
 				}
 			}
 			
@@ -359,7 +524,7 @@ if (flickStarted) {
 				closeScript.touchCounter += 1;
 				
 				if (touchNumbers.currentSceneNum == 2) {
-					speedRocket = 3f;
+					speedRocket = 2f;
 					deltaSpeedRocket = 0.05f;
 					isDistanceGot = false;
 					usedMainObjects[closeScript.touchCounter-1].transform.FindChild("flag_3").GetComponent<SpriteRenderer>().color = new Color(1,1,1,1);
@@ -371,9 +536,15 @@ if (flickStarted) {
 			}
 			
 		}
+//end if_objectMove
+
 // close after every plate has been touched
 		if (closeScript.touchCounter == touchNumbers.numberFingers && !closeProcessOnline) {
 			closeProcessOnline = true;
+			if (touchNumbers.currentSceneNum == 3) {
+				Debug.Log ("Here!");
+				isFinishingFootball = true;
+			}
 			closeScript.startClosing ();
 			lerpMoving = 0f;
 			
@@ -389,10 +560,10 @@ if (flickStarted) {
 				audio.PlayOneShot (endSpace);
 				
 			}
-			
 		}
+//end if_closeProcess
 
-		//finishing move for cakes
+//finishing move for cakes
 		if (touchNumbers.currentSceneNum == 1) {
 			if (touchNumbers.cakeEndMove) {
 				for (int i=0; i<usedMainObjects.Count; i++) {
@@ -401,7 +572,8 @@ if (flickStarted) {
 				}
 			}
 		}
-		//return object to the start point after drag
+
+//return object to the start point after drag
 		if (isReturning) {
 			lerpMoving += Time.deltaTime;
 			tObject.transform.FindChild("cake1").GetComponent<SpriteRenderer>().sortingOrder = 3;
@@ -412,7 +584,7 @@ if (flickStarted) {
 			}
 		}
 
-		//rotation of rocket, scene 2
+//rotation of rocket, scene 2
 		if (rocketRotate) {
 			Transform nose = tObject.transform.FindChild("nose");
 			targetDirection = (endPoint - nose.position);
@@ -438,9 +610,22 @@ if (flickStarted) {
 			}
 			
 		}
-		
 
 
 }
+
+	public void AppleDisappear(GameObject objectDisappear) {
+		Debug.Log ("Disappearing!");
+		objectDisappear.transform.localScale -= new Vector3 (1f,1f,1f);
+		objectDisappear.transform.position = new Vector3 (100f, 100f, 0f);
+		isDragging = false;
+		counter = 0;
+		isTouched = false;
+		closeScript.PlaySound();
+		numChange.BackChange();
+		closeScript.touchCounter +=1;
+		distanceBetweenCarrotHippo = 100f;
+		}
+
 }
 

@@ -7,7 +7,7 @@ public class numberRightChange : MonoBehaviour {
 	private TouchNumbers touchNumbers;
 	[HideInInspector]public bool numOpacity;
 	private Color color;
-	private float opacitySpeed = 0.05f;
+	private float opacitySpeed = 0.1f;
 	// Use this for initialization
 	void Start () {
 		spriteNumberRight = renderer as SpriteRenderer;

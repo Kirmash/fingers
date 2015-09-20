@@ -6,7 +6,7 @@ public class numberLeftChange : MonoBehaviour {
 	[HideInInspector]public SpriteRenderer spriteNumberLeft;
 	private TouchNumbers touchNumbers;
 	[HideInInspector]public bool numOpacity;
-	private float opacitySpeed = 0.05f;
+	private float opacitySpeed = 0.1f;
 	private Color color;
 
 

@@ -4,11 +4,13 @@ using System.Collections;
 public class OctopusAnimation : MonoBehaviour {
 	
 	private TouchController ballTouch;
+	private Animator animator;
 
 	// Use this for initialization
 	void Start () {
 	
 		ballTouch = (TouchController)GameObject.Find("Main Camera").GetComponent(typeof(TouchController));
+		animator = GetComponent<Animator>();
 	}
 
 	void Update () {
@@ -19,20 +21,22 @@ public class OctopusAnimation : MonoBehaviour {
 		if (ballTouch.animationIndex == 2) {
 						playRight ();
 				}
+
+		if (ballTouch.isFinishingFootball) {
+			animator.Play ("octopus_jump");
+			ballTouch.isFinishingFootball = false;
+		}
 		}
 
 	private void playLeft () {
-
-		animation.Play ("octopusCatchLeft");
+		animator.Play ("octopus_strike_left");
 		ballTouch.animationIndex = 0;
 	}
 
 	private void playRight () {
-
-		animation.Play ("octopusCatchRight");
+		animator.Play ("octopus_strike_right");
 		ballTouch.animationIndex = 0;
 	}
-
 
 
 }

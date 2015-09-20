@@ -1,0 +1,24 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class BasketCollisionCheck : MonoBehaviour
+{
+	private TouchController touchController;
+
+
+	void Start () {
+		touchController = (TouchController)GameObject.Find("Main Camera").GetComponent(typeof(TouchController));
+		}
+
+
+	void OnTriggerEnter2D(Collider2D coll) {
+
+		if(coll.gameObject.collider2D.tag == "cakerocket")
+		{Debug.Log (coll.gameObject);
+			touchController.AppleDisappear(coll.gameObject);
+
+		}
+	}
+
+ 
+}

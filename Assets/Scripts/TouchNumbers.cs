@@ -19,16 +19,16 @@ public class TouchNumbers : MonoBehaviour
 //	public AudioClip number9;
 //	public AudioClip number10;
 
-	int[] randomScene1 = new int[] {2,3,4};
-	int[] randomScene2 = new int[] {1,2,3,4};
-	int[] randomScene3 = new int[] {1,2,3,4};
-	int[] randomScene4 = new int[] {1,2,3,4};
-	int[] randomScene5 = new int[] {1,2,3,4};
-	int[] randomScene6 = new int[] {1,2,3,4};
-	int[] randomScene7 = new int[] {1,2,3,4};
-	int[] randomScene8 = new int[] {1,2,3,4};
-	int[] randomScene9 = new int[] {2,3,4};
-	int[] randomScene10 = new int[] {2,3,4};
+	int[] randomScene1 = new int[] {2,3,4,5,6};
+	int[] randomScene2 = new int[] {1,2,3,4,5,6};
+	int[] randomScene3 = new int[] {1,2,3,4,5,6};
+	int[] randomScene4 = new int[] {1,2,3,4,5,6};
+	int[] randomScene5 = new int[] {1,2,3,4,5,6};
+	int[] randomScene6 = new int[] {1,2,3,4,5,6};
+	int[] randomScene7 = new int[] {1,2,3,4,5,6};
+	int[] randomScene8 = new int[] {1,2,3,4,5,6};
+	int[] randomScene9 = new int[] {2,3,4,5,6};
+	int[] randomScene10 = new int[] {2,3,4,6};
 
 	[HideInInspector] public int currentSceneNum;
 
@@ -87,6 +87,21 @@ public class TouchNumbers : MonoBehaviour
 	[HideInInspector] public GameObject[] bubbleObjects;
 	Vector3[] balloonPositionArray = new [] { new Vector3(0f,0f,0),new Vector3(2f,2f,0),new Vector3(0f,-3.5f,0),new Vector3(-2f,3f,0),new Vector3(5f,0f,0),new Vector3(-5f,0f,0), new Vector3(-4.5f,-3.0f,0),new Vector3(4f,3f,0),new Vector3(-4f,-3f,0),new Vector3(5.2f,-4f,0)};
 
+	//arrays and assets for CarrotScene (5)
+	[HideInInspector] public GameObject[] carrotObjects;
+	Vector3 groundPosition = new Vector3(0f, -2.98f, 0f);
+	Vector3 hippoPosition = new Vector3(4f,-3.64f,0f);
+	Vector3 snailPosition = new Vector3(-3.348f,-3.957f,0f);
+	Vector3 butterfly1Postition = new Vector3(-5.65f,3.49f,0f);
+	Vector3 butterfly2Postition = new Vector3(4.14f,3.28f,0f);
+	Vector3[] carrotPositionArray = new [] {new Vector3(0.14f,0f,0),new Vector3(1.12f,0f,0),new Vector3(-1.8f,0f,0),new Vector3(2.87f,0f,0),new Vector3(-3.47f,0f,0),new Vector3(4.98f,0f,0),new Vector3(-4.51f,0f,0),new Vector3(5.8f,0,0),new Vector3(-5.5f,0,0)} ;
+
+	//arrays and assetd for AppleScene (6)
+	[HideInInspector] public GameObject[] appleObjects;
+	[HideInInspector] public Vector3 basketPosition = new Vector3 (3.07f, -3.52f, 0f);
+	Vector3 wormPosition = new Vector3 (-3.13f, 3.01f, 0f);
+	Vector3[] applePositionsArray = new[] {new Vector3(-0.94f,2.98f,0f), new Vector3(1.63f,1.83f,0f),new Vector3(0.86f,3.29f,0f), new Vector3(0.59f,-0.61f,0f),new Vector3(-1.98f,4.55f,0f),new Vector3(-2.23f,-0.98f,0f),new Vector3(4.91f,4.05f,0f),new Vector3(-5.69f,3.16f,0f),new Vector3(5.25f,0.35f,0f), new Vector3(-4.51f,0.2f,0f)};
+
 	[HideInInspector] public int touchKey = 0;
 	private int numTouch = 0;
 	[HideInInspector] public int nbTouches = 0;
@@ -108,6 +123,10 @@ public class TouchNumbers : MonoBehaviour
 		soccerObjects = Resources.LoadAll("footballBalls", typeof(GameObject)).Cast<GameObject> ().ToArray (); 
 
 		bubbleObjects = Resources.LoadAll("bubbles", typeof(GameObject)).Cast<GameObject> ().ToArray (); 
+
+		carrotObjects = Resources.LoadAll ("carrots", typeof(GameObject)).Cast<GameObject> ().ToArray ();
+
+		appleObjects = Resources.LoadAll ("apples", typeof(GameObject)).Cast<GameObject> ().ToArray ();
 
 		//closeScript = (CloseScript)GameObject.Find("Redcross").GetComponent(typeof(CloseScript));
 		numChange = (NumChange)GameObject.Find("numb_container").GetComponent(typeof(NumChange));
@@ -141,7 +160,7 @@ public class TouchNumbers : MonoBehaviour
 
 				}
 		numTouch = nbTouches;
-		if (touchKey == 30) {
+		if (touchKey == 45) {
 			InputLock ();
 			numberFingers = nbTouches;
 			openSesame ();
@@ -195,7 +214,7 @@ public void InputLock()
 			//audio.PlayOneShot(number10);
 			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("ten"));
 			currentSceneNum = randomScene10[Random.Range(0, randomScene10.Length)];
-			//currentSceneNum = 4;
+			//currentSceneNum = 6;
 			GetTheToys();
 		    break;
 			
@@ -203,7 +222,7 @@ public void InputLock()
 			//audio.PlayOneShot(number1);
 			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("one"));
 			currentSceneNum = randomScene1[Random.Range(0, randomScene1.Length)];
-			//currentSceneNum = 1;
+			//currentSceneNum = 5;
 			GetTheToys();
 			break;
 			
@@ -234,8 +253,8 @@ public void InputLock()
 		case 5: 
 			//audio.PlayOneShot(number5);
 			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("five"));
-		   // currentSceneNum = randomScene5[Random.Range(0, randomScene5.Length)];
-			currentSceneNum = 2;
+		    currentSceneNum = randomScene5[Random.Range(0, randomScene5.Length)];
+			//currentSceneNum = 6;
 			GetTheToys();
 			break;
 			
@@ -267,7 +286,7 @@ public void InputLock()
 			//audio.PlayOneShot(number9);
 			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("nine"));
 		    currentSceneNum = randomScene9[Random.Range(0, randomScene9.Length)];
-			//currentSceneNum = 3;
+			//currentSceneNum = 5;
 			GetTheToys ();
 			break;
 		}
@@ -297,8 +316,11 @@ public void InputLock()
 		case 5:
 			LoadScene5(numberFingers);
 			break;
-				}
-	
+
+		case 6:
+		LoadScene6 (numberFingers);
+		break;
+		}
 		}
 
 
@@ -429,7 +451,36 @@ public void InputLock()
 //carrots
 	void LoadScene5 (int numberF) {
 		sceneObjects = new GameObject[numberF+5];
+		//load ground
+		//Debug.Log ("Loading scene");
+		sceneObjects[0] = GameObject.Instantiate(carrotObjects[19], groundPosition, Quaternion.identity) as GameObject;
+		sceneObjects[1] = GameObject.Instantiate(carrotObjects[15], hippoPosition, Quaternion.identity) as GameObject;
+		sceneObjects[2] = GameObject.Instantiate(carrotObjects[16], butterfly1Postition, Quaternion.identity) as GameObject;
+		sceneObjects[3] = GameObject.Instantiate(carrotObjects[17], butterfly2Postition, Quaternion.identity) as GameObject;
+		sceneObjects[4] = GameObject.Instantiate(carrotObjects[18], snailPosition, Quaternion.identity) as GameObject; 	
+		currCoordinateIndex = Random.Range (0, 15);
+		//Debug.Log (currCoordinateIndex);
+		for (int i = 0; i < numberF; i++) {
+			while (usedCoordinates.Contains(currCoordinateIndex))
+			{//Debug.Log("While loop");
+				currCoordinateIndex = Random.Range (0, 15);
+			}
+			sceneObjects[i+5] = GameObject.Instantiate(carrotObjects[currCoordinateIndex], carrotPositionArray[i],Quaternion.identity) as GameObject;
+			//Debug.Log (sceneObjects[i+5]);
+			usedCoordinates.Add (currCoordinateIndex);
+		}
+		usedCoordinates.Clear ();
+	}
 
+	//appleScene loading
+	private void LoadScene6(int numberF) {
+		sceneObjects = new GameObject[numberF+3];
+		sceneObjects[0] = GameObject.Instantiate(appleObjects[10], transform.position, Quaternion.identity) as GameObject;
+		sceneObjects[1] = GameObject.Instantiate(appleObjects[11], wormPosition, Quaternion.identity) as GameObject;
+		sceneObjects[2] = GameObject.Instantiate(appleObjects[12], basketPosition, Quaternion.identity) as GameObject;
+		for (int i = 0; i<numberF; i++) {
+			sceneObjects[i+3] = GameObject.Instantiate(appleObjects[i], applePositionsArray[i],Quaternion.identity) as GameObject;
+		}
 
 	}
 
@@ -502,8 +553,24 @@ public void InputLock()
 			}
 
 			break;
-		}
 		
+		case 5:
+			for (int i = 0; i<sceneObjects.Length; i++)
+			{
+				Destroy (sceneObjects[i]);
+			}
+			break;
+
+		case 6:
+			for (int i = 0; i<sceneObjects.Length; i++)
+			{
+				Destroy (sceneObjects[i]);
+			}
+
+			break;
+		
+		}
+
 	}
 
 }
