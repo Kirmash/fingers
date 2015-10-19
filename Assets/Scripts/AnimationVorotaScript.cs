@@ -13,7 +13,7 @@ public class AnimationVorotaScript : MonoBehaviour {
     void Update () {
 
 		if (ballTouchScript.isStriked) {
-			animation.Play ("vorota_strike");
+			GetComponent<Animation>().Play ("vorota_strike");
 			ballTouchScript.isStriked = false;
 				}
 

@@ -10,7 +10,7 @@ public class NumChange : MonoBehaviour {
 	//private BallTouchScript ballTouchScript;
 	// Use this for initialization
 	void Start () {
-		spriteRenderer = renderer as SpriteRenderer;
+		spriteRenderer = GetComponent<Renderer>() as SpriteRenderer;
 		touchNumbers = GameObject.Find("shirmas").GetComponent<TouchNumbers>();
 		closeScript = GameObject.Find ("Redcross").GetComponent<CloseScript> ();
 	//	ballTouchScript = (BallTouchScript)GameObject.Find("Main Camera").GetComponent(typeof(BallTouchScript));

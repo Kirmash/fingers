@@ -8,7 +8,7 @@ public class BackChange : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		spriteRenderer = renderer as SpriteRenderer;
+		spriteRenderer = GetComponent<Renderer>() as SpriteRenderer;
 		touchNumbers = GameObject.Find("shirmas").GetComponent<TouchNumbers>();
 
 	}

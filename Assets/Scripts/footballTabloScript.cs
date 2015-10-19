@@ -10,7 +10,7 @@ public class footballTabloScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		spriteRenderer = renderer as SpriteRenderer;
+		spriteRenderer = GetComponent<Renderer>() as SpriteRenderer;
 		closeScript = (CloseScript)GameObject.Find ("Redcross").GetComponent (typeof(CloseScript));
 
 	}

@@ -23,20 +23,21 @@ public class BallAnimation : MonoBehaviour {
 		if (ballTouch.ballAnimationIndex == 2) {
 			playRight ();
 		}
-		
-	}
+
+     
+    }
 
 	void playLeft () {
 		ballStateIndex = Random.Range (1, 6);
 		ballState = string.Format("ballLeftStrike{0}", ballStateIndex);
-		ballTouch.tObject.animation.Play (ballState);
+		ballTouch.tObject.GetComponent<Animation>().Play (ballState);
 		ballTouch.ballAnimationIndex = 0;
 	}
 
 	void playRight () {
 		ballStateIndex = Random.Range (6, 11);
 		ballState = string.Format("ballLeftStrike{0}", ballStateIndex);
-		ballTouch.tObject.animation.Play (ballState);
+		ballTouch.tObject.GetComponent<Animation>().Play (ballState);
 		ballTouch.ballAnimationIndex = 0;
 	}
 

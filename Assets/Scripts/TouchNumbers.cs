@@ -5,32 +5,45 @@ using System.Linq;
 using System.Collections.Generic;
 
 
-public class TouchNumbers : MonoBehaviour 
+public class TouchNumbers : MonoBehaviour
 {
 
-//	public AudioClip number1;
-//	public AudioClip number2;
-//	public AudioClip number3;
-//	public AudioClip number4;
-//	public AudioClip number5;
-//	public AudioClip number6;
-//	public AudioClip number7;
-//	public AudioClip number8;
-//	public AudioClip number9;
-//	public AudioClip number10;
+    //	public AudioClip number1;
+    //	public AudioClip number2;
+    //	public AudioClip number3;
+    //	public AudioClip number4;
+    //	public AudioClip number5;
+    //	public AudioClip number6;
+    //	public AudioClip number7;
+    //	public AudioClip number8;
+    //	public AudioClip number9;
+    //	public AudioClip number10;
 
-	int[] randomScene1 = new int[] {2,3,4,5,6};
-	int[] randomScene2 = new int[] {1,2,3,4,5,6};
-	int[] randomScene3 = new int[] {1,2,3,4,5,6};
-	int[] randomScene4 = new int[] {1,2,3,4,5,6};
-	int[] randomScene5 = new int[] {1,2,3,4,5,6};
-	int[] randomScene6 = new int[] {1,2,3,4,5,6};
-	int[] randomScene7 = new int[] {1,2,3,4,5,6};
-	int[] randomScene8 = new int[] {1,2,3,4,5,6};
-	int[] randomScene9 = new int[] {2,3,4,5,6};
-	int[] randomScene10 = new int[] {2,3,4,6};
+    int[] randomScene1 = new int[] { 2, 3, 4, 5, 6 };
+    int[] randomScene2 = new int[] { 1, 2, 3, 4, 5, 6 };
+    int[] randomScene3 = new int[] { 1, 2, 3, 4, 5, 6 };
+    int[] randomScene4 = new int[] { 1, 2, 3, 4, 5, 6 };
+    int[] randomScene5 = new int[] { 1, 2, 3, 4, 5, 6 };
+    int[] randomScene6 = new int[] { 1, 2, 3, 4, 5, 6 };
+    int[] randomScene7 = new int[] { 1, 2, 3, 4, 5, 6 };
+    int[] randomScene8 = new int[] { 1, 2, 3, 4, 5, 6 };
+    int[] randomScene9 = new int[] { 2, 3, 4, 5, 6 };
+    int[] randomScene10 = new int[] { 2, 3, 4, 6 };
 
-	[HideInInspector] public int currentSceneNum;
+    private List<int> scenes1 = new List<int> { 2, 3, 4, 5, 6 };
+    private List<int> scenes2 = new List<int> { 1, 2, 3, 4, 5, 6 };
+    private List<int> scenes3 = new List<int> { 1, 2, 3, 4, 5, 6 };
+    private List<int> scenes4 = new List<int> { 1, 2, 3, 4, 5, 6 };
+    private List<int> scenes5 = new List<int> { 1, 2, 3, 4, 5, 6 };
+    private List<int> scenes6 = new List<int> { 1, 2, 3, 4, 5, 6 };
+    private List<int> scenes7 = new List<int> { 1, 2, 3, 4, 5, 6 };
+    private List<int> scenes8 = new List<int> { 1, 2, 3, 4, 5, 6 };
+    private List<int> scenes9 = new List<int> { 2, 3, 4, 5, 6 };
+    private List<int> scenes10 = new List<int> { 2, 3, 4, 6 };
+
+    private List<int> numScene;
+    private int[] allScenes = new int[] { 1, 2, 3, 4, 5, 6 };
+    [HideInInspector] public int currentSceneNum;
 
 	//private CloseScript closeScript;
 	private NumChange numChange;
@@ -69,8 +82,8 @@ public class TouchNumbers : MonoBehaviour
 	//arrays and assets for SpaceScene (2)
 	[HideInInspector] public Object[] spaceObjects;
 
-	[HideInInspector] public Vector3[] spaceCoordinatesArray;
-	[HideInInspector] public Vector3 rocketCoordinates = new Vector3 (3.635082f,0.4855805f,0f);
+    [HideInInspector] public Vector3[] spaceCoordinatesArray;
+[HideInInspector] public Vector3 rocketCoordinates = new Vector3 (3.635082f,0.4855805f,0f);
 	//[HideInInspector] public GameObject[] activeSpaceObjects;
 	[HideInInspector] public GameObject rocket;
 	private List<int> usedCoordinates;
@@ -90,7 +103,7 @@ public class TouchNumbers : MonoBehaviour
 	//arrays and assets for CarrotScene (5)
 	[HideInInspector] public GameObject[] carrotObjects;
 	Vector3 groundPosition = new Vector3(0f, -2.98f, 0f);
-	Vector3 hippoPosition = new Vector3(4f,-3.64f,0f);
+	Vector3 hippoPosition = new Vector3(4f,-3.7f,0f);
 	Vector3 snailPosition = new Vector3(-3.348f,-3.957f,0f);
 	Vector3 butterfly1Postition = new Vector3(-5.65f,3.49f,0f);
 	Vector3 butterfly2Postition = new Vector3(4.14f,3.28f,0f);
@@ -100,7 +113,7 @@ public class TouchNumbers : MonoBehaviour
 	[HideInInspector] public GameObject[] appleObjects;
 	[HideInInspector] public Vector3 basketPosition = new Vector3 (3.07f, -3.52f, 0f);
 	Vector3 wormPosition = new Vector3 (-3.13f, 3.01f, 0f);
-	Vector3[] applePositionsArray = new[] {new Vector3(-0.94f,2.98f,0f), new Vector3(1.63f,1.83f,0f),new Vector3(0.86f,3.29f,0f), new Vector3(0.59f,-0.61f,0f),new Vector3(-1.98f,4.55f,0f),new Vector3(-2.23f,-0.98f,0f),new Vector3(4.91f,4.05f,0f),new Vector3(-5.69f,3.16f,0f),new Vector3(5.25f,0.35f,0f), new Vector3(-4.51f,0.2f,0f)};
+	Vector3[] applePositionsArray = new[] {new Vector3(-0.94f,2.98f,0f), new Vector3(1.63f,1.83f,0f),new Vector3(0.86f,3.29f,0f), new Vector3(0.59f,-0.61f,0f),new Vector3(-1.98f,4.55f,0f),new Vector3(-2.23f,-0.98f,0f),new Vector3(4.91f,4.05f,0f),new Vector3(-5.69f,3.16f,0f),new Vector3(5.25f,0.35f,0f), new Vector3(-4.87f,0.56f,0f)};
 
 	[HideInInspector] public int touchKey = 0;
 	private int numTouch = 0;
@@ -160,7 +173,7 @@ public class TouchNumbers : MonoBehaviour
 
 				}
 		numTouch = nbTouches;
-		if (touchKey == 45) {
+		if (touchKey == 25) {
 			InputLock ();
 			numberFingers = nbTouches;
 			openSesame ();
@@ -212,82 +225,134 @@ public void InputLock()
 		{
 		case 10: 
 			//audio.PlayOneShot(number10);
-			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("ten"));
-			currentSceneNum = randomScene10[Random.Range(0, randomScene10.Length)];
-			//currentSceneNum = 6;
-			GetTheToys();
+			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("ten"));
+                currentSceneNum = randomScene10[Random.Range(0, randomScene10.Length)];
+                while (!scenes10.Contains(currentSceneNum)) { 
+                    currentSceneNum = randomScene10[Random.Range(0, randomScene10.Length)];
+                }
+                SceneDelete();
+                //currentSceneNum = 6;
+                GetTheToys();
 		    break;
 			
 		case 1: 
 			//audio.PlayOneShot(number1);
-			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("one"));
+			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("one"));
 			currentSceneNum = randomScene1[Random.Range(0, randomScene1.Length)];
-			//currentSceneNum = 5;
-			GetTheToys();
+                while (!scenes1.Contains(currentSceneNum))
+                {
+                    currentSceneNum = randomScene1[Random.Range(0, randomScene1.Length)];
+                }
+                SceneDelete();
+                //currentSceneNum = 5;
+                GetTheToys();
 			break;
 			
 		case 2: 
 			//audio.PlayOneShot(number2);
-			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("two"));
+			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("two"));
 			currentSceneNum = randomScene2[Random.Range(0, randomScene2.Length)];
-			//currentSceneNum = 1;
-			GetTheToys();
+                while (!scenes2.Contains(currentSceneNum))
+                {
+                    currentSceneNum = randomScene2[Random.Range(0, randomScene2.Length)];
+                }
+                scenes2.Remove(currentSceneNum);
+                SceneDelete();
+                //currentSceneNum = 1;
+                GetTheToys();
 			break;
 			
 		case 3: 
 			//audio.PlayOneShot(number3);
-			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("three"));
+			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("three"));
 		    currentSceneNum = randomScene3[Random.Range(0, randomScene3.Length)];
-		    //currentSceneNum = 1;
-			GetTheToys();
+                while (!scenes3.Contains(currentSceneNum))
+                {
+                    currentSceneNum = randomScene3[Random.Range(0, randomScene3.Length)];
+                }
+                SceneDelete();
+                //currentSceneNum = 1;
+                GetTheToys();
 			break;
 			
 		case 4: 
 			//audio.PlayOneShot(number4);
-			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("four"));
+			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("four"));
 		    currentSceneNum = randomScene4[Random.Range(0, randomScene4.Length)];
-		    //currentSceneNum = 4;
-			GetTheToys();
+                while (!scenes4.Contains(currentSceneNum))
+                {
+                    currentSceneNum = randomScene4[Random.Range(0, randomScene4.Length)];
+                }
+                SceneDelete();
+                //currentSceneNum = 4;
+                GetTheToys();
 			break;
 			
 		case 5: 
 			//audio.PlayOneShot(number5);
-			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("five"));
-		    currentSceneNum = randomScene5[Random.Range(0, randomScene5.Length)];
-			//currentSceneNum = 6;
-			GetTheToys();
+			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("five"));
+         currentSceneNum = randomScene5[Random.Range(0, randomScene5.Length)];
+                Debug.Log("First current number: " + currentSceneNum);
+                while (!scenes5.Contains(currentSceneNum))
+                {
+                    Debug.Log("While going");
+                    currentSceneNum = randomScene5[Random.Range(0, randomScene5.Length)];
+                }
+                SceneDelete();
+                //   currentSceneNum = 5;
+                GetTheToys();
 			break;
 			
 		case 6: 
 			//audio.PlayOneShot(number6);
-			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("six"));
+			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("six"));
 		    currentSceneNum = randomScene6[Random.Range(0, randomScene6.Length)];
-			//currentSceneNum = 3;
-			GetTheToys();
+                while (!scenes6.Contains(currentSceneNum))
+                {
+                    currentSceneNum = randomScene6[Random.Range(0, randomScene6.Length)];
+                }
+                SceneDelete();
+                //currentSceneNum = 3;
+                GetTheToys();
 			break;
 			
 		case 7: 
 			//audio.PlayOneShot(number7);
-			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("seven"));
+			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("seven"));
 		    currentSceneNum = randomScene7[Random.Range(0, randomScene7.Length)];
-			//currentSceneNum = 3;
-			GetTheToys();
+                while (!scenes7.Contains(currentSceneNum))
+                {
+                    currentSceneNum = randomScene7[Random.Range(0, randomScene7.Length)];
+                }
+                SceneDelete();
+                //currentSceneNum = 3;
+                GetTheToys();
 			break;
 			
 		case 8: 
 			//audio.PlayOneShot(number8);
-			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("eight"));
+			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("eight"));
 		    currentSceneNum = randomScene8[Random.Range(0, randomScene8.Length)];
-			//currentSceneNum = 3;
-			GetTheToys();
+                while (!scenes8.Contains(currentSceneNum))
+                {
+                    currentSceneNum = randomScene8[Random.Range(0, randomScene8.Length)];
+                }
+                SceneDelete();
+                //currentSceneNum = 3;
+                GetTheToys();
 			break;
 			
 		case 9: 
 			//audio.PlayOneShot(number9);
-			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("nine"));
+			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("nine"));
 		    currentSceneNum = randomScene9[Random.Range(0, randomScene9.Length)];
-			//currentSceneNum = 5;
-			GetTheToys ();
+                while (!scenes9.Contains(currentSceneNum))
+                {
+                    currentSceneNum = randomScene9[Random.Range(0, randomScene9.Length)];
+                }
+                SceneDelete();
+                //currentSceneNum = 5;
+                GetTheToys ();
 			break;
 		}
 		
@@ -404,8 +469,8 @@ public void InputLock()
 //space 
 	void LoadScene2 (int numberF)
 	{
-		spaceCoordinatesArray = new Vector3[] {new Vector3 (-3.852236f,3.519741f,0f), new Vector3 (-2.534921f,-1.356382f,0f), new Vector3 (-5.007737f,0.8001435f,0f), new Vector3 (-3.846421f,-3.674136f,0f), new Vector3 (0.2980204f,2.75679f,0f), new Vector3 (4.7626f,3.674817f,0f), new Vector3 (1.330779f,-2.177835f,0f), new Vector3 (5.939386f,-1.369833f,0f), new Vector3 (0.373147f,-4.332508f,0f), new Vector3 (4.802197f,-3.464654f,0f)};
-		backScene = GameObject.Instantiate (spaceObjects[11], Vector3.zero, Quaternion.identity) as GameObject;
+        spaceCoordinatesArray = new Vector3[]  { new Vector3(-3.852236f, 3.1f, 0f), new Vector3(-2.534921f, -1.356382f, 0f), new Vector3(-5.007737f, 0.8001435f, 0f), new Vector3(-3.846421f, -3.674136f, 0f), new Vector3(0.2980204f, 2.75679f, 0f), new Vector3(4.4626f, 3.274817f, 0f), new Vector3(1.330779f, -2.177835f, 0f), new Vector3(5.25f, -1.369833f, 0f), new Vector3(0.373147f, -3.8f, 0f), new Vector3(4.802197f, -3.464654f, 0f) };
+        backScene = GameObject.Instantiate (spaceObjects[11], Vector3.zero, Quaternion.identity) as GameObject;
 		sceneObjects = new GameObject[numberF+1];
 		sceneObjects[0] = GameObject.Instantiate (spaceObjects[0], rocketCoordinates, Quaternion.identity) as GameObject;
 		currCoordinateIndex = Random.Range (0, 4);
@@ -415,7 +480,7 @@ public void InputLock()
 			{
 				currCoordinateIndex = Random.Range (0, 10);
 			}
-			sceneObjects[i] = GameObject.Instantiate(spaceObjects[i], spaceCoordinatesArray[currCoordinateIndex],Quaternion.identity) as GameObject;
+            sceneObjects[i] = GameObject.Instantiate(spaceObjects[i], spaceCoordinatesArray[currCoordinateIndex],Quaternion.identity) as GameObject;
 
 			usedCoordinates.Add (currCoordinateIndex);
 		}
@@ -441,7 +506,8 @@ public void InputLock()
 //bubbles
 	void LoadScene4 (int numberF) {
 		sceneObjects = new GameObject[numberF];
-		backScene = GameObject.Instantiate (bubbleObjects[10], Vector3.zero, Quaternion.identity) as GameObject;
+        numChange.spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
+        backScene = GameObject.Instantiate (bubbleObjects[10], Vector3.zero, Quaternion.identity) as GameObject;
 		for (int i = 0; i < numberF; i++) {
 			sceneObjects[i] = GameObject.Instantiate(bubbleObjects[i], balloonPositionArray[i], Quaternion.identity) as GameObject;
 		}
@@ -451,9 +517,10 @@ public void InputLock()
 //carrots
 	void LoadScene5 (int numberF) {
 		sceneObjects = new GameObject[numberF+5];
-		//load ground
-		//Debug.Log ("Loading scene");
-		sceneObjects[0] = GameObject.Instantiate(carrotObjects[19], groundPosition, Quaternion.identity) as GameObject;
+        numChange.spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
+        //load ground
+        //Debug.Log ("Loading scene");
+        sceneObjects[0] = GameObject.Instantiate(carrotObjects[19], groundPosition, Quaternion.identity) as GameObject;
 		sceneObjects[1] = GameObject.Instantiate(carrotObjects[15], hippoPosition, Quaternion.identity) as GameObject;
 		sceneObjects[2] = GameObject.Instantiate(carrotObjects[16], butterfly1Postition, Quaternion.identity) as GameObject;
 		sceneObjects[3] = GameObject.Instantiate(carrotObjects[17], butterfly2Postition, Quaternion.identity) as GameObject;
@@ -475,7 +542,8 @@ public void InputLock()
 	//appleScene loading
 	private void LoadScene6(int numberF) {
 		sceneObjects = new GameObject[numberF+3];
-		sceneObjects[0] = GameObject.Instantiate(appleObjects[10], transform.position, Quaternion.identity) as GameObject;
+        numChange.spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
+        sceneObjects[0] = GameObject.Instantiate(appleObjects[10], transform.position, Quaternion.identity) as GameObject;
 		sceneObjects[1] = GameObject.Instantiate(appleObjects[11], wormPosition, Quaternion.identity) as GameObject;
 		sceneObjects[2] = GameObject.Instantiate(appleObjects[12], basketPosition, Quaternion.identity) as GameObject;
 		for (int i = 0; i<numberF; i++) {
@@ -483,12 +551,59 @@ public void InputLock()
 		}
 
 	}
+  ///<summary>
+  /// Delete scene && reload if needed
+  /// </summary>
+ private void SceneDelete()
+    {
+        if (scenes1.Contains(currentSceneNum))
+            scenes1.Remove(currentSceneNum);
+        if (scenes2.Contains(currentSceneNum))
+            scenes2.Remove(currentSceneNum);
+        if (scenes3.Contains(currentSceneNum))
+            scenes3.Remove(currentSceneNum);
+        if (scenes4.Contains(currentSceneNum))
+            scenes4.Remove(currentSceneNum);
+        if (scenes5.Contains(currentSceneNum))
+            scenes5.Remove(currentSceneNum);
+        if (scenes6.Contains(currentSceneNum))
+            scenes6.Remove(currentSceneNum);
+        if (scenes7.Contains(currentSceneNum))
+            scenes7.Remove(currentSceneNum);
+        if (scenes8.Contains(currentSceneNum))
+            scenes8.Remove(currentSceneNum);
+        if (scenes9.Contains(currentSceneNum))
+            scenes9.Remove(currentSceneNum);
+        if (scenes10.Contains(currentSceneNum))
+            scenes10.Remove(currentSceneNum);
 
-	/// <summary>
-	/// End of the scenes: destroying objects
-	/// </summary>
+        if (scenes1.Count == 0)
+            scenes1.AddRange(randomScene1);
+        if (scenes2.Count == 0)
+            scenes2.AddRange(randomScene2);
+        if (scenes3.Count == 0)
+            scenes3.AddRange(randomScene3);
+        if (scenes4.Count == 0)
+            scenes4.AddRange(randomScene4);
+        if (scenes5.Count == 0)
+            scenes5.AddRange(randomScene5);
+        if (scenes6.Count == 0)
+            scenes6.AddRange(randomScene6);
+        if (scenes7.Count == 0)
+            scenes7.AddRange(randomScene7);
+        if (scenes8.Count == 0)
+            scenes8.AddRange(randomScene8);
+        if (scenes9.Count == 0)
+            scenes9.AddRange(randomScene9);
+        if (scenes10.Count == 0)
+            scenes10.AddRange(randomScene10);
+    }
 
-	public void DestroySomeToys()
+    /// <summary>
+    /// End of the scenes: destroying objects
+    /// </summary>
+
+    public void DestroySomeToys()
 	{
 		cakeEndMove = false;
 		touchController.isDragging = false;

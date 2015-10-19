@@ -12,7 +12,7 @@ public class numberLeftChange : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		spriteNumberLeft = renderer as SpriteRenderer;
+		spriteNumberLeft = GetComponent<Renderer>() as SpriteRenderer;
 		touchNumbers = GameObject.Find("shirmas").GetComponent<TouchNumbers>();
 	}
 	

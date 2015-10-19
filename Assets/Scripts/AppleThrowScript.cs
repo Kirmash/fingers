@@ -9,7 +9,7 @@ public class AppleThrowScript : MonoBehaviour {
 	private int force = 10;
 
 	void FixedUpdate () {
-		Debug.Log (rigidbody2D.velocity);
+		Debug.Log (GetComponent<Rigidbody2D>().velocity);
 //		rigidbody2D.velocity = -velo * force;
 //		velo = prevVector - this.transform.position;
 //		prevVector = this.transform.position;

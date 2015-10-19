@@ -12,7 +12,7 @@ public class BubbleMove : MonoBehaviour {
 
 	IEnumerator Nudge() {
 		while (true) {
-			rigidbody2D.AddForce(Random.insideUnitSphere * 1.0f);
+			GetComponent<Rigidbody2D>().AddForce(Random.insideUnitSphere * 1.0f);
 			yield return new WaitForSeconds(Random.Range(0.5f, 2.5f));
 		}  
 	}

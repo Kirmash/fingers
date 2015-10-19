@@ -10,7 +10,7 @@ public class numberRightChange : MonoBehaviour {
 	private float opacitySpeed = 0.1f;
 	// Use this for initialization
 	void Start () {
-		spriteNumberRight = renderer as SpriteRenderer;
+		spriteNumberRight = GetComponent<Renderer>() as SpriteRenderer;
 		touchNumbers = GameObject.Find("shirmas").GetComponent<TouchNumbers>();
 	}
 	

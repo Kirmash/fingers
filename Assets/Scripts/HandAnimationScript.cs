@@ -8,13 +8,18 @@ public class HandAnimationScript : MonoBehaviour {
 	public float framesPerSecondHands;
 	private SpriteRenderer spriteRenderer;
 	private bool isTutorialOn = true;
+    private int nbTouches;
+    public GameObject shirmas;
+    private bool hasOpened;
+    private Animator animator;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 	
-		spriteRenderer = renderer as SpriteRenderer;
-
-	}
+		spriteRenderer = GetComponent<Renderer>() as SpriteRenderer;
+        shirmas = GameObject.Find("shirmas");
+        animator = shirmas.gameObject.GetComponent<Animator>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -26,12 +31,20 @@ public class HandAnimationScript : MonoBehaviour {
 						spriteRenderer.sprite = handFrames [index];
 
 				}
-		//nbTouches = Input.touchCount;
-		//		
-		//		if (nbTouches > 0) {
-		if (Input.GetMouseButton (0)) {
+		nbTouches = Input.touchCount;
+			
+			if (nbTouches > 0 && !hasOpened) {
+	//	if (Input.GetMouseButton (0)) {
 			isTutorialOn = false;
 			spriteRenderer.enabled = false;
 				}
-	}
+
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_closed")) { hasOpened = true; }
+
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_idle") && hasOpened) { spriteRenderer.enabled = true;
+            isTutorialOn = true;
+            hasOpened = false;
+        }
+
+    }
 }

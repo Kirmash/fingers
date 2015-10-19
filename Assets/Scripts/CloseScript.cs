@@ -89,52 +89,52 @@ public class CloseScript : MonoBehaviour {
 			
 		case 9: 
 			//audio.PlayOneShot (touchNumbers.number10);
-			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("ten"));
+			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("ten"));
 			break;
 			
 		case 0: 
 			//audio.PlayOneShot (touchNumbers.number1);
-			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("one"));
+			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("one"));
 			break;
 			
 		case 1: 
 			//audio.PlayOneShot (touchNumbers.number2);
-			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("two"));
+			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("two"));
 			break;
 			
 		case 2:
 			//audio.PlayOneShot (touchNumbers.number3);
-			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("three"));
+			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("three"));
 			break;
 			
 		case 3:
 			//audio.PlayOneShot (touchNumbers.number4);
-			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("four"));
+			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("four"));
 			break;
 			
 		case 4:
 			//audio.PlayOneShot (touchNumbers.number5);
-			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("five"));
+			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("five"));
 			break;
 			
 		case 5:
 			//audio.PlayOneShot (touchNumbers.number6);
-			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("six"));
+			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("six"));
 			break;
 			
 		case 6: 
 			//audio.PlayOneShot (touchNumbers.number7);
-			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("seven"));
+			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("seven"));
 			break;
 			
 		case 7: 
 			//audio.PlayOneShot (touchNumbers.number8);
-			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("eight"));
+			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("eight"));
 			break;
 			
 		case 8: 
 			//audio.PlayOneShot (touchNumbers.number9);
-			audio.PlayOneShot(optionsScript.languageManager.GetAudioClip("nine"));
+			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("nine"));
 			break;
 		}
 	}

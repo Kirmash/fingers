@@ -162,11 +162,11 @@ public class TouchController : MonoBehaviour {
 							flickStarted = true;
 						}
 						if (touchNumbers.currentSceneNum == 4) {
-							tObject.animation.Play();
+							tObject.GetComponent<Animation>().Play();
 							closeScript.PlaySound();
 							numChange.BackChange();
 							randBubblePop = Random.Range (0, 4);
-							audio.PlayOneShot (bubblePop[randBubblePop]);
+							GetComponent<AudioSource>().PlayOneShot (bubblePop[randBubblePop]);
 							closeScript.touchCounter += 1;
 						}
 
@@ -239,7 +239,7 @@ if ((touchNumbers.currentSceneNum == 1) || ((touchNumbers.currentSceneNum == 2)&
 					Debug.Log("Executing touch");
 					tObject.GetComponent<Rigidbody2D>().gravityScale = 9.81f;
 					tObject.GetComponent<Rigidbody2D>().angularDrag = 0.05f;
-					tObject.animation.Stop();
+					tObject.GetComponent<Animation>().Stop();
 				}
 
 //ball flick Scene 3 
@@ -302,32 +302,33 @@ if (flickStarted) {
 								Vector3 rayPoint = ray.GetPoint (distance);
 				if ((touchNumbers.currentSceneNum == 3) || (touchNumbers.currentSceneNum == 2) || (touchNumbers.currentSceneNum ==6)) {
 					if (tObject != null) {
-					tObject.rigidbody2D.transform.position = rayPoint;
+					tObject.GetComponent<Rigidbody2D>().transform.position = rayPoint;
 						if (touchNumbers.currentSceneNum == 6) {
 							distanceBetweenCarrotHippo = Vector3.Distance(tObject.transform.position,touchNumbers.basketPosition);
-							tObject.animation.Stop();
+							tObject.GetComponent<Animation>().Stop();
 						}
 					}
 				}
 				if (touchNumbers.currentSceneNum == 1) {
 					if (tObject != null) {
 						tObject.transform.FindChild("cake1").GetComponent<SpriteRenderer>().sortingOrder = 4;
-					tObject.rigidbody2D.transform.position = rayPoint - childStartPoint;
+					tObject.GetComponent<Rigidbody2D>().transform.position = rayPoint - childStartPoint;
 					}
 				}
 				if (touchNumbers.currentSceneNum == 5) {
 					if (tObject != null ) {
 					//Debug.Log ("Dragging carrots");
 						if (tObject.transform.FindChild("insideCarrot").gameObject.GetComponent<SpriteRenderer>().sortingLayerName != "octopus" ) {
-						tempVectorY = tObject.rigidbody2D.transform.position;
+						tempVectorY = tObject.GetComponent<Rigidbody2D>().transform.position;
 						tempVectorY.y = rayPoint.y;
-						if ((tempVectorY.y - tObject.rigidbody2D.transform.position.y) > 0 ) {
-						tObject.rigidbody2D.transform.position = tempVectorY;
+						if ((tempVectorY.y - tObject.GetComponent<Rigidbody2D>().transform.position.y) > 0 ) {
+						tObject.GetComponent<Rigidbody2D>().transform.position = tempVectorY;
 						}
 							//Debug.Log(tObject.GetComponent<BoxCollider2D>().size.y/2);
-							if (tObject.rigidbody2D.transform.position.y > tObject.transform.FindChild("insideCarrot").gameObject.GetComponent<BoxCollider2D>().size.y) {
+							if (tObject.GetComponent<Rigidbody2D>().transform.position.y > tObject.transform.FindChild("insideCarrot").gameObject.GetComponent<BoxCollider2D>().size.y) {
 								//tObject.GetComponent<Rigidbody2D>().mass = 1;
 							tObject.GetComponent<Rigidbody2D>().gravityScale = 1;
+                                tObject.GetComponent<Rigidbody2D>().isKinematic = false;
 								tObject.transform.FindChild("insideCarrot").gameObject.layer = 10;
 								tObject.transform.FindChild("insideCarrot").gameObject.GetComponent<SpriteRenderer>().sortingLayerName = "octopus";
 								tObject.layer = 11;
@@ -339,70 +340,60 @@ if (flickStarted) {
 							if (hit.transform != null && hit.collider != null && hit.collider.tag == "cakerocket") {
 							if (rayPoint.z != 0 ) {
 							rayPoint.z = 0;
-							}
-								tObject.rigidbody2D.transform.position = rayPoint;
+                                }
+                                
+                                tObject.GetComponent<Rigidbody2D>().transform.position = rayPoint;
 								distanceBetweenCarrotHippo = Vector3.Distance(tObject.transform.position,touchNumbers.sceneObjects[1].transform.position);
-								touchNumbers.sceneObjects[1].animation["scene4_hippoOpenMouth"].speed = 0f;
+                               // touchNumbers.sceneObjects[1].GetComponent<Animator>().Stop(); 
 								//distance-frameHippo relationship
 								if (distanceBetweenCarrotHippo > 6.5f) {
-									touchNumbers.sceneObjects[1].animation["scene4_hippoOpenMouth"].time = (1f/60f)*1;
-									touchNumbers.sceneObjects[1].animation.Play("scene4_hippoIdle");
-									touchNumbers.sceneObjects[1].animation.Stop("scene4_hippoOpenMouth");
+								touchNumbers.sceneObjects[1].GetComponent<Animator>().Play("scene4_hippoIdle");
 						    	}
 								else if ((distanceBetweenCarrotHippo <= 6.5f)&&(distanceBetweenCarrotHippo>6f))
 								{
-									touchNumbers.sceneObjects[1].animation["scene4_hippoOpenMouth"].time = (1f/60f)*5;
-									touchNumbers.sceneObjects[1].animation.Stop("scene4_hippoIdle");
-									touchNumbers.sceneObjects[1].animation.Play("scene4_hippoOpenMouth");
-								}
+                                    touchNumbers.sceneObjects[1].GetComponent<Animator>().Play("scene4_hippoOpenMouth", 0, (1f / 60f) * 7);
+                                   // touchNumbers.sceneObjects[1].GetComponent<Animator>().Play("scene4_hippoIdle");
+                                }
 								else if ((distanceBetweenCarrotHippo <= 6f)&&(distanceBetweenCarrotHippo>5.5f))
 								{
-									touchNumbers.sceneObjects[1].animation["scene4_hippoOpenMouth"].time = (1f/60f)*10;
-									touchNumbers.sceneObjects[1].animation.Stop("scene4_hippoIdle");
-									touchNumbers.sceneObjects[1].animation.Play("scene4_hippoOpenMouth");
-								}
+                                    touchNumbers.sceneObjects[1].GetComponent<Animator>().Play("scene4_hippoOpenMouth", 0, (1f / 60f) * 15);
+                                   // touchNumbers.sceneObjects[1].GetComponent<Animator>().Play("scene4_hippoIdle");
+                                }
 								else if ((distanceBetweenCarrotHippo <= 5.5f)&&(distanceBetweenCarrotHippo>5f))
 								{
-									touchNumbers.sceneObjects[1].animation["scene4_hippoOpenMouth"].time = (1f/60f)*15;
-									touchNumbers.sceneObjects[1].animation.Stop("scene4_hippoIdle");
-									touchNumbers.sceneObjects[1].animation.Play("scene4_hippoOpenMouth");
-								}
+                                    touchNumbers.sceneObjects[1].GetComponent<Animator>().Play("scene4_hippoOpenMouth", 0, (1f / 60f) * 23);
+                                    //touchNumbers.sceneObjects[1].GetComponent<Animator>().Play("scene4_hippoIdle");
+                                }
 								else if ((distanceBetweenCarrotHippo <= 5f)&&(distanceBetweenCarrotHippo>4.5f))
 								{
-									touchNumbers.sceneObjects[1].animation["scene4_hippoOpenMouth"].time = (1f/60f)*20;
-									touchNumbers.sceneObjects[1].animation.Stop("scene4_hippoIdle");
-									touchNumbers.sceneObjects[1].animation.Play("scene4_hippoOpenMouth");
-								}
+                                    touchNumbers.sceneObjects[1].GetComponent<Animator>().Play("scene4_hippoOpenMouth", 0, (1f / 60f) * 31);
+                                    //touchNumbers.sceneObjects[1].GetComponent<Animator>().Play("scene4_hippoIdle");
+                                }
 								else if ((distanceBetweenCarrotHippo <= 4.5f)&&(distanceBetweenCarrotHippo>4f))
 								{
-									touchNumbers.sceneObjects[1].animation["scene4_hippoOpenMouth"].time = (1f/60f)*25;
-									touchNumbers.sceneObjects[1].animation.Stop("scene4_hippoIdle");
-									touchNumbers.sceneObjects[1].animation.Play("scene4_hippoOpenMouth");
-								}
+                                    touchNumbers.sceneObjects[1].GetComponent<Animator>().Play("scene4_hippoOpenMouth", 0, (1f / 60f) * 39);
+                                    //touchNumbers.sceneObjects[1].GetComponent<Animator>().Play("scene4_hippoIdle");
+                                }
 								else if ((distanceBetweenCarrotHippo <= 4f)&&(distanceBetweenCarrotHippo>3.5f))
 								{
-									touchNumbers.sceneObjects[1].animation["scene4_hippoOpenMouth"].time = (1f/60f)*30;
-									touchNumbers.sceneObjects[1].animation.Stop("scene4_hippoIdle");
-									touchNumbers.sceneObjects[1].animation.Play("scene4_hippoOpenMouth");
-								}
+                                    touchNumbers.sceneObjects[1].GetComponent<Animator>().Play("scene4_hippoOpenMouth", 0, (1f / 60f) * 45);
+                                 //   touchNumbers.sceneObjects[1].GetComponent<Animator>().Play("scene4_hippoIdle");
+                                }
 								else if ((distanceBetweenCarrotHippo <= 3.5f)&&(distanceBetweenCarrotHippo>3f))
 								{
-									touchNumbers.sceneObjects[1].animation["scene4_hippoOpenMouth"].time = (1f/60f)*35;
-									touchNumbers.sceneObjects[1].animation.Stop("scene4_hippoIdle");
-									touchNumbers.sceneObjects[1].animation.Play("scene4_hippoOpenMouth");
-								}
+                                    touchNumbers.sceneObjects[1].GetComponent<Animator>().Play("scene4_hippoOpenMouth", 0, (1f / 60f) *53);
+                                   // touchNumbers.sceneObjects[1].GetComponent<Animator>().Play("scene4_hippoIdle");
+                                }
 								else if ((distanceBetweenCarrotHippo <= 3f)&&(distanceBetweenCarrotHippo>2.5f))
 								{
-									touchNumbers.sceneObjects[1].animation["scene4_hippoOpenMouth"].time = (1f/60f)*40;
-									touchNumbers.sceneObjects[1].animation.Stop("scene4_hippoIdle");
-									touchNumbers.sceneObjects[1].animation.Play("scene4_hippoOpenMouth");
-								}
+                                    touchNumbers.sceneObjects[1].GetComponent<Animator>().Play("scene4_hippoOpenMouth", 0, (1f / 60f) * 59);
+                                //    touchNumbers.sceneObjects[1].GetComponent<Animator>().Play("scene4_hippoIdle");
+                                }
 								else if (distanceBetweenCarrotHippo <= 2.5f)
 								{
-									touchNumbers.sceneObjects[1].animation["scene4_hippoOpenMouth"].time = (1f/60f)*40;
-									touchNumbers.sceneObjects[1].animation.Stop("scene4_hippoIdle");
-									touchNumbers.sceneObjects[1].animation.Play("scene4_hippoOpenMouth");
-								}
+                                    touchNumbers.sceneObjects[1].GetComponent<Animator>().Play("scene4_hippoOpenMouth", 0, (1f / 60f) * 59);
+                              //      touchNumbers.sceneObjects[1].GetComponent<Animator>().Play("scene4_hippoIdle");
+                                }
 							}
 							}
 
@@ -428,10 +419,9 @@ if (flickStarted) {
 
 		//return Hippo to idleANim
 		if (nbTouches == 0 && !isDragging && touchNumbers.currentSceneNum == 5 && doneDraggingCarrot) {
-		//	Debug.Log ("Here!");
-			touchNumbers.sceneObjects[1].animation.Play("scene4_hippoIdle");
-			touchNumbers.sceneObjects[1].animation.Stop("scene4_hippoOpenMouth");
-			doneDraggingCarrot = false;
+            //	Debug.Log ("Here!");
+            touchNumbers.sceneObjects[1].GetComponent<Animator>().Play("scene4_hippoIdle");
+            doneDraggingCarrot = false;
 			if (distanceBetweenCarrotHippo <= 3.5f) {
 				tObject.transform.localScale -= new Vector3 (1f,1f,1f);
 				closeScript.PlaySound();
@@ -553,11 +543,11 @@ if (flickStarted) {
 				for (int i=0; i<touchNumbers.sceneObjects.Length-1; i++) {
 					speedExit [i] = Random.Range (1, 10);
 				}
-				audio.PlayOneShot (munch);
+				GetComponent<AudioSource>().PlayOneShot (munch);
 			}
 			
 			if (touchNumbers.currentSceneNum == 2) {
-				audio.PlayOneShot (endSpace);
+				GetComponent<AudioSource>().PlayOneShot (endSpace);
 				
 			}
 		}
