@@ -97,6 +97,8 @@ public class TouchController : MonoBehaviour {
 
 //Scene apples 6
 	bool isForceNeedToBeAdded = false;
+	
+//Scene stars 7
 
 	void Start () {
 		//plates, planets
@@ -161,6 +163,9 @@ public class TouchController : MonoBehaviour {
 							flickStartTime = Time.time;
 							flickStarted = true;
 						}
+//end of Flick control 
+
+//Bubble pop						
 						if (touchNumbers.currentSceneNum == 4) {
 							tObject.GetComponent<Animation>().Play();
 							closeScript.PlaySound();
@@ -168,6 +173,30 @@ public class TouchController : MonoBehaviour {
 							randBubblePop = Random.Range (0, 4);
 							GetComponent<AudioSource>().PlayOneShot (bubblePop[randBubblePop]);
 							closeScript.touchCounter += 1;
+						}
+//Star fall						
+						if (touchNumbers.currentSceneNum == 7) {
+						//Debug.Log("Playing sounds and counting");
+							closeScript.PlaySound();
+							numChange.BackChange();
+						randBubblePop = Random.Range (0, 4);
+												usedTouchableObject.Add (tObject);
+						GetComponent<AudioSource>().PlayOneShot (bubblePop[randBubblePop]);
+			closeScript.touchCounter += 1;
+						}
+						
+//Clouds fly
+if (touchNumbers.currentSceneNum == 8) {
+						Debug.Log("Playing sounds and counting");
+							closeScript.PlaySound();
+							Debug.Log(closeScript.touchCounter);
+							numChange.BackChange();
+						usedTouchableObject.Add (tObject);
+						Debug.Log(tObject);
+						 tObject.GetComponent<Animator>().SetFloat ("fallTime", 3.0f);
+                 
+             touchNumbers.InputShortLock();
+			closeScript.touchCounter += 1;
 						}
 
 
@@ -180,14 +209,13 @@ public class TouchController : MonoBehaviour {
 					
 
 						if (isTouched) {
-				if ((touchNumbers.currentSceneNum == 1) || (touchNumbers.currentSceneNum == 2) || (touchNumbers.currentSceneNum == 5) || (touchNumbers.currentSceneNum == 6)) {
+				if ((touchNumbers.currentSceneNum == 1) || (touchNumbers.currentSceneNum == 2) || (touchNumbers.currentSceneNum == 5) || (touchNumbers.currentSceneNum == 6) )  {
 								if (counter < 10) {
 						Debug.Log("Counter counting");
 										counter += 1;
 								}
 				
 								if (counter == 10) {
-						Debug.Log("Here I am");
 										isDragging = true;
 					
 								}
@@ -535,7 +563,7 @@ if (flickStarted) {
 				Debug.Log ("Here!");
 				isFinishingFootball = true;
 			}
-			closeScript.startClosing ();
+			
 			lerpMoving = 0f;
 			
 			if (touchNumbers.currentSceneNum == 1) {	
@@ -550,6 +578,7 @@ if (flickStarted) {
 				GetComponent<AudioSource>().PlayOneShot (endSpace);
 				
 			}
+			closeScript.startClosing();
 		}
 //end if_closeProcess
 

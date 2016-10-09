@@ -62,9 +62,13 @@ public class CloseScript : MonoBehaviour {
 	{
 		touchNumbers.cakeEndMove = true;
 		touchNumbers.InputLock ();
-		if (touchNumbers.currentSceneNum == 3) {
+		if (touchNumbers.currentSceneNum == 3 ) {
 			Invoke ("CloseShirmas", 2f);
-				} else {
+				} else if (touchNumbers.currentSceneNum == 8) {
+				Invoke ("CloseShirmas", 3f);
+				} 
+				else
+				{
 						Invoke ("CloseShirmas", 1f);
 				}
 		}
