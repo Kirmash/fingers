@@ -285,12 +285,12 @@ public void InputLock()
 			//audio.PlayOneShot(number3);
 			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("three"));
 		    currentSceneNum = randomScene3[Random.Range(0, randomScene3.Length)];
-                while (!scenes3.Contains(currentSceneNum))
-                {
-                    currentSceneNum = randomScene3[Random.Range(0, randomScene3.Length)];
-                }
-                SceneDelete();
-                //currentSceneNum = 1;
+              //  while (!scenes3.Contains(currentSceneNum))
+              //  {
+             //       currentSceneNum = randomScene3[Random.Range(0, randomScene3.Length)];
+             //   }
+            //    SceneDelete();
+                currentSceneNum = 7;
                 GetTheToys();
 			break;
 			

@@ -183,6 +183,7 @@ public class TouchController : MonoBehaviour {
 												usedTouchableObject.Add (tObject);
 						GetComponent<AudioSource>().PlayOneShot (bubblePop[randBubblePop]);
 			closeScript.touchCounter += 1;
+			tObject.GetComponent<Animator>().SetFloat ("fallTime", 3.0f);
 						}
 						
 //Clouds fly
@@ -491,9 +492,9 @@ if (flickStarted) {
 				if (!isDistanceGot) {
 					halfTheDistance = 3*distanceBetweenObjects/4;
 					rotationFlightSpeed = 0.2f;
-					Debug.Log(halfTheDistance);
+				//	Debug.Log(halfTheDistance);
 					rotationFlightSpeed = rotationFlightSpeed*((2*normalizedDistance)/halfTheDistance);
-					Debug.Log (rotationFlightSpeed);
+				//	Debug.Log (rotationFlightSpeed);
 					isDistanceGot = true;
 				}
 
