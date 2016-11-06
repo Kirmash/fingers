@@ -188,15 +188,14 @@ public class TouchController : MonoBehaviour {
 						
 //Clouds fly
 if (touchNumbers.currentSceneNum == 8) {
-						Debug.Log("Playing sounds and counting");
+					//	Debug.Log("Playing sounds and counting");
 							closeScript.PlaySound();
-							Debug.Log(closeScript.touchCounter);
+					//		Debug.Log(closeScript.touchCounter);
 							numChange.BackChange();
 						usedTouchableObject.Add (tObject);
-						Debug.Log(tObject);
+					//	Debug.Log(tObject);
 						 tObject.GetComponent<Animator>().SetFloat ("fallTime", 3.0f);
-                 
-             touchNumbers.InputShortLock();
+                         touchNumbers.InputShortLock();
 			closeScript.touchCounter += 1;
 						}
 
@@ -212,7 +211,7 @@ if (touchNumbers.currentSceneNum == 8) {
 						if (isTouched) {
 				if ((touchNumbers.currentSceneNum == 1) || (touchNumbers.currentSceneNum == 2) || (touchNumbers.currentSceneNum == 5) || (touchNumbers.currentSceneNum == 6) )  {
 								if (counter < 10) {
-						Debug.Log("Counter counting");
+				//		Debug.Log("Counter counting");
 										counter += 1;
 								}
 				
@@ -265,7 +264,7 @@ if ((touchNumbers.currentSceneNum == 1) || ((touchNumbers.currentSceneNum == 2)&
 					thisTouched = false;				
 				}
 				if (counter < 10 && !isDragging && (touchNumbers.currentSceneNum == 6) && (tObject.GetComponent<Rigidbody2D>().gravityScale!=1)) {
-					Debug.Log("Executing touch");
+				//	Debug.Log("Executing touch");
 					tObject.GetComponent<Rigidbody2D>().gravityScale = 9.81f;
 					tObject.GetComponent<Rigidbody2D>().angularDrag = 0.05f;
 					tObject.GetComponent<Animation>().Stop();
@@ -437,7 +436,7 @@ if (flickStarted) {
 		}
 //end if_nbTouches>0
 //check if Drag is on for carrots/apples
-		if (nbTouches == 0 && isDragging && (touchNumbers.currentSceneNum == 5 ||touchNumbers.currentSceneNum == 6)) {
+		if (nbTouches == 0 && isDragging && (touchNumbers.currentSceneNum == 5 ||touchNumbers.currentSceneNum == 6) && tObject != null) {
 						isDragging = false;
 			tObject.GetComponent<Rigidbody2D>().gravityScale = 5f;
 			tObject.GetComponent<Rigidbody2D>().angularDrag = 0.05f;
@@ -561,7 +560,7 @@ if (flickStarted) {
 		if (closeScript.touchCounter == touchNumbers.numberFingers && !closeProcessOnline) {
 			closeProcessOnline = true;
 			if (touchNumbers.currentSceneNum == 3) {
-				Debug.Log ("Here!");
+			//	Debug.Log ("Here!");
 				isFinishingFootball = true;
 			}
 			
@@ -635,7 +634,7 @@ if (flickStarted) {
 }
 
 	public void AppleDisappear(GameObject objectDisappear) {
-		Debug.Log ("Disappearing!");
+	//	Debug.Log ("Disappearing!");
 		objectDisappear.transform.localScale -= new Vector3 (1f,1f,1f);
 		objectDisappear.transform.position = new Vector3 (100f, 100f, 0f);
 		isDragging = false;

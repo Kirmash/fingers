@@ -2,7 +2,6 @@
 using System.Collections;
 
 public class BallRotation : MonoBehaviour {
-    private TouchController ballTouch;
     private int rotationSpeed;
     private bool isRotation = true;
     private Vector3 startPosition;
@@ -10,7 +9,7 @@ public class BallRotation : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        ballTouch = (TouchController)GameObject.Find("Main Camera").GetComponent(typeof(TouchController));
+      
         rotationSpeed = Random.Range(-10, 10);
         startPosition = this.transform.position;
     }

@@ -2,7 +2,6 @@
 using System.Collections;
 
 public class CakeRotate : MonoBehaviour {
-    private TouchController cakeTouch;
     private int rotationSpeed = 1;
     private bool isRotation = true;
     private bool rotateCounterClock = true;
@@ -10,7 +9,7 @@ public class CakeRotate : MonoBehaviour {
     private Vector3 currentPosition;
     // Use this for initialization
     void Start () {
-        cakeTouch = (TouchController)GameObject.Find("Main Camera").GetComponent(typeof(TouchController));
+
         startPosition = this.transform.position;
     }
 	

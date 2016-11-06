@@ -29,6 +29,9 @@ public class TouchNumbers : MonoBehaviour
     int[] randomScene8 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8 };
     int[] randomScene9 = new int[] { 2, 3, 4, 5, 6, 7, 8 };
     int[] randomScene10 = new int[] { 2, 3, 4, 6, 7, 8 };
+	
+	bool is1stSceneLoaded;
+	bool is2ndSceneLoaded;
 
     private List<int> scenes1 = new List<int> { 2, 3, 4, 5, 6, 7, 8 };
     private List<int> scenes2 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8 };
@@ -134,23 +137,16 @@ public class TouchNumbers : MonoBehaviour
 	void Start () 
 	{
 		animator = GetComponent<Animator>();
-
-		plates = Resources.LoadAll("plates", typeof(GameObject)).Cast<GameObject> ().ToArray ();
-		cake = Resources.LoadAll("cakes", typeof(GameObject)).Cast<GameObject> ().ToArray ();
-
-		spaceObjects = Resources.LoadAll("spaceObjects", typeof(GameObject)).Cast<GameObject> ().ToArray ();
 		usedCoordinates = new List<int>();
-
+       
+	    plates = Resources.LoadAll("plates", typeof(GameObject)).Cast<GameObject> ().ToArray ();
+		cake = Resources.LoadAll("cakes", typeof(GameObject)).Cast<GameObject> ().ToArray ();
+		spaceObjects = Resources.LoadAll("spaceObjects", typeof(GameObject)).Cast<GameObject> ().ToArray ();
 		soccerObjects = Resources.LoadAll("footballBalls", typeof(GameObject)).Cast<GameObject> ().ToArray (); 
-
 		bubbleObjects = Resources.LoadAll("bubbles", typeof(GameObject)).Cast<GameObject> ().ToArray (); 
-
 		carrotObjects = Resources.LoadAll ("carrots", typeof(GameObject)).Cast<GameObject> ().ToArray ();
-
 		appleObjects = Resources.LoadAll ("apples", typeof(GameObject)).Cast<GameObject> ().ToArray ();
-		
 		starObjects = Resources.LoadAll ("stars", typeof(GameObject)).Cast<GameObject> ().ToArray ();
-		
 		cloudObjects = Resources.LoadAll ("Clouds", typeof(GameObject)).Cast<GameObject> ().ToArray ();
 
 		//closeScript = (CloseScript)GameObject.Find("Redcross").GetComponent(typeof(CloseScript));
