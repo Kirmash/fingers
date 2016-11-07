@@ -138,18 +138,7 @@ public class TouchNumbers : MonoBehaviour
 	{
 		animator = GetComponent<Animator>();
 		usedCoordinates = new List<int>();
-       
-	    plates = Resources.LoadAll("plates", typeof(GameObject)).Cast<GameObject> ().ToArray ();
-		cake = Resources.LoadAll("cakes", typeof(GameObject)).Cast<GameObject> ().ToArray ();
-		spaceObjects = Resources.LoadAll("spaceObjects", typeof(GameObject)).Cast<GameObject> ().ToArray ();
-		soccerObjects = Resources.LoadAll("footballBalls", typeof(GameObject)).Cast<GameObject> ().ToArray (); 
-		bubbleObjects = Resources.LoadAll("bubbles", typeof(GameObject)).Cast<GameObject> ().ToArray (); 
-		carrotObjects = Resources.LoadAll ("carrots", typeof(GameObject)).Cast<GameObject> ().ToArray ();
-		appleObjects = Resources.LoadAll ("apples", typeof(GameObject)).Cast<GameObject> ().ToArray ();
-		starObjects = Resources.LoadAll ("stars", typeof(GameObject)).Cast<GameObject> ().ToArray ();
-		cloudObjects = Resources.LoadAll ("Clouds", typeof(GameObject)).Cast<GameObject> ().ToArray ();
-
-		//closeScript = (CloseScript)GameObject.Find("Redcross").GetComponent(typeof(CloseScript));
+       	//closeScript = (CloseScript)GameObject.Find("Redcross").GetComponent(typeof(CloseScript));
 		numChange = (NumChange)GameObject.Find("numb_container").GetComponent(typeof(NumChange));
 		touchController = (TouchController)GameObject.Find("Main Camera").GetComponent(typeof(TouchController));
 		optionsScript = (OptionsScript)GameObject.Find("backOptions").GetComponent(typeof(OptionsScript));
@@ -252,14 +241,14 @@ public void InputLock()
 			
 		case 1: 
 			//audio.PlayOneShot(number1);
-		//	GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("one"));
-		//	currentSceneNum = randomScene1[Random.Range(0, randomScene1.Length)];
-          //      while (!scenes1.Contains(currentSceneNum))
-           //     {
-          //          currentSceneNum = randomScene1[Random.Range(0, randomScene1.Length)];
-          //      }
-          //      SceneDelete();
-                currentSceneNum = 8;
+			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("one"));
+	    	currentSceneNum = randomScene1[Random.Range(0, randomScene1.Length)];
+              while (!scenes1.Contains(currentSceneNum))
+                {
+                   currentSceneNum = randomScene1[Random.Range(0, randomScene1.Length)];
+               }
+                SceneDelete();
+           //     currentSceneNum = 8;
                 GetTheToys();
 			break;
 			
@@ -281,12 +270,12 @@ public void InputLock()
 			//audio.PlayOneShot(number3);
 			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("three"));
 		    currentSceneNum = randomScene3[Random.Range(0, randomScene3.Length)];
-              //  while (!scenes3.Contains(currentSceneNum))
-              //  {
-             //       currentSceneNum = randomScene3[Random.Range(0, randomScene3.Length)];
-             //   }
-            //    SceneDelete();
-                currentSceneNum = 7;
+                while (!scenes3.Contains(currentSceneNum))
+                {
+                    currentSceneNum = randomScene3[Random.Range(0, randomScene3.Length)];
+                }
+               SceneDelete();
+              //  currentSceneNum = 7;
                 GetTheToys();
 			break;
 			
@@ -376,36 +365,45 @@ public void InputLock()
 	void GetTheToys () {
 				switch (currentSceneNum) {
 		case 1:
-			LoadScene1 (numberFingers);
+			plates = Resources.LoadAll("plates", typeof(GameObject)).Cast<GameObject> ().ToArray ();
+			cake = Resources.LoadAll("cakes", typeof(GameObject)).Cast<GameObject> ().ToArray ();
+			LoadScene1(numberFingers);
 			break;
 
 		case 2:
+			spaceObjects = Resources.LoadAll("spaceObjects", typeof(GameObject)).Cast<GameObject> ().ToArray ();
 			LoadScene2 (numberFingers);
 			break;
 
 		case 3: 
+			soccerObjects = Resources.LoadAll("footballBalls", typeof(GameObject)).Cast<GameObject> ().ToArray (); 
 			LoadScene3 (numberFingers);
 			break;
 
 		case 4:
-			LoadScene4(numberFingers);
+				bubbleObjects = Resources.LoadAll("bubbles", typeof(GameObject)).Cast<GameObject> ().ToArray ();
+			LoadScene4 (numberFingers);	 
 			break;
 
 		case 5:
-			LoadScene5(numberFingers);
+			carrotObjects = Resources.LoadAll ("carrots", typeof(GameObject)).Cast<GameObject> ().ToArray ();
+			LoadScene5 (numberFingers);
 			break;
 
 		case 6:
+		appleObjects = Resources.LoadAll ("apples", typeof(GameObject)).Cast<GameObject> ().ToArray ();
 		LoadScene6 (numberFingers);
 		break;
 		
 		case 7: 
+			starObjects = Resources.LoadAll ("stars", typeof(GameObject)).Cast<GameObject> ().ToArray ();
 		LoadScene7 (numberFingers);
-		break;
+				break;
 		
 		case 8: 
+		cloudObjects = Resources.LoadAll ("Clouds", typeof(GameObject)).Cast<GameObject> ().ToArray ();
 		LoadScene8 (numberFingers);
-		break;
+					break;
 		
 		}
 		}
@@ -678,6 +676,7 @@ numChange.spriteRenderer.color = new Color(1f,1f,1f,0.3f);
 					Destroy (cakeScene[i]);
 				}				
 			}
+			Resources.UnloadUnusedAssets();
 			
 			break;
 
@@ -691,7 +690,7 @@ numChange.spriteRenderer.color = new Color(1f,1f,1f,0.3f);
 				}
 				Destroy(sceneObjects[i]);
 			}
-
+              Resources.UnloadUnusedAssets();
 			break;
 
 		case 3:
@@ -708,6 +707,7 @@ numChange.spriteRenderer.color = new Color(1f,1f,1f,0.3f);
 				}
 				Destroy(sceneObjects[i]);
 			}
+			Resources.UnloadUnusedAssets();
 			break;
 
 		case 4:
@@ -717,7 +717,7 @@ numChange.spriteRenderer.color = new Color(1f,1f,1f,0.3f);
 
 				Destroy(sceneObjects[i]);
 			}
-
+            Resources.UnloadUnusedAssets();
 			break;
 		
 		case 5:
@@ -725,6 +725,7 @@ numChange.spriteRenderer.color = new Color(1f,1f,1f,0.3f);
 			{
 				Destroy (sceneObjects[i]);
 			}
+			 Resources.UnloadUnusedAssets();
 			break;
 
 		case 6:
@@ -732,6 +733,7 @@ numChange.spriteRenderer.color = new Color(1f,1f,1f,0.3f);
 			{
 				Destroy (sceneObjects[i]);
 			}
+			Resources.UnloadUnusedAssets();
 			break;
 
 case 7: 
@@ -743,6 +745,7 @@ for (int i = 0; i<sceneObjects.Length; i++)
 			}
 				Destroy (sceneObjects[i]);
 			}
+			Resources.UnloadUnusedAssets();
 			break;
 		
 		case 8: 
@@ -751,6 +754,7 @@ for (int i = 0; i<sceneObjects.Length; i++)
 		
 				Destroy (sceneObjects[i]);
 			}
+			Resources.UnloadUnusedAssets();
 			break;
 		}
 
