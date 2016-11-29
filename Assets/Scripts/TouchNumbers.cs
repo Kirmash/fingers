@@ -19,33 +19,33 @@ public class TouchNumbers : MonoBehaviour
     //	public AudioClip number9;
     //	public AudioClip number10;
 
-    int[] randomScene1 = new int[] { 2, 3, 4, 5, 6, 7, 8 };
-    int[] randomScene2 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8 };
-    int[] randomScene3 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8 };
-    int[] randomScene4 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8 };
-    int[] randomScene5 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8 };
-    int[] randomScene6 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8 };
-    int[] randomScene7 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8 };
-    int[] randomScene8 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8 };
-    int[] randomScene9 = new int[] { 2, 3, 4, 5, 6, 7, 8 };
-    int[] randomScene10 = new int[] { 2, 3, 4, 6, 7, 8 };
+    int[] randomScene1 = new int[] { 2, 3, 4, 5, 6, 7, 8, 9 };
+    int[] randomScene2 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    int[] randomScene3 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    int[] randomScene4 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    int[] randomScene5 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    int[] randomScene6 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    int[] randomScene7 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    int[] randomScene8 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    int[] randomScene9 = new int[] { 2, 3, 4, 5, 6, 7, 8, 9 };
+    int[] randomScene10 = new int[] { 2, 3, 4, 6, 7, 8, 9 };
 	
 	bool is1stSceneLoaded;
 	bool is2ndSceneLoaded;
 
-    private List<int> scenes1 = new List<int> { 2, 3, 4, 5, 6, 7, 8 };
-    private List<int> scenes2 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8 };
-    private List<int> scenes3 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8 };
-    private List<int> scenes4 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8 };
-    private List<int> scenes5 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8 };
-    private List<int> scenes6 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8 };
-    private List<int> scenes7 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8 };
-    private List<int> scenes8 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8 };
-    private List<int> scenes9 = new List<int> { 2, 3, 4, 5, 6, 7, 8 };
-    private List<int> scenes10 = new List<int> { 2, 3, 4, 6, 7, 8 };
+    private List<int> scenes1 = new List<int> { 2, 3, 4, 5, 6, 7, 8, 9 };
+    private List<int> scenes2 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    private List<int> scenes3 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    private List<int> scenes4 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    private List<int> scenes5 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    private List<int> scenes6 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    private List<int> scenes7 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    private List<int> scenes8 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    private List<int> scenes9 = new List<int> { 2, 3, 4, 5, 6, 7, 8, 9 };
+    private List<int> scenes10 = new List<int> { 2, 3, 4, 6, 7, 8, 9 };
 
     private List<int> numScene;
-    private int[] allScenes = new int[] { 1, 2, 3, 4, 5, 6, 7, 8 };
+    private int[] allScenes = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
     [HideInInspector] public int currentSceneNum;
 
 	//private CloseScript closeScript;
@@ -125,6 +125,9 @@ public class TouchNumbers : MonoBehaviour
 	
 	//arrays and assets for CloudScene (8)
 	[HideInInspector] public GameObject[] cloudObjects;
+	
+	//arrays and assets for RabbitsScene (9)
+	[HideInInspector] public GameObject[] rabbitsObjects;
 
 	[HideInInspector] public int touchKey = 0;
 	private int numTouch = 0;
@@ -235,7 +238,7 @@ public void InputLock()
           //         currentSceneNum = randomScene10[Random.Range(0, randomScene10.Length)];
             //    }
             //    SceneDelete();
-               currentSceneNum = 8;
+               currentSceneNum = 9;
                 GetTheToys();
 		    break;
 			
@@ -248,7 +251,7 @@ public void InputLock()
                    currentSceneNum = randomScene1[Random.Range(0, randomScene1.Length)];
                }
                 SceneDelete();
-           //     currentSceneNum = 8;
+           //     currentSceneNum = 9;
                 GetTheToys();
 			break;
 			
@@ -404,6 +407,11 @@ public void InputLock()
 		cloudObjects = Resources.LoadAll ("Clouds", typeof(GameObject)).Cast<GameObject> ().ToArray ();
 		LoadScene8 (numberFingers);
 					break;
+					
+		case 9: 
+		rabbitsObjects = Resources.LoadAll ("Rabbits", typeof(GameObject)).Cast<GameObject> ().ToArray ();
+		LoadScene9 (numberFingers);
+		break;
 		
 		}
 		}
@@ -421,12 +429,9 @@ public void InputLock()
 		sceneObjects[0] = GameObject.Instantiate (plates[0], centerPlatePosition, Quaternion.identity) as GameObject;
 		for (int j = 0; j<8; j++) {
 			cakeScene[j] = GameObject.Instantiate (cake[j], Vector3.zero, Quaternion.identity) as GameObject;
-		}
-
-
+									}
 	switch (numberF) 
 		{
-
 		case 2:
 			Vector3[] platePositionArray2 = new [] { new Vector3(6.3f,0f,0), new Vector3(-5.95f,0f,0) };
 			for (int i = 1; i < numberF+1; i++) {
@@ -482,7 +487,6 @@ public void InputLock()
 				sceneObjects [i] = GameObject.Instantiate (plates[plateRandCounter], platePositionArray8[i-1], Quaternion.identity) as GameObject;
 				}
 					break;
-
 		}
 		}
 
@@ -519,7 +523,6 @@ public void InputLock()
 		currCoordinateIndex = Random.Range (0, 10);
 	for (int i = 0; i < numberF; i++) {
 			sceneObjects[i] = GameObject.Instantiate(soccerObjects[i+3], ballPositionArray[i],Quaternion.identity) as GameObject;		
-
 	}
 	}
 
@@ -549,7 +552,7 @@ public void InputLock()
 		//Debug.Log (currCoordinateIndex);
 		for (int i = 0; i < numberF; i++) {
 			while (usedCoordinates.Contains(currCoordinateIndex))
-			{//Debug.Log("While loop");
+			{
 				currCoordinateIndex = Random.Range (0, 15);
 			}
 			sceneObjects[i+5] = GameObject.Instantiate(carrotObjects[currCoordinateIndex], carrotPositionArray[i],Quaternion.identity) as GameObject;
@@ -572,7 +575,6 @@ numChange.spriteRenderer.color = new Color(1f,1f,1f,0.3f);
 				currCoordinateIndex = Random.Range (0, 10);
 			}
             sceneObjects[i] = GameObject.Instantiate(starObjects[currCoordinateIndex], starPositionsArray[currCoordinateIndex],Quaternion.identity) as GameObject;
-
 			usedCoordinates.Add (currCoordinateIndex);
 		}
 		usedCoordinates.Clear ();
@@ -599,6 +601,16 @@ numChange.spriteRenderer.color = new Color(1f,1f,1f,0.3f);
 			sceneObjects[i] = GameObject.Instantiate(cloudObjects[i], cloudObjects[i].transform.position,Quaternion.identity) as GameObject;
 		}
 	}
+		
+	//rabbitScene loading
+	private void LoadScene9(int numberF) {
+		sceneObjects = new GameObject[numberF];
+        numChange.spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
+		for (int i = 0; i<numberF; i++) {
+			sceneObjects[i] = GameObject.Instantiate(rabbitsObjects[i], rabbitsObjects[i].transform.position,Quaternion.identity) as GameObject;
+		}
+	}
+
 	
   ///<summary>
   /// Delete scene && reload if needed
@@ -756,8 +768,16 @@ for (int i = 0; i<sceneObjects.Length; i++)
 			}
 			Resources.UnloadUnusedAssets();
 			break;
+			
+			case 9: 
+for (int i = 0; i<sceneObjects.Length; i++)
+			{
+		
+				Destroy (sceneObjects[i]);
+			}
+			Resources.UnloadUnusedAssets();
+			break;
 		}
 
 	}
-
-}
+	}

@@ -99,6 +99,7 @@ public class TouchController : MonoBehaviour {
 	bool isForceNeedToBeAdded = false;
 	
 //Scene stars 7
+//Scene rabbits 9
 
 	void Start () {
 		//plates, planets
@@ -110,7 +111,7 @@ public class TouchController : MonoBehaviour {
 		numChange = GameObject.Find("numb_container").GetComponent<NumChange>();
 
 		usedBallsAnimation = new List<int>();
-	}
+			}
 
 	void Update() {
 						int nbTouches = Input.touchCount;
@@ -123,6 +124,7 @@ public class TouchController : MonoBehaviour {
 								}
 								//	hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.mousePosition), Vector2.zero);
 								hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.GetTouch (0).position), Vector2.zero);
+							//	Debug.Log("Hitting hard!");
 //touch on space object 
 				if (hit.transform != null && hit.collider != null && hit.collider.tag == "spacestuff") {
 										if (!usedMainObjects.Contains (hit.transform.gameObject)) {
@@ -138,7 +140,8 @@ public class TouchController : MonoBehaviour {
 					}
 				}
 				if (hit.transform != null && hit.collider != null && hit.collider.tag == "cakerocket" && !thisTouched) {
-					//Debug.Log("Touch carrot!");				
+					//Debug.Log(hit.transform);	
+				//	Debug.Log(hit.transform.position);			
 					if (!usedTouchableObject.Contains (hit.transform.gameObject)) {
 												tObject = GameObject.Find (hit.transform.gameObject.name);
 					//	Debug.Log(tObject);
@@ -197,6 +200,15 @@ if (touchNumbers.currentSceneNum == 8) {
 						 tObject.GetComponent<Animator>().SetFloat ("fallTime", 3.0f);
                          touchNumbers.InputShortLock();
 			closeScript.touchCounter += 1;
+						}
+						
+						if (touchNumbers.currentSceneNum == 9) {
+							closeScript.PlaySound();
+							numChange.BackChange();
+						usedTouchableObject.Add (tObject);
+					//	Debug.Log(tObject);
+			closeScript.touchCounter += 1;
+			tObject.GetComponentInChildren<Animator>().SetInteger ("TransTime", 3);
 						}
 
 
