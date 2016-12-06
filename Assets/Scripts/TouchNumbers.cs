@@ -263,7 +263,7 @@ public void InputLock()
                 {
                     currentSceneNum = randomScene2[Random.Range(0, randomScene2.Length)];
                 }
-                scenes2.Remove(currentSceneNum);
+               // scenes2.Remove(currentSceneNum);
                 SceneDelete();
                 //currentSceneNum = 1;
                 GetTheToys();
