@@ -1,8 +1,9 @@
-﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="..\StateMachineLearning\Assets\Code\States\BeginState.cs">
+﻿<Properties StartupItem="Fingers take 2.CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\TouchNumbers.cs">
     <Files>
       <File FileName="..\StateMachineLearning\Assets\Code\States\BeginState.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\TouchNumbers.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -233,12 +233,12 @@ public void InputLock()
 		case 10: 
 			//audio.PlayOneShot(number10);
 			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("ten"));
-            currentSceneNum = randomScene10[Random.Range(0, randomScene10.Length)];
-               while (!scenes10.Contains(currentSceneNum)) { 
-                   currentSceneNum = randomScene10[Random.Range(0, randomScene10.Length)];
-                }
-                SceneDelete();
-         //     currentSceneNum = 8;
+         //   currentSceneNum = randomScene10[Random.Range(0, randomScene10.Length)];
+          //     while (!scenes10.Contains(currentSceneNum)) { 
+          //         currentSceneNum = randomScene10[Random.Range(0, randomScene10.Length)];
+          //      }
+          //      SceneDelete();
+             currentSceneNum = 8;
                 GetTheToys();
 		    break;
 			
@@ -404,10 +404,10 @@ public void InputLock()
 				break;
 		
 		case 8: 
-	//	cloudObjects = Resources.LoadAll ("Clouds", typeof(GameObject)).Cast<GameObject> ().ToArray ();
-	//	LoadScene8 (numberFingers);
-	rabbitsObjects = Resources.LoadAll ("Rabbits", typeof(GameObject)).Cast<GameObject> ().ToArray ();
-		LoadScene9 (numberFingers);
+		cloudObjects = Resources.LoadAll ("Clouds", typeof(GameObject)).Cast<GameObject> ().ToArray ();
+		LoadScene8 (numberFingers);
+	// rabbitsObjects = Resources.LoadAll ("Rabbits", typeof(GameObject)).Cast<GameObject> ().ToArray ();
+	//	LoadScene9 (numberFingers);
 					break;
 					
 		case 9: 
@@ -571,7 +571,7 @@ public void InputLock()
  sceneObjects[0] = GameObject.Instantiate(starObjects[10], transform.position, Quaternion.identity) as GameObject;
  currCoordinateIndex = Random.Range (0, 4);
 numChange.spriteRenderer.color = new Color(1f,1f,1f,0.3f);
- for (int i = 0; i < numberF; i++) {
+ for (int i = 1; i <= numberF; i++) {
 			while (usedCoordinates.Contains(currCoordinateIndex))
 			{
 				currCoordinateIndex = Random.Range (0, 10);
