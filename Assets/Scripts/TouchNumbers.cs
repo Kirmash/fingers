@@ -233,39 +233,39 @@ public void InputLock()
 		case 10: 
 			//audio.PlayOneShot(number10);
 			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("ten"));
-         //   currentSceneNum = randomScene10[Random.Range(0, randomScene10.Length)];
-          //     while (!scenes10.Contains(currentSceneNum)) { 
-          //         currentSceneNum = randomScene10[Random.Range(0, randomScene10.Length)];
-          //      }
-          //      SceneDelete();
-             currentSceneNum = 8;
+            currentSceneNum = randomScene10[Random.Range(0, randomScene10.Length)];
+               while (!scenes10.Contains(currentSceneNum)) { 
+                   currentSceneNum = randomScene10[Random.Range(0, randomScene10.Length)];
+                }
+                SceneDelete();
+           //  currentSceneNum = 5;
                 GetTheToys();
 		    break;
 			
 		case 1: 
 			//audio.PlayOneShot(number1);
 			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("one"));
-	    	currentSceneNum = randomScene1[Random.Range(0, randomScene1.Length)];
-              while (!scenes1.Contains(currentSceneNum))
-                {
+	  	currentSceneNum = randomScene1[Random.Range(0, randomScene1.Length)];
+            while (!scenes1.Contains(currentSceneNum))
+               {
                    currentSceneNum = randomScene1[Random.Range(0, randomScene1.Length)];
-               }
+            }
                 SceneDelete();
-           //     currentSceneNum = 9;
+             //   currentSceneNum = 5;
                 GetTheToys();
 			break;
 			
 		case 2: 
 			//audio.PlayOneShot(number2);
-			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("two"));
+		//	GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("two"));
 			currentSceneNum = randomScene2[Random.Range(0, randomScene2.Length)];
                 while (!scenes2.Contains(currentSceneNum))
                 {
                     currentSceneNum = randomScene2[Random.Range(0, randomScene2.Length)];
                 }
-               // scenes2.Remove(currentSceneNum);
+                scenes2.Remove(currentSceneNum);
                 SceneDelete();
-                //currentSceneNum = 1;
+            //    currentSceneNum = 1;
                 GetTheToys();
 			break;
 			
@@ -704,6 +704,7 @@ numChange.spriteRenderer.color = new Color(1f,1f,1f,0.3f);
 				}
 				Destroy(sceneObjects[i]);
 			}
+			 DestroyTouchableObjects();
               Resources.UnloadUnusedAssets();
 			break;
 
@@ -713,44 +714,45 @@ numChange.spriteRenderer.color = new Color(1f,1f,1f,0.3f);
 			Destroy(vratar);
 			Destroy(tablo);
 
-			for (int i = 0; i<sceneObjects.Length; i++)
-			{
-
-				if (touchController.usedTouchableObject.Contains(sceneObjects[i])) {
-					touchController.usedTouchableObject.Remove(sceneObjects[i]);
-				}
-				Destroy(sceneObjects[i]);
-			}
+			DestroyTouchableObjects();
 			Resources.UnloadUnusedAssets();
 			break;
 
 		case 4:
 			Destroy(backScene);
-			for (int i = 0; i<sceneObjects.Length; i++)
-			{
-
-				Destroy(sceneObjects[i]);
-			}
+		 DestroyTouchableObjects();
             Resources.UnloadUnusedAssets();
 			break;
 		
 		case 5:
-			for (int i = 0; i<sceneObjects.Length; i++)
-			{
-				Destroy (sceneObjects[i]);
-			}
+			 DestroyTouchableObjects();
 			 Resources.UnloadUnusedAssets();
 			break;
 
 		case 6:
-			for (int i = 0; i<sceneObjects.Length; i++)
-			{
-				Destroy (sceneObjects[i]);
-			}
+		 DestroyTouchableObjects();
 			Resources.UnloadUnusedAssets();
 			break;
 
 case 7: 
+	        DestroyTouchableObjects();
+			Resources.UnloadUnusedAssets();
+			break;
+		
+		case 8: 
+           DestroyTouchableObjects();
+			Resources.UnloadUnusedAssets();
+			break;
+			
+			case 9: 
+            DestroyTouchableObjects();
+			Resources.UnloadUnusedAssets();
+			break;
+		}
+
+	}
+	
+		private void DestroyTouchableObjects () {
 for (int i = 0; i<sceneObjects.Length; i++)
 			{
 			if (touchController.usedTouchableObject.Contains(sceneObjects[i])) 
@@ -759,27 +761,7 @@ for (int i = 0; i<sceneObjects.Length; i++)
 			}
 				Destroy (sceneObjects[i]);
 			}
-			Resources.UnloadUnusedAssets();
-			break;
-		
-		case 8: 
-for (int i = 0; i<sceneObjects.Length; i++)
-			{
-		
-				Destroy (sceneObjects[i]);
-			}
-			Resources.UnloadUnusedAssets();
-			break;
-			
-			case 9: 
-for (int i = 0; i<sceneObjects.Length; i++)
-			{
-		
-				Destroy (sceneObjects[i]);
-			}
-			Resources.UnloadUnusedAssets();
-			break;
-		}
+	}
+	}
+	
 
-	}
-	}

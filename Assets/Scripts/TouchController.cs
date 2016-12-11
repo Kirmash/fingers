@@ -579,10 +579,14 @@ if (flickStarted) {
 			lerpMoving = 0f;
 			
 			if (touchNumbers.currentSceneNum == 1) {	
-				
+			for (int i=0; i<usedMainObjects.Count; i++) {
+			Debug.Log(usedTouchableObject[i]);
+			}
+			
 				for (int i=0; i<touchNumbers.sceneObjects.Length-1; i++) {
 					speedExit [i] = Random.Range (1, 10);
 				}
+				
 				GetComponent<AudioSource>().PlayOneShot (munch);
 			}
 			
@@ -597,12 +601,12 @@ if (flickStarted) {
 //finishing move for cakes
 		if (touchNumbers.currentSceneNum == 1) {
 			if (touchNumbers.cakeEndMove) {
-				for (int i=0; i<usedMainObjects.Count; i++) {
+			for (int i=0; i<usedMainObjects.Count; i++) {
 					usedTouchableObject [i].transform.position = Vector3.MoveTowards (usedTouchableObject [i].transform.position, 2 * usedTouchableObject [i].transform.position, speedExit [i] / 25);
 					usedMainObjects [i].transform.position = Vector3.MoveTowards (usedMainObjects [i].transform.position, 2 * usedMainObjects [i].transform.position, speedExit [i] / 25);
-				}
+				}	
 			}
-		}
+	}
 
 //return object to the start point after drag
 		if (isReturning) {
