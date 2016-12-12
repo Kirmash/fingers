@@ -3,6 +3,7 @@ using System.Collections;
 
 public class BackChange : MonoBehaviour {
 	public Sprite[] backs;
+	[HideInInspector] public bool isBackChanging = false;
 	private SpriteRenderer spriteRenderer;
 	private TouchNumbers touchNumbers;
 
@@ -15,10 +16,11 @@ public class BackChange : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	//	if (Input.touchCount > 0) {
-		if (Input.GetMouseButton (0)) {
+		if (isBackChanging) {
+	//	if (Input.GetMouseButton (0)) {
 			//Debug.Log("Back_num: " + touchNumbers.currentSceneNum);
 			spriteRenderer.sprite = backs [touchNumbers.currentSceneNum];
+			isBackChanging = false;
 	}
 
 

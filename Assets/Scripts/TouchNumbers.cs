@@ -50,6 +50,7 @@ public class TouchNumbers : MonoBehaviour
 
 	//private CloseScript closeScript;
 	private NumChange numChange;
+	private BackChange backChange;
 	private TouchController touchController;
 	private OptionsScript optionsScript;
 	private numberLeftChange numberLeftChange;
@@ -143,6 +144,7 @@ public class TouchNumbers : MonoBehaviour
 		usedCoordinates = new List<int>();
        	//closeScript = (CloseScript)GameObject.Find("Redcross").GetComponent(typeof(CloseScript));
 		numChange = (NumChange)GameObject.Find("numb_container").GetComponent(typeof(NumChange));
+		backChange = (BackChange)GameObject.Find("background").GetComponent(typeof(BackChange));
 		touchController = (TouchController)GameObject.Find("Main Camera").GetComponent(typeof(TouchController));
 		optionsScript = (OptionsScript)GameObject.Find("backOptions").GetComponent(typeof(OptionsScript));
 		numberLeftChange = (numberLeftChange)GameObject.Find("numberLeft").GetComponent(typeof(numberLeftChange));
@@ -370,41 +372,49 @@ public void InputLock()
 		case 1:
 			plates = Resources.LoadAll("plates", typeof(GameObject)).Cast<GameObject> ().ToArray ();
 			cake = Resources.LoadAll("cakes", typeof(GameObject)).Cast<GameObject> ().ToArray ();
+			backChange.isBackChanging = true;
 			LoadScene1(numberFingers);
 			break;
 
 		case 2:
 			spaceObjects = Resources.LoadAll("spaceObjects", typeof(GameObject)).Cast<GameObject> ().ToArray ();
+			backChange.isBackChanging = true;
 			LoadScene2 (numberFingers);
 			break;
 
 		case 3: 
 			soccerObjects = Resources.LoadAll("footballBalls", typeof(GameObject)).Cast<GameObject> ().ToArray (); 
+			backChange.isBackChanging = true;
 			LoadScene3 (numberFingers);
 			break;
 
 		case 4:
 				bubbleObjects = Resources.LoadAll("bubbles", typeof(GameObject)).Cast<GameObject> ().ToArray ();
+				backChange.isBackChanging = true;
 			LoadScene4 (numberFingers);	 
 			break;
 
 		case 5:
 			carrotObjects = Resources.LoadAll ("carrots", typeof(GameObject)).Cast<GameObject> ().ToArray ();
+			backChange.isBackChanging = true;
 			LoadScene5 (numberFingers);
 			break;
 
 		case 6:
 		appleObjects = Resources.LoadAll ("apples", typeof(GameObject)).Cast<GameObject> ().ToArray ();
+		backChange.isBackChanging = true;
 		LoadScene6 (numberFingers);
 		break;
 		
 		case 7: 
 			starObjects = Resources.LoadAll ("stars", typeof(GameObject)).Cast<GameObject> ().ToArray ();
+			backChange.isBackChanging = true;
 		LoadScene7 (numberFingers);
 				break;
 		
 		case 8: 
 		cloudObjects = Resources.LoadAll ("Clouds", typeof(GameObject)).Cast<GameObject> ().ToArray ();
+		backChange.isBackChanging = true;
 		LoadScene8 (numberFingers);
 	// rabbitsObjects = Resources.LoadAll ("Rabbits", typeof(GameObject)).Cast<GameObject> ().ToArray ();
 	//	LoadScene9 (numberFingers);
@@ -412,6 +422,7 @@ public void InputLock()
 					
 		case 9: 
 		rabbitsObjects = Resources.LoadAll ("Rabbits", typeof(GameObject)).Cast<GameObject> ().ToArray ();
+		backChange.isBackChanging = true;
 		LoadScene9 (numberFingers);
 		break;
 		
@@ -673,38 +684,32 @@ numChange.spriteRenderer.color = new Color(1f,1f,1f,0.3f);
 		switch (currentSceneNum) {
 			
 		case 1: 
-			
+				touchController.usedMainObjects.Clear ();
+			touchController.usedTouchableObject.Clear();
 			for (int i = 0; i<9; i++) {
 				if (i <sceneObjects.Length)
 				{
-					if (touchController.usedMainObjects.Contains(sceneObjects[i])) {
-						touchController.usedMainObjects.Remove(sceneObjects[i]);
-					}
 					Destroy (sceneObjects[i]);
 				}
 				if (i < cakeScene.Length)
 				{
-					if (touchController.usedTouchableObject.Contains(cakeScene[i])) {
-						touchController.usedTouchableObject.Remove(cakeScene[i]);
-					}
 					Destroy (cakeScene[i]);
 				}				
 			}
+		
+			
 			Resources.UnloadUnusedAssets();
 			
 			break;
 
 		case 2:
 			Destroy(backScene);
+			touchController.usedTouchableObject.Clear();
+			touchController.usedMainObjects.Clear ();
 			for (int i = 0; i<sceneObjects.Length; i++)
 			{
-
-				if (touchController.usedMainObjects.Contains(sceneObjects[i])) {
-					touchController.usedMainObjects.Remove(sceneObjects[i]);
-				}
 				Destroy(sceneObjects[i]);
 			}
-			 DestroyTouchableObjects();
               Resources.UnloadUnusedAssets();
 			break;
 
@@ -753,12 +758,9 @@ case 7:
 	}
 	
 		private void DestroyTouchableObjects () {
+		touchController.usedTouchableObject.Clear();
 for (int i = 0; i<sceneObjects.Length; i++)
-			{
-			if (touchController.usedTouchableObject.Contains(sceneObjects[i])) 
-			{
-					touchController.usedTouchableObject.Remove(sceneObjects[i]);
-			}
+			{			
 				Destroy (sceneObjects[i]);
 			}
 	}
