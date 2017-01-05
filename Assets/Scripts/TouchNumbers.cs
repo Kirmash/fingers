@@ -608,7 +608,7 @@ numChange.spriteRenderer.color = new Color(1f,1f,1f,0.3f);
 	
 	//cloudScene loading
 	private void LoadScene8(int numberF) {
-		sceneObjects = new GameObject[numberF+2];
+		sceneObjects = new GameObject[numberF+1];
         numChange.spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
 		for (int i = 0; i<numberF+2; i++) {
 			sceneObjects[i] = GameObject.Instantiate(cloudObjects[i], cloudObjects[i].transform.position,Quaternion.identity) as GameObject;
