@@ -210,7 +210,7 @@ public class TouchNumbers : MonoBehaviour
 public void InputLock()
 	{
 		isInputLocked = true;
-		Invoke ("InputUnlock", 1f);
+		Invoke ("InputUnlock", 2f);
 	}
 	
 	public void InputShortLock()
@@ -240,7 +240,7 @@ public void InputLock()
                    currentSceneNum = randomScene10[Random.Range(0, randomScene10.Length)];
                 }
                 SceneDelete();
-           //  currentSceneNum = 5;
+        //     currentSceneNum = 7;
                 GetTheToys();
 		    break;
 			
@@ -610,7 +610,7 @@ numChange.spriteRenderer.color = new Color(1f,1f,1f,0.3f);
 	private void LoadScene8(int numberF) {
 		sceneObjects = new GameObject[numberF+1];
         numChange.spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
-		for (int i = 0; i<numberF+2; i++) {
+		for (int i = 0; i<numberF+1; i++) {
 			sceneObjects[i] = GameObject.Instantiate(cloudObjects[i], cloudObjects[i].transform.position,Quaternion.identity) as GameObject;
 		}
 	}
