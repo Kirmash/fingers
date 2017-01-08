@@ -169,6 +169,7 @@ public class TouchNumbers : MonoBehaviour
 								}
 						}	
 			if (hit.collider != null && hit.transform != null && hit.collider.tag == "settings") {
+				Debug.Log ("Touching options");
 				optionsScript.isOpenedSettings = true;
 				transform.position = new Vector3 (-12f, 0f, 0f);
 				}
@@ -235,12 +236,12 @@ public void InputLock()
 		case 10: 
 			//audio.PlayOneShot(number10);
 			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("ten"));
-            currentSceneNum = randomScene10[Random.Range(0, randomScene10.Length)];
-               while (!scenes10.Contains(currentSceneNum)) { 
-                   currentSceneNum = randomScene10[Random.Range(0, randomScene10.Length)];
-                }
-                SceneDelete();
-        //     currentSceneNum = 7;
+//            currentSceneNum = randomScene10[Random.Range(0, randomScene10.Length)];
+//               while (!scenes10.Contains(currentSceneNum)) { 
+//                   currentSceneNum = randomScene10[Random.Range(0, randomScene10.Length)];
+//                }
+//                SceneDelete();
+             currentSceneNum = 2;
                 GetTheToys();
 		    break;
 			
