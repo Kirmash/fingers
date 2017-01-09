@@ -71,6 +71,7 @@ public class TouchController : MonoBehaviour {
 	float distanceBetweenObjects;
 	float halfTheDistance;
 	bool isDistanceGot;
+	private Vector3 rocketEndPoint = new Vector3 (10f, 7f, 0f);
 
 //Scene football 3
 	float startFlickPositionY;
@@ -489,7 +490,7 @@ if (flickStarted) {
 //end hippo/basket_Check_scene4-5
 
 // moving Objects control
-		if (objectMove) {
+		if (objectMove && !closeScript.closeProcessOnline) {
 			lerpMoving += Time.deltaTime;
 			if (touchNumbers.currentSceneNum == 1) {
 				tObject.transform.FindChild("cake1").GetComponent<SpriteRenderer>().sortingOrder = 3;
@@ -498,7 +499,7 @@ if (flickStarted) {
 				tObject.transform.rotation = Quaternion.Slerp (tObject.transform.rotation, newRotation, .05f); 
 			}
 			
-			if (touchNumbers.currentSceneNum == 2) {
+			if (touchNumbers.currentSceneNum == 2 ) {
 				distanceBetweenObjects =  Vector3.Distance (tObject.transform.position, endPoint);
 				if (!isDistanceGot) {
 					halfTheDistance = 3*distanceBetweenObjects/4;
@@ -537,7 +538,7 @@ if (flickStarted) {
 				tObject.transform.position = Vector3.MoveTowards (tObject.transform.position, endPoint, ballSpeed*lerpMoving);
 			}
 			
-			if (tObject.transform.position == endPoint) {
+			if (tObject.transform.position == endPoint && !(endPoint == rocketEndPoint)) {
 				closeScript.PlaySound ();
 				objectMove = false;
 				thisTouched = false;
@@ -556,9 +557,14 @@ if (flickStarted) {
 				if (touchNumbers.currentSceneNum == 2) {
 					speedRocket = 2f;
 					deltaSpeedRocket = 0.05f;
-					isDistanceGot = false;
-					usedMainObjects[closeScript.touchCounter-1].transform.FindChild("flag_3").GetComponent<SpriteRenderer>().color = new Color(1,1,1,1);
-				    
+					isDistanceGot = false;	
+						usedMainObjects [closeScript.touchCounter - 1].transform.FindChild ("flag_3").GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 1);
+					if (usedMainObjects [closeScript.touchCounter - 1].transform.FindChild ("fingers_space_hum2")) {
+						usedMainObjects [closeScript.touchCounter - 1].transform.FindChild ("fingers_space_hum2").GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 1);
+					}
+					if (usedMainObjects [closeScript.touchCounter - 1].transform.FindChild ("flag_1")) {
+						usedMainObjects [closeScript.touchCounter - 1].transform.FindChild ("fingers_space_hum1").GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 1);
+					}
 				}
 				
 				lerpMoving = 0f;
@@ -592,8 +598,45 @@ if (flickStarted) {
 			
 			if (touchNumbers.currentSceneNum == 2) {
 				GetComponent<AudioSource>().PlayOneShot (endSpace);
-				
+				distanceBetweenObjects =  Vector3.Distance (tObject.transform.position, rocketEndPoint);
+				rocketRotate = true;
+				if (!isDistanceGot) {
+					endPoint = rocketEndPoint;
+					halfTheDistance = 3*distanceBetweenObjects/4;
+					rotationFlightSpeed = 0.2f;
+					//	Debug.Log(halfTheDistance);
+					rotationFlightSpeed = rotationFlightSpeed*((2*normalizedDistance)/halfTheDistance);
+					//	Debug.Log (rotationFlightSpeed);
+					isDistanceGot = true;
+				}
+
+				tObject.transform.position = Vector3.MoveTowards (tObject.transform.position, endPoint, lerpMoving*speedRocket);
+
+				tObject.transform.localScale = Vector3.Lerp(tObject.transform.localScale, new Vector3(targetScale, targetScale, targetScale), Time.deltaTime*shrinkSpeed); 
+				if (distanceBetweenObjects <=halfTheDistance) {
+					//Debug.Log (speedRocket);
+					if (speedRocket > 0.3f) {
+						speedRocket -= deltaSpeedRocket;
+						deltaSpeedRocket += 0.05f;
+					}
+
+				}
+				if (distanceBetweenObjects <= (halfTheDistance/2)) {
+					if ((tObject.transform.rotation.z <0.5) &&(tObject.transform.rotation.z >-0.5)&& (tObject.transform.rotation.z !=0)) {
+						//						Debug.Log (tObject.transform.rotation.z);
+						//						Debug.Log("rotateRight");
+						tObject.transform.rotation = Quaternion.Slerp (tObject.transform.rotation, leftAngle, rotationFlightSpeed);
+					} else if ((tObject.transform.rotation.z !=1) &&(tObject.transform.rotation.z !=0) ) {
+						//					Debug.Log (tObject.transform.rotation.z);
+						//					Debug.Log("rotateLeft");
+						tObject.transform.rotation = Quaternion.Slerp (tObject.transform.rotation, rightAngle, rotationFlightSpeed);
+					}
+				}
+				if (tObject.transform.position == endPoint) {
+					objectMove = false;
+				}
 			}
+			objectMove = false;
 			closeScript.startClosing();
 		}
 //end if_closeProcess

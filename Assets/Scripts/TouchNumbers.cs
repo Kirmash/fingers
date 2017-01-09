@@ -260,15 +260,15 @@ public void InputLock()
 			
 		case 2: 
 			//audio.PlayOneShot(number2);
-		//	GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("two"));
-			currentSceneNum = randomScene2[Random.Range(0, randomScene2.Length)];
-                while (!scenes2.Contains(currentSceneNum))
-                {
-                    currentSceneNum = randomScene2[Random.Range(0, randomScene2.Length)];
-                }
-                scenes2.Remove(currentSceneNum);
-                SceneDelete();
-            //    currentSceneNum = 1;
+			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("two"));
+//			currentSceneNum = randomScene2[Random.Range(0, randomScene2.Length)];
+//                while (!scenes2.Contains(currentSceneNum))
+//                {
+//                    currentSceneNum = randomScene2[Random.Range(0, randomScene2.Length)];
+//                }
+//                scenes2.Remove(currentSceneNum);
+//                SceneDelete();
+                currentSceneNum = 2;
                 GetTheToys();
 			break;
 			
@@ -704,13 +704,18 @@ numChange.spriteRenderer.color = new Color(1f,1f,1f,0.3f);
 			break;
 
 		case 2:
-			Destroy(backScene);
+			Destroy (backScene);
+			if (touchController.objectMove) {
+				touchController.objectMove = false;
+			}
 			touchController.usedTouchableObject.Clear();
 			touchController.usedMainObjects.Clear ();
+
 			for (int i = 0; i<sceneObjects.Length; i++)
 			{
 				Destroy(sceneObjects[i]);
 			}
+
               Resources.UnloadUnusedAssets();
 			break;
 
