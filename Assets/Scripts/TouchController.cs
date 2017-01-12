@@ -141,10 +141,15 @@ public class TouchController : MonoBehaviour {
 					}
 				}
 				if (hit.transform != null && hit.collider != null && hit.collider.tag == "cakerocket" && !thisTouched) {
+					
 					//Debug.Log(hit.transform);	
 				//	Debug.Log(hit.transform.position);			
 					if (!usedTouchableObject.Contains (hit.transform.gameObject)) {
 												tObject = GameObject.Find (hit.transform.gameObject.name);
+						if (touchNumbers.currentSceneNum == 6 && tObject.transform.FindChild ("apple_calm").gameObject.activeSelf) {
+							tObject.transform.FindChild ("apple_calm").gameObject.SetActive (false);
+							tObject.transform.FindChild ("apple_open").gameObject.SetActive (true);
+						}
 					//	Debug.Log(tObject);
 //return to start position control
 												if (touchNumbers.currentSceneNum == 1) {
@@ -215,6 +220,7 @@ if (touchNumbers.currentSceneNum == 8) {
 
 						isTouched = true;
 										}
+
 								}
 				
 						}
