@@ -101,6 +101,8 @@ public class TouchController : MonoBehaviour {
 	
 //Scene stars 7
 //Scene rabbits 9
+	private float butteflyScaleRandomizer;
+	private Vector3 butterflyScale;
 
 	void Start () {
 		//plates, planets
@@ -215,6 +217,10 @@ if (touchNumbers.currentSceneNum == 8) {
 					//	Debug.Log(tObject);
 			closeScript.touchCounter += 1;
 			tObject.GetComponentInChildren<Animator>().SetInteger ("TransTime", 3);
+							butteflyScaleRandomizer = Random.Range (0.75f, 1f);
+							butterflyScale = new Vector3 (butteflyScaleRandomizer, butteflyScaleRandomizer, butteflyScaleRandomizer);
+							tObject.transform.GetChild (5).transform.localScale = butterflyScale;
+							tObject.transform.GetChild (6).transform.localScale = butterflyScale;
 						}
 
 

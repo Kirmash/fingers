@@ -129,6 +129,8 @@ public class TouchNumbers : MonoBehaviour
 	
 	//arrays and assets for RabbitsScene (9)
 	[HideInInspector] public GameObject[] rabbitsObjects;
+	private float rabbitSizeRandomizer;
+	private Vector3 rabbitSize = new Vector3 (0.9f, 0.9f, 0.9f);
 
 	[HideInInspector] public int touchKey = 0;
 	private int numTouch = 0;
@@ -241,7 +243,7 @@ public void InputLock()
 //                   currentSceneNum = randomScene10[Random.Range(0, randomScene10.Length)];
 //                }
 //                SceneDelete();
-             currentSceneNum = 6;
+             currentSceneNum = 9;
                 GetTheToys();
 		    break;
 			
@@ -621,7 +623,10 @@ numChange.spriteRenderer.color = new Color(1f,1f,1f,0.3f);
 		sceneObjects = new GameObject[numberF];
         numChange.spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
 		for (int i = 0; i<numberF; i++) {
+			rabbitSizeRandomizer = Random.Range (0.75f, 0.9f);
+			rabbitSize = new Vector3 (rabbitSizeRandomizer, rabbitSizeRandomizer, rabbitSizeRandomizer);
 			sceneObjects[i] = GameObject.Instantiate(rabbitsObjects[i], rabbitsObjects[i].transform.position,Quaternion.identity) as GameObject;
+			sceneObjects [i].transform.localScale = rabbitSize;
 		}
 	}
 

@@ -63,6 +63,7 @@
      <Compile Include="Assets\Scripts\OptionsScript.cs" />
      <Compile Include="Assets\Scripts\PlateController.cs" />
      <Compile Include="Assets\Scripts\RabbitButterflyMove.cs" />
+     <Compile Include="Assets\Scripts\RabbitChoice.cs" />
      <Compile Include="Assets\Scripts\SnailJump.cs" />
      <Compile Include="Assets\Scripts\SunShineScript.cs" />
      <Compile Include="Assets\Scripts\TouchController.cs" />
