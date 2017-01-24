@@ -20,32 +20,32 @@ public class TouchNumbers : MonoBehaviour
     //	public AudioClip number10;
 
     int[] randomScene1 = new int[] { 2, 3, 4, 5, 6, 7, 8, 9 };
-    int[] randomScene2 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-    int[] randomScene3 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-    int[] randomScene4 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-    int[] randomScene5 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-    int[] randomScene6 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-    int[] randomScene7 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-    int[] randomScene8 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-    int[] randomScene9 = new int[] { 2, 3, 4, 5, 6, 7, 8, 9 };
-    int[] randomScene10 = new int[] { 2, 3, 4, 6, 7, 8, 9 };
+    int[] randomScene2 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+    int[] randomScene3 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+    int[] randomScene4 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+    int[] randomScene5 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+    int[] randomScene6 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+    int[] randomScene7 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+    int[] randomScene8 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+    int[] randomScene9 = new int[] { 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+    int[] randomScene10 = new int[] { 2, 3, 4, 6, 7, 8, 9, 10 };
 	
 	bool is1stSceneLoaded;
 	bool is2ndSceneLoaded;
 
-    private List<int> scenes1 = new List<int> { 2, 3, 4, 5, 6, 7, 8, 9 };
-    private List<int> scenes2 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-    private List<int> scenes3 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-    private List<int> scenes4 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-    private List<int> scenes5 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-    private List<int> scenes6 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-    private List<int> scenes7 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-    private List<int> scenes8 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-    private List<int> scenes9 = new List<int> { 2, 3, 4, 5, 6, 7, 8, 9 };
-    private List<int> scenes10 = new List<int> { 2, 3, 4, 6, 7, 8, 9 };
+    private List<int> scenes1 = new List<int> { 2, 3, 4, 5, 6, 7, 8, 9};
+    private List<int> scenes2 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+    private List<int> scenes3 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+    private List<int> scenes4 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+    private List<int> scenes5 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+    private List<int> scenes6 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+    private List<int> scenes7 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+    private List<int> scenes8 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+    private List<int> scenes9 = new List<int> { 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+    private List<int> scenes10 = new List<int> { 2, 3, 4, 6, 7, 8, 9, 10 };
 
     private List<int> numScene;
-    private int[] allScenes = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    private int[] allScenes = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
     [HideInInspector] public int currentSceneNum;
 
 	//private CloseScript closeScript;
@@ -132,6 +132,10 @@ public class TouchNumbers : MonoBehaviour
 	private float rabbitSizeRandomizer;
 	private Vector3 rabbitSize = new Vector3 (0.9f, 0.9f, 0.9f);
 
+	//arrays and assets for ChoirScene (10)
+	[HideInInspector] public GameObject[] choirObjects;
+
+
 	[HideInInspector] public int touchKey = 0;
 	private int numTouch = 0;
 	[HideInInspector] public int nbTouches = 0;
@@ -171,7 +175,7 @@ public class TouchNumbers : MonoBehaviour
 								}
 						}	
 			if (hit.collider != null && hit.transform != null && hit.collider.tag == "settings") {
-				Debug.Log ("Touching options");
+			//	Debug.Log ("Touching options");
 				optionsScript.isOpenedSettings = true;
 				transform.position = new Vector3 (-12f, 0f, 0f);
 				}
@@ -256,21 +260,21 @@ public void InputLock()
                    currentSceneNum = randomScene1[Random.Range(0, randomScene1.Length)];
             }
                 SceneDelete();
-             //   currentSceneNum = 5;
+              // currentSceneNum = 10;
                 GetTheToys();
 			break;
 			
 		case 2: 
 			//audio.PlayOneShot(number2);
-			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("two"));
-			currentSceneNum = randomScene2[Random.Range(0, randomScene2.Length)];
-                while (!scenes2.Contains(currentSceneNum))
-                {
-                    currentSceneNum = randomScene2[Random.Range(0, randomScene2.Length)];
-                }
-                scenes2.Remove(currentSceneNum);
-                SceneDelete();
-          //      currentSceneNum = 2;
+//			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("two"));
+//			currentSceneNum = randomScene2[Random.Range(0, randomScene2.Length)];
+//                while (!scenes2.Contains(currentSceneNum))
+//                {
+//                    currentSceneNum = randomScene2[Random.Range(0, randomScene2.Length)];
+//                }
+//                scenes2.Remove(currentSceneNum);
+//                SceneDelete();
+               currentSceneNum = 10;
                 GetTheToys();
 			break;
 			
@@ -428,6 +432,12 @@ public void InputLock()
 		backChange.isBackChanging = true;
 		LoadScene9 (numberFingers);
 		break;
+
+		case 10: 
+			choirObjects = Resources.LoadAll ("choir", typeof(GameObject)).Cast<GameObject> ().ToArray ();
+			backChange.isBackChanging = true;
+			LoadScene10 (numberFingers);
+			break;
 		
 		}
 		}
@@ -630,6 +640,17 @@ numChange.spriteRenderer.color = new Color(1f,1f,1f,0.3f);
 		}
 	}
 
+	//choirScene loading
+	private void LoadScene10(int numberF) {
+		sceneObjects = new GameObject[numberF+1];
+
+		numChange.spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
+		for (int i = 0; i<numberF+1; i++) {
+		   sceneObjects[i] = GameObject.Instantiate(choirObjects[i], choirObjects[i].transform.position,Quaternion.identity) as GameObject;
+				}
+
+	}
+
 	
   ///<summary>
   /// Delete scene && reload if needed
@@ -762,6 +783,11 @@ case 7:
 			
 			case 9: 
             DestroyTouchableObjects();
+			Resources.UnloadUnusedAssets();
+			break;
+
+		case 10: 
+			DestroyTouchableObjects();
 			Resources.UnloadUnusedAssets();
 			break;
 		}

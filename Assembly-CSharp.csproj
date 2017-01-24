@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\AnimationVorotaScript.cs" />
+     <Compile Include="Assets\Scripts\ApplauseAnimation.cs" />
      <Compile Include="Assets\Scripts\AppleThrowScript.cs" />
      <Compile Include="Assets\Scripts\BackChange.cs" />
      <Compile Include="Assets\Scripts\BallAnimation.cs" />

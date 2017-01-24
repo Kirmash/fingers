@@ -15,6 +15,7 @@ public class TouchController : MonoBehaviour {
 	public AudioClip munch;
 	public AudioClip endSpace;
 	public AudioClip[] bubblePop;
+	public AudioClip endChoir;
 
 	private Vector3 startPosition;
 
@@ -103,6 +104,9 @@ public class TouchController : MonoBehaviour {
 //Scene rabbits 9
 	private float butteflyScaleRandomizer;
 	private Vector3 butterflyScale;
+
+//Scene choir 10 
+	[HideInInspector]public bool isChoirFinish;
 
 	void Start () {
 		//plates, planets
@@ -223,6 +227,14 @@ if (touchNumbers.currentSceneNum == 8) {
 							tObject.transform.GetChild (6).transform.localScale = butterflyScale;
 						}
 
+						if (touchNumbers.currentSceneNum == 10) {
+							closeScript.PlaySound();
+							numChange.BackChange();
+							usedTouchableObject.Add (tObject);
+							tObject.GetComponent<Animator>().SetInteger ("isSinging", 3);
+							tObject.GetComponent<AudioSource>().Play();
+							closeScript.touchCounter += 1;
+						}
 
 						isTouched = true;
 										}
@@ -648,6 +660,12 @@ if (flickStarted) {
 					objectMove = false;
 				}
 			}
+
+			if (touchNumbers.currentSceneNum == 10) {
+				GetComponent<AudioSource>().PlayOneShot (endChoir);
+				isChoirFinish = true;
+			}
+
 			objectMove = false;
 			closeScript.startClosing();
 		}

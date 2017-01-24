@@ -4,17 +4,21 @@ using UnityEngine;
 
 public class RabbitChoice : MonoBehaviour {
 
-	private int isDoubleJump = 0;
+	//[HideInInspector] public int isDoubleJump = 0;
 	private float randomizer;
+	Animator animator;
+
+	void Start () {
+		animator = GetComponent<Animator>();
+	}
 
 	public void ChoiceOfJumps () {
 		randomizer = Random.value;
-		Debug.Log (randomizer);
+//		Debug.Log (randomizer);
 		if (randomizer < 0.5f) {
-			isDoubleJump = 0;
+			animator.SetInteger("isDoubleJump",0);
 		} else
-			isDoubleJump = 5;
-		
+			animator.SetInteger("isDoubleJump",5);
 
 	}
 	
