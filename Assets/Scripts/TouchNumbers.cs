@@ -155,6 +155,7 @@ public class TouchNumbers : MonoBehaviour
 		optionsScript = (OptionsScript)GameObject.Find("backOptions").GetComponent(typeof(OptionsScript));
 		numberLeftChange = (numberLeftChange)GameObject.Find("numberLeft").GetComponent(typeof(numberLeftChange));
 		numberRightChange = (numberRightChange)GameObject.Find("numberRight").GetComponent(typeof(numberRightChange));
+		SplashScreen.Hide();
 	}
 
 	void Update () 
