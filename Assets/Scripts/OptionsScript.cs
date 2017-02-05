@@ -20,7 +20,7 @@ public class OptionsScript : MonoBehaviour {
 		languageManager = LanguageManager.Instance;	
 		shirmasTransform = (Transform)GameObject.Find("shirmas").GetComponent(typeof(Transform));
 		crossTransform = (Transform)GameObject.Find("Redcross").GetComponent(typeof(Transform));
-		languageManager.ChangeLanguage ("en");
+		languageManager.ChangeLanguage ("ru");
 	}
 	
 	// Update is called once per frame
@@ -48,6 +48,7 @@ public class OptionsScript : MonoBehaviour {
 			}
 			Debug.Log ("hit collider: " + hit.collider.tag);
 			if (hit.collider != null && hit.transform != null && hit.collider.tag == "optionsCross") {
+				Debug.Log ("Hitting options cross");
 				shirmasTransform.position = Vector3.zero;
 				crossTransform.position = crossStartPosition;
 				transform.position = positionStart;

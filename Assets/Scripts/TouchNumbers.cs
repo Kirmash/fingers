@@ -243,12 +243,12 @@ public void InputLock()
 		case 10: 
 			//audio.PlayOneShot(number10);
 			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("ten"));
-//            currentSceneNum = randomScene10[Random.Range(0, randomScene10.Length)];
-//               while (!scenes10.Contains(currentSceneNum)) { 
-//                   currentSceneNum = randomScene10[Random.Range(0, randomScene10.Length)];
-//                }
-//                SceneDelete();
-             currentSceneNum = 10;
+            currentSceneNum = randomScene10[Random.Range(0, randomScene10.Length)];
+               while (!scenes10.Contains(currentSceneNum)) { 
+                   currentSceneNum = randomScene10[Random.Range(0, randomScene10.Length)];
+                }
+                SceneDelete();
+			//currentSceneNum = 6;
                 GetTheToys();
 		    break;
 			
@@ -261,7 +261,7 @@ public void InputLock()
                    currentSceneNum = randomScene1[Random.Range(0, randomScene1.Length)];
             }
                 SceneDelete();
-              // currentSceneNum = 10;
+              //currentSceneNum = 6;
                 GetTheToys();
 			break;
 			
@@ -769,6 +769,7 @@ numChange.spriteRenderer.color = new Color(1f,1f,1f,0.3f);
 
 		case 6:
 		 DestroyTouchableObjects();
+			touchController.usedMainObjects.Clear ();
 			Resources.UnloadUnusedAssets();
 			break;
 

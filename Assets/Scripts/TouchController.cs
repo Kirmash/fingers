@@ -11,11 +11,13 @@ public class TouchController : MonoBehaviour {
 	[HideInInspector]public bool distanceGet;
 
 	public Animation anim;
+
 	
 	public AudioClip munch;
 	public AudioClip endSpace;
 	public AudioClip[] bubblePop;
 	public AudioClip endChoir;
+	public AudioClip[] appleOhh;
 
 	private Vector3 startPosition;
 
@@ -99,6 +101,7 @@ public class TouchController : MonoBehaviour {
 
 //Scene apples 6
 	bool isForceNeedToBeAdded = false;
+	private AnimationClip[] appleAnimation;
 	
 //Scene stars 7
 //Scene rabbits 9
@@ -302,6 +305,8 @@ if ((touchNumbers.currentSceneNum == 1) || ((touchNumbers.currentSceneNum == 2)&
 				}
 				if (counter < 10 && !isDragging && (touchNumbers.currentSceneNum == 6) && (tObject.GetComponent<Rigidbody2D>().gravityScale!=1)) {
 				//	Debug.Log("Executing touch");
+					randBubblePop = Random.Range (0, 6);
+					GetComponent<AudioSource>().PlayOneShot (appleOhh[randBubblePop]);
 					tObject.GetComponent<Rigidbody2D>().gravityScale = 9.81f;
 					tObject.GetComponent<Rigidbody2D>().angularDrag = 0.05f;
 					tObject.GetComponent<Animation>().Stop();
@@ -509,6 +514,7 @@ if (flickStarted) {
 				distanceBetweenCarrotHippo = 100f;
 				isTouched = false;
 				counter = 0;
+				usedTouchableObject.Add (tObject);
 			}
 				}
 //end hippo/basket_Check_scene4-5
@@ -608,10 +614,7 @@ if (flickStarted) {
 			
 			lerpMoving = 0f;
 			
-			if (touchNumbers.currentSceneNum == 1) {	
-			for (int i=0; i<usedMainObjects.Count; i++) {
-			Debug.Log(usedTouchableObject[i]);
-			}
+			if (touchNumbers.currentSceneNum == 1) {
 			
 				for (int i=0; i<touchNumbers.sceneObjects.Length-1; i++) {
 					speedExit [i] = Random.Range (1, 10);
@@ -665,6 +668,11 @@ if (flickStarted) {
 				GetComponent<AudioSource>().PlayOneShot (endChoir);
 				isChoirFinish = true;
 			}
+			if (touchNumbers.currentSceneNum == 6) {
+				GetComponent<AudioSource>().PlayOneShot (endChoir);
+				Invoke ("AppleJumps", 0.5f);
+			}
+
 
 			objectMove = false;
 			closeScript.startClosing();
@@ -724,8 +732,11 @@ if (flickStarted) {
 
 	public void AppleDisappear(GameObject objectDisappear) {
 	//	Debug.Log ("Disappearing!");
-		objectDisappear.transform.localScale -= new Vector3 (1f,1f,1f);
-		objectDisappear.transform.position = new Vector3 (100f, 100f, 0f);
+		//objectDisappear.transform.localScale -= new Vector3 (1f,1f,1f);
+		objectDisappear.transform.position = new Vector3 (2.91f, -5.48f, 0f);
+		tObject.GetComponent<Rigidbody2D>().gravityScale = 0f;
+		objectDisappear.GetComponent<CircleCollider2D> ().enabled = false;
+		usedMainObjects.Add (objectDisappear);
 		isDragging = false;
 		counter = 0;
 		isTouched = false;
@@ -734,6 +745,15 @@ if (flickStarted) {
 		closeScript.touchCounter +=1;
 		distanceBetweenCarrotHippo = 100f;
 		}
+
+	private void AppleJumps () {
+		for (int i = 0; i < usedMainObjects.Count; i++) {
+			touchNumbers.sceneObjects [i + 3].GetComponent<CircleCollider2D> ().enabled = false;
+			touchNumbers.sceneObjects[i+3].GetComponent<Animation> ().Play("appleAnimationJump" + (i+1).ToString());
+			//Debug.Log (touchNumbers.sceneObjects[i+3].GetComponent<Animation> ().Play("appleAnimationJump" + (i+1).ToString()));
+		}
+
+	}
 
 }
 

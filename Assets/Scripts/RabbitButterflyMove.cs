@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class RabbitButterflyMove : MonoBehaviour {
     GameObject childObj1;
 	GameObject childObj2;
-	private float force = 10.0f;
+	private float force = 15.0f;
 	
 	void Start() {
 	childObj1 = transform.GetChild(0).GetChild(5).gameObject;
@@ -23,7 +23,7 @@ public class RabbitButterflyMove : MonoBehaviour {
 		while (true) {
 			GetComponent<Rigidbody2D>().AddForce(Random.insideUnitSphere * force);
 				if (force >= 1.0f) {
-					force = force - 0.1f;
+					force = force - 0.3f;
 				}
 
 			yield return new WaitForSeconds(0f);
