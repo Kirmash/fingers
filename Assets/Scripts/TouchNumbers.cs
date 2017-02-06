@@ -242,13 +242,13 @@ public void InputLock()
 		{
 		case 10: 
 			//audio.PlayOneShot(number10);
-			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("ten"));
-            currentSceneNum = randomScene10[Random.Range(0, randomScene10.Length)];
-               while (!scenes10.Contains(currentSceneNum)) { 
-                   currentSceneNum = randomScene10[Random.Range(0, randomScene10.Length)];
-                }
-                SceneDelete();
-			//currentSceneNum = 6;
+//			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("ten"));
+//            currentSceneNum = randomScene10[Random.Range(0, randomScene10.Length)];
+//               while (!scenes10.Contains(currentSceneNum)) { 
+//                   currentSceneNum = randomScene10[Random.Range(0, randomScene10.Length)];
+//                }
+//                SceneDelete();
+			currentSceneNum = 6;
                 GetTheToys();
 		    break;
 			
