@@ -749,6 +749,7 @@ if (flickStarted) {
 	private void AppleJumps () {
 		for (int i = 0; i < usedMainObjects.Count; i++) {
 			touchNumbers.sceneObjects [i + 3].GetComponent<CircleCollider2D> ().enabled = false;
+			touchNumbers.sceneObjects [i + 3].GetComponent<Rigidbody2D>().gravityScale = 0f;
 			touchNumbers.sceneObjects[i+3].GetComponent<Animation> ().Play("appleAnimationJump" + (i+1).ToString());
 			//Debug.Log (touchNumbers.sceneObjects[i+3].GetComponent<Animation> ().Play("appleAnimationJump" + (i+1).ToString()));
 		}

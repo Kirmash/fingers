@@ -248,7 +248,7 @@ public void InputLock()
 //                   currentSceneNum = randomScene10[Random.Range(0, randomScene10.Length)];
 //                }
 //                SceneDelete();
-			currentSceneNum = 6;
+			currentSceneNum = 8;
                 GetTheToys();
 		    break;
 			
@@ -360,13 +360,13 @@ public void InputLock()
 		case 9: 
 			//audio.PlayOneShot(number9);
 			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("nine"));
-		    currentSceneNum = randomScene9[Random.Range(0, randomScene9.Length)];
-                while (!scenes9.Contains(currentSceneNum))
-                {
-                    currentSceneNum = randomScene9[Random.Range(0, randomScene9.Length)];
-                }
-                SceneDelete();
-                //currentSceneNum = 5;
+//		    currentSceneNum = randomScene9[Random.Range(0, randomScene9.Length)];
+//                while (!scenes9.Contains(currentSceneNum))
+//                {
+//                    currentSceneNum = randomScene9[Random.Range(0, randomScene9.Length)];
+//                }
+//                SceneDelete();
+                currentSceneNum = 6;
                 GetTheToys ();
 			break;
 		}
