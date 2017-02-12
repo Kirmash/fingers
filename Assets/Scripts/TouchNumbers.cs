@@ -242,13 +242,13 @@ public void InputLock()
 		{
 		case 10: 
 			//audio.PlayOneShot(number10);
-//			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("ten"));
-//            currentSceneNum = randomScene10[Random.Range(0, randomScene10.Length)];
-//               while (!scenes10.Contains(currentSceneNum)) { 
-//                   currentSceneNum = randomScene10[Random.Range(0, randomScene10.Length)];
-//                }
-//                SceneDelete();
-			currentSceneNum = 8;
+			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("ten"));
+            currentSceneNum = randomScene10[Random.Range(0, randomScene10.Length)];
+               while (!scenes10.Contains(currentSceneNum)) { 
+                   currentSceneNum = randomScene10[Random.Range(0, randomScene10.Length)];
+                }
+                SceneDelete();
+			//currentSceneNum = 8;
                 GetTheToys();
 		    break;
 			
@@ -360,13 +360,13 @@ public void InputLock()
 		case 9: 
 			//audio.PlayOneShot(number9);
 			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("nine"));
-//		    currentSceneNum = randomScene9[Random.Range(0, randomScene9.Length)];
-//                while (!scenes9.Contains(currentSceneNum))
-//                {
-//                    currentSceneNum = randomScene9[Random.Range(0, randomScene9.Length)];
-//                }
-//                SceneDelete();
-                currentSceneNum = 6;
+		    currentSceneNum = randomScene9[Random.Range(0, randomScene9.Length)];
+                while (!scenes9.Contains(currentSceneNum))
+                {
+                    currentSceneNum = randomScene9[Random.Range(0, randomScene9.Length)];
+                }
+                SceneDelete();
+            //    currentSceneNum = 6;
                 GetTheToys ();
 			break;
 		}

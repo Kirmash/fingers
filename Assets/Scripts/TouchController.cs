@@ -735,6 +735,8 @@ if (flickStarted) {
 		//objectDisappear.transform.localScale -= new Vector3 (1f,1f,1f);
 		objectDisappear.transform.position = new Vector3 (2.91f, -5.48f, 0f);
 		tObject.GetComponent<Rigidbody2D>().gravityScale = 0f;
+		tObject.GetComponent<Rigidbody2D>().mass = 0f;
+		tObject.GetComponent<Rigidbody2D> ().simulated = false;
 		objectDisappear.GetComponent<CircleCollider2D> ().enabled = false;
 		usedMainObjects.Add (objectDisappear);
 		isDragging = false;
@@ -749,7 +751,6 @@ if (flickStarted) {
 	private void AppleJumps () {
 		for (int i = 0; i < usedMainObjects.Count; i++) {
 			touchNumbers.sceneObjects [i + 3].GetComponent<CircleCollider2D> ().enabled = false;
-			touchNumbers.sceneObjects [i + 3].GetComponent<Rigidbody2D>().gravityScale = 0f;
 			touchNumbers.sceneObjects[i+3].GetComponent<Animation> ().Play("appleAnimationJump" + (i+1).ToString());
 			//Debug.Log (touchNumbers.sceneObjects[i+3].GetComponent<Animation> ().Play("appleAnimationJump" + (i+1).ToString()));
 		}
