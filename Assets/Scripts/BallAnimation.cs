@@ -32,6 +32,7 @@ public class BallAnimation : MonoBehaviour {
 		ballState = string.Format("ballLeftStrike{0}", ballStateIndex);
 		ballTouch.tObject.GetComponent<Animation>().Play (ballState);
 		ballTouch.ballAnimationIndex = 0;
+		ballTouch.tObject = null;
 	}
 
 	void playRight () {
@@ -39,6 +40,7 @@ public class BallAnimation : MonoBehaviour {
 		ballState = string.Format("ballLeftStrike{0}", ballStateIndex);
 		ballTouch.tObject.GetComponent<Animation>().Play (ballState);
 		ballTouch.ballAnimationIndex = 0;
+		ballTouch.tObject = null;
 	}
 
 

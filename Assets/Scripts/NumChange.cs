@@ -36,4 +36,6 @@ public class NumChange : MonoBehaviour {
 		spriteRenderer.sprite = numbers [closeScript.touchCounter];
 
 	}
+
+
 }

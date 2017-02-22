@@ -46,7 +46,7 @@ public class TouchNumbers : MonoBehaviour
 
     private List<int> numScene;
     private int[] allScenes = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-    [HideInInspector] public int currentSceneNum;
+    [HideInInspector] public int currentSceneNum = 0;
 
 	//private CloseScript closeScript;
 	private NumChange numChange;
@@ -248,7 +248,8 @@ public void InputLock()
                    currentSceneNum = randomScene10[Random.Range(0, randomScene10.Length)];
                 }
                 SceneDelete();
-			//currentSceneNum = 8;
+
+		//	currentSceneNum = 3;
                 GetTheToys();
 		    break;
 			
@@ -353,7 +354,7 @@ public void InputLock()
                     currentSceneNum = randomScene8[Random.Range(0, randomScene8.Length)];
                 }
                 SceneDelete();
-                //currentSceneNum = 3;
+			//currentSceneNum = currentSceneNum + 1;
                 GetTheToys();
 			break;
 			
@@ -714,19 +715,32 @@ numChange.spriteRenderer.color = new Color(1f,1f,1f,0.3f);
 		case 1: 
 				touchController.usedMainObjects.Clear ();
 			touchController.usedTouchableObject.Clear();
+			for (int i = 0; i<plates.Length; i++)
+			{
+				plates [i] = null;
+			}
+			for (int i = 0; i<cake.Length; i++)
+			{
+				cake [i] = null;
+			}
+
+			for (int i = 0; i<cakeScene.Length; i++)
+			{
+				cakeScene [i] = null;
+			}
 			for (int i = 0; i<9; i++) {
 				if (i <sceneObjects.Length)
 				{
-					Destroy (sceneObjects[i]);
+					DestroyImmediate (sceneObjects[i]);
 				}
 				if (i < cakeScene.Length)
 				{
-					Destroy (cakeScene[i]);
+					DestroyImmediate (cakeScene[i]);
 				}				
 			}
-		
-			
+
 			Resources.UnloadUnusedAssets();
+		//	System.GC.Collect ();
 			
 			break;
 
@@ -735,72 +749,131 @@ numChange.spriteRenderer.color = new Color(1f,1f,1f,0.3f);
 			if (touchController.objectMove) {
 				touchController.objectMove = false;
 			}
-			touchController.usedTouchableObject.Clear();
+			touchController.usedTouchableObject.Clear ();
 			touchController.usedMainObjects.Clear ();
-
-			for (int i = 0; i<sceneObjects.Length; i++)
+			rocket = null;
+			for (int i = 0; i<spaceObjects.Length; i++)
 			{
-				Destroy(sceneObjects[i]);
+				spaceObjects [i] = null;
 			}
 
+			DestroyTouchableObjects();
+
               Resources.UnloadUnusedAssets();
+		//	System.GC.Collect ();
 			break;
 
 		case 3:
 
-			Destroy(vorota);
-			Destroy(vratar);
-			Destroy(tablo);
+			Destroy (vorota);
+			vorota = null;
+			Destroy (vratar);
+			vratar = null;
+			Destroy (tablo);
+			tablo = null;
+			for (int i = 0; i<soccerObjects.Length; i++)
+			{
+			//	DestroyImmediate (soccerObjects [i]);
+				soccerObjects [i] = null;
+			}
 
 			DestroyTouchableObjects();
 			Resources.UnloadUnusedAssets();
+			//System.GC.Collect ();
 			break;
 
 		case 4:
-			Destroy(backScene);
-		 DestroyTouchableObjects();
-            Resources.UnloadUnusedAssets();
+			DestroyImmediate (backScene);
+			DestroyTouchableObjects ();
+			for (int i = 0; i<bubbleObjects.Length; i++)
+			{
+				bubbleObjects [i] = null;
+			}
+
+			Resources.UnloadUnusedAssets ();
+			//System.GC.Collect ();
 			break;
 		
 		case 5:
 			 DestroyTouchableObjects();
+			for (int i = 0; i<carrotObjects.Length; i++)
+			{
+				carrotObjects [i] = null;
+			}
 			 Resources.UnloadUnusedAssets();
+			//System.GC.Collect ();
 			break;
 
 		case 6:
 		 DestroyTouchableObjects();
-			touchController.usedMainObjects.Clear ();
+			for (int i = 0; i<appleObjects.Length; i++)
+			{
+				appleObjects [i] = null;
+			}
 			Resources.UnloadUnusedAssets();
+			//System.GC.Collect ();
 			break;
 
 case 7: 
 	        DestroyTouchableObjects();
+			for (int i = 0; i<starObjects.Length; i++)
+			{
+				starObjects [i] = null;
+			}
 			Resources.UnloadUnusedAssets();
+		//	System.GC.Collect ();
 			break;
 		
 		case 8: 
            DestroyTouchableObjects();
+			for (int i = 0; i<cloudObjects.Length; i++)
+			{
+				cloudObjects[i] = null;
+			}
 			Resources.UnloadUnusedAssets();
+		//	System.GC.Collect ();
 			break;
 			
 			case 9: 
             DestroyTouchableObjects();
+			for (int i = 0; i<rabbitsObjects.Length; i++)
+			{
+				rabbitsObjects[i] = null;
+			}
 			Resources.UnloadUnusedAssets();
+		//	System.GC.Collect ();
 			break;
 
 		case 10: 
-			DestroyTouchableObjects();
-			Resources.UnloadUnusedAssets();
+			DestroyTouchableObjects ();
+			for (int i = 0; i < choirObjects.Length; i++) {
+				choirObjects [i] = null;
+			}
+	
+			Resources.UnloadUnusedAssets ();	
+
+		//	System.GC.Collect ();
 			break;
 		}
 
 	}
 	
 		private void DestroyTouchableObjects () {
+		numChange.spriteRenderer.sprite = null;
+		backChange.spriteRenderer.sprite = null;
 		touchController.usedTouchableObject.Clear();
+		Debug.Log ("Destroying");
 for (int i = 0; i<sceneObjects.Length; i++)
-			{			
+		{		
+			for (int j = sceneObjects [i].transform.childCount - 1; j >= 0; j--){
+			//	Debug.Log ("Childs of gameobject: " + sceneObjects [i].transform.GetChild (j).gameObject);
+				Destroy (sceneObjects [i].transform.GetChild(j).gameObject);
+
+			}
+			//Debug.Log ("SceneObject to destroy: " + sceneObjects [i]);
+		 	
 				Destroy (sceneObjects[i]);
+			sceneObjects [i] = null;
 			}
 	}
 	}

@@ -4,7 +4,7 @@ using System.Collections;
 public class BackChange : MonoBehaviour {
 	public Sprite[] backs;
 	[HideInInspector] public bool isBackChanging = false;
-	private SpriteRenderer spriteRenderer;
+	[HideInInspector] public SpriteRenderer spriteRenderer;
 	private TouchNumbers touchNumbers;
 
 	// Use this for initialization
@@ -22,7 +22,12 @@ public class BackChange : MonoBehaviour {
 			spriteRenderer.sprite = backs [touchNumbers.currentSceneNum];
 			isBackChanging = false;
 	}
-
-
 }
+
+	void OnDestroy() {
+
+		spriteRenderer.sprite = null;
+
+
+	}
 }

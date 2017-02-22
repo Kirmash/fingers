@@ -21,4 +21,12 @@ public class footballTabloScript : MonoBehaviour {
 		spriteRenderer.sprite = numbers [closeScript.touchCounter];
 
 	}
+
+	void OnDestroy() {
+
+		spriteRenderer.sprite = null;
+		spriteRenderer = null;
+		closeScript = null;
+
+	}
 }
