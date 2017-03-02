@@ -16,6 +16,7 @@ public class TouchController : MonoBehaviour {
 	public AudioClip munch;
 	public AudioClip endSpace;
 	public AudioClip[] bubblePop;
+	public AudioClip[] starFall;
 	public AudioClip endChoir;
 	public AudioClip[] appleOhh;
 
@@ -199,7 +200,7 @@ public class TouchController : MonoBehaviour {
 							numChange.BackChange();
 						randBubblePop = Random.Range (0, 4);
 												usedTouchableObject.Add (tObject);
-						GetComponent<AudioSource>().PlayOneShot (bubblePop[randBubblePop]);
+						GetComponent<AudioSource>().PlayOneShot (starFall[randBubblePop]);
 			closeScript.touchCounter += 1;
 			tObject.GetComponent<Animator>().SetFloat ("fallTime", 3.0f);
 						}
@@ -592,7 +593,7 @@ if (flickStarted) {
 					if (usedMainObjects [closeScript.touchCounter - 1].transform.FindChild ("fingers_space_hum2")) {
 						usedMainObjects [closeScript.touchCounter - 1].transform.FindChild ("fingers_space_hum2").GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 1);
 					}
-					if (usedMainObjects [closeScript.touchCounter - 1].transform.FindChild ("flag_1")) {
+					if (usedMainObjects [closeScript.touchCounter - 1].transform.FindChild ("fingers_space_hum1")) {
 						usedMainObjects [closeScript.touchCounter - 1].transform.FindChild ("fingers_space_hum1").GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 1);
 					}
 				}

@@ -249,7 +249,7 @@ public void InputLock()
                 }
                 SceneDelete();
 
-		//	currentSceneNum = 3;
+			//currentSceneNum = 2;
                 GetTheToys();
 		    break;
 			
@@ -276,7 +276,7 @@ public void InputLock()
                 }
                 scenes2.Remove(currentSceneNum);
                 SceneDelete();
-            //   currentSceneNum = 10;
+            //  currentSceneNum = 2;
                 GetTheToys();
 			break;
 			
@@ -717,17 +717,21 @@ numChange.spriteRenderer.color = new Color(1f,1f,1f,0.3f);
 			touchController.usedTouchableObject.Clear();
 			for (int i = 0; i<plates.Length; i++)
 			{
+				Destroy (plates [i]);
 				plates [i] = null;
 			}
 			for (int i = 0; i<cake.Length; i++)
 			{
+				Destroy (cake [i]);
 				cake [i] = null;
 			}
 
 			for (int i = 0; i<cakeScene.Length; i++)
 			{
+				Destroy (cakeScene [i]);
 				cakeScene [i] = null;
 			}
+
 			for (int i = 0; i<9; i++) {
 				if (i <sceneObjects.Length)
 				{
@@ -862,14 +866,13 @@ case 7:
 		numChange.spriteRenderer.sprite = null;
 		backChange.spriteRenderer.sprite = null;
 		touchController.usedTouchableObject.Clear();
-		Debug.Log ("Destroying");
 for (int i = 0; i<sceneObjects.Length; i++)
 		{		
-			for (int j = sceneObjects [i].transform.childCount - 1; j >= 0; j--){
-			//	Debug.Log ("Childs of gameobject: " + sceneObjects [i].transform.GetChild (j).gameObject);
-				Destroy (sceneObjects [i].transform.GetChild(j).gameObject);
-
-			}
+//			for (int j = sceneObjects [i].transform.childCount - 1; j >= 0; j--){
+//			//	Debug.Log ("Childs of gameobject: " + sceneObjects [i].transform.GetChild (j).gameObject);
+//				Destroy (sceneObjects [i].transform.GetChild(j).gameObject);
+//
+//			}
 			//Debug.Log ("SceneObject to destroy: " + sceneObjects [i]);
 		 	
 				Destroy (sceneObjects[i]);
