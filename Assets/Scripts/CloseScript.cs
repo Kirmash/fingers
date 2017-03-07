@@ -64,12 +64,12 @@ public class CloseScript : MonoBehaviour {
 		touchNumbers.InputLock ();
 		if ( touchNumbers.currentSceneNum == 2 || touchNumbers.currentSceneNum == 10) {
 			Invoke ("CloseShirmas", 4.5f);
-		} else if (touchNumbers.currentSceneNum == 8 || touchNumbers.currentSceneNum == 3 ) {
+		} else if (touchNumbers.currentSceneNum == 8  ) {
 				Invoke ("CloseShirmas", 3.5f);
 				} 
 				else
 				{
-						Invoke ("CloseShirmas", 2.5f);
+						Invoke ("CloseShirmas", 2f);
 				}
 		}
 

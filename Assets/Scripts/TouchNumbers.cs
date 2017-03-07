@@ -814,6 +814,7 @@ numChange.spriteRenderer.color = new Color(1f,1f,1f,0.3f);
 			{
 				appleObjects [i] = null;
 			}
+			touchController.usedMainObjects.Clear ();
 			Resources.UnloadUnusedAssets();
 			//System.GC.Collect ();
 			break;
