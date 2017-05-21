@@ -67,6 +67,8 @@
      <Compile Include="Assets\Scripts\RabbitChoice.cs" />
      <Compile Include="Assets\Scripts\SnailJump.cs" />
      <Compile Include="Assets\Scripts\SunShineScript.cs" />
+     <Compile Include="Assets\Scripts\TeaCollisionCheck.cs" />
+     <Compile Include="Assets\Scripts\TeaPouring.cs" />
      <Compile Include="Assets\Scripts\TouchController.cs" />
      <Compile Include="Assets\Scripts\TouchNumbers.cs" />
      <Compile Include="Assets\Scripts\WormJump.cs" />

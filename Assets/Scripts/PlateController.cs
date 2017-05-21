@@ -20,12 +20,20 @@ public class PlateController : MonoBehaviour {
 		if (touchController.isDragging && (nbTouches > 0)) {
 	//		hitPlate = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.mousePosition), Vector2.zero);
 			hitPlate = Physics2D.Raycast (Camera.main.ScreenToWorldPoint(Input.GetTouch (0).position), Vector2.zero);
-			if (hitPlate != null && hitPlate.collider != null && hitPlate.collider.tag == "object") {
+			if (hitPlate != null && hitPlate.collider != null && hitPlate.collider.tag == "spacestuff") {
+				
 				if (!touchController.usedMainObjects.Contains(hitPlate.transform.gameObject)) {
-			hitPlate.collider.gameObject.transform.localScale = new Vector3(1.1f,1.1f,1.1f);
+					//Debug.Log ("Here!");
+			
 					touchController.overMainObject = true;
-
-					touchController.mainObjectCoordinates = hitPlate.collider.gameObject.transform.position;
+				
+					if (touchNumbers.currentSceneNum == 11) {
+						touchController.mainObjectCoordinates.x = hitPlate.collider.gameObject.transform.position.x + hitPlate.collider.gameObject.GetComponent<BoxCollider2D>().offset.x;
+						touchController.mainObjectCoordinates.y = hitPlate.collider.gameObject.transform.position.y + hitPlate.collider.gameObject.GetComponent<BoxCollider2D>().offset.y;
+					} else {
+						hitPlate.collider.gameObject.transform.localScale = new Vector3(1.1f,1.1f,1.1f);
+						touchController.mainObjectCoordinates = hitPlate.collider.gameObject.transform.position;
+					}
 					touchController.activeMainObject = hitPlate.collider.gameObject;
 
 				}
@@ -44,4 +52,18 @@ public class PlateController : MonoBehaviour {
 
 }
 
+
+	public void TeaStopToIdle () {
+		touchController.tObject.GetComponent<Animator> ().SetInteger ("TeaFlows", 1);
+		touchController.tObject.GetComponent<Animator> ().SetInteger ("isWaiting", 1);
+	}
+
+
+	public void TeaStop () {
+		touchController.tObject.GetComponent<Animator> ().SetInteger ("TeaFlows", 1);
+		touchController.tObject.GetComponent<Animator> ().SetInteger ("isWaiting", 3);
+	}
+
 }
+
+

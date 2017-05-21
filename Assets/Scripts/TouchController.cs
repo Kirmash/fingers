@@ -112,6 +112,10 @@ public class TouchController : MonoBehaviour {
 //Scene choir 10 
 	[HideInInspector]public bool isChoirFinish;
 
+//Scene tea 11
+	private Vector3 teaOffset = new Vector3 (-2.1f, -2.7f, 0);
+	private float speedKettle = 1f;
+
 	void Start () {
 		//plates, planets
 		usedMainObjects = new List<GameObject>();
@@ -136,18 +140,26 @@ public class TouchController : MonoBehaviour {
 								//	hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.mousePosition), Vector2.zero);
 								hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.GetTouch (0).position), Vector2.zero);
 							//	Debug.Log("Hitting hard!");
-//touch on space object 
+//touch on space object / or teaParty object 
 				if (hit.transform != null && hit.collider != null && hit.collider.tag == "spacestuff") {
 										if (!usedMainObjects.Contains (hit.transform.gameObject)) {
 						thisTouched = true;
 					tObject = GameObject.Find (hit.transform.gameObject.name);
 					usedMainObjects.Add (tObject);
-						endPoint = tObject.transform.position;
-						tObject.GetComponent<BoxCollider2D>().enabled = false;
-						tObject.GetComponent<Animator>().SetBool("isStill",true);	
-						tObject = GameObject.Find("spaceObject11(Clone)");
-						rocketRotate = true;
-
+						if ((touchNumbers.currentSceneNum == 11)) {
+							mainObjectCoordinates.x = hit.collider.gameObject.transform.position.x + hit.collider.gameObject.GetComponent<BoxCollider2D>().offset.x;
+							mainObjectCoordinates.y = hit.collider.gameObject.transform.position.y + hit.collider.gameObject.GetComponent<BoxCollider2D>().offset.y;
+							endPoint = mainObjectCoordinates - teaOffset;
+							activeMainObject = hit.collider.gameObject;
+							tObject = GameObject.Find ("002. teapot(Clone)");
+							objectMove = true;
+						} else {
+							endPoint = tObject.transform.position;
+							tObject.GetComponent<BoxCollider2D>().enabled = false;
+							tObject.GetComponent<Animator>().SetBool("isStill",true);	
+							tObject = GameObject.Find("spaceObject11(Clone)");
+							rocketRotate = true;
+						}
 					}
 				}
 				if (hit.transform != null && hit.collider != null && hit.collider.tag == "cakerocket" && !thisTouched) {
@@ -167,7 +179,7 @@ public class TouchController : MonoBehaviour {
 														startPosition = tObject.transform.position;
 												}
 //drag control
-												if ((touchNumbers.currentSceneNum == 1) || (touchNumbers.currentSceneNum == 2) || (touchNumbers.currentSceneNum ==6)) {
+						if ((touchNumbers.currentSceneNum == 1) || (touchNumbers.currentSceneNum == 2) || (touchNumbers.currentSceneNum ==6) || (touchNumbers.currentSceneNum == 11)) {
 														if (!distanceGet) {
 																distance = Vector3.Distance (tObject.transform.position, Camera.main.transform.position);								                         
 																if (touchNumbers.currentSceneNum == 1) {
@@ -175,8 +187,9 @@ public class TouchController : MonoBehaviour {
 																}
 																distanceGet = true;
 															}
+						}
 //flick control
-														}
+														
 						if (touchNumbers.currentSceneNum == 3) {
 							startFlickPositionY = Input.GetTouch (0).position.y;
 							flickStartTime = Time.time;
@@ -240,6 +253,7 @@ if (touchNumbers.currentSceneNum == 8) {
 							closeScript.touchCounter += 1;
 						}
 
+
 						isTouched = true;
 										}
 
@@ -249,10 +263,10 @@ if (touchNumbers.currentSceneNum == 8) {
 
 					
 
-						if (isTouched) {
-				if ((touchNumbers.currentSceneNum == 1) || (touchNumbers.currentSceneNum == 2) || (touchNumbers.currentSceneNum == 5) || (touchNumbers.currentSceneNum == 6) )  {
+			if (isTouched) {
+				if ((touchNumbers.currentSceneNum == 1) || (touchNumbers.currentSceneNum == 2) || (touchNumbers.currentSceneNum == 5) || (touchNumbers.currentSceneNum == 6) || (touchNumbers.currentSceneNum == 11))  {
 								if (counter < 10) {
-				//		Debug.Log("Counter counting");
+						Debug.Log("Counter counting");
 										counter += 1;
 								}
 				
@@ -335,9 +349,9 @@ if (flickStarted) {
 
 
 // movement over Main objects
-								if ((touchNumbers.currentSceneNum == 1) || (touchNumbers.currentSceneNum == 2)) {
+				if ((touchNumbers.currentSceneNum == 1) || (touchNumbers.currentSceneNum == 2) || (touchNumbers.currentSceneNum == 11)) {
+
 										if (overMainObject && !isReturning && isDragging) {
-												
 												usedMainObjects.Add (activeMainObject);
 
 												if (touchNumbers.currentSceneNum == 1) {
@@ -348,6 +362,10 @@ if (flickStarted) {
 												if (touchNumbers.currentSceneNum == 2) {
 														endPoint = mainObjectCoordinates;
 												}
+						if (touchNumbers.currentSceneNum == 11) {
+							endPoint = mainObjectCoordinates - teaOffset;
+						}
+
 
 												objectMove = true;
 										} else {
@@ -371,9 +389,15 @@ if (flickStarted) {
 	ray = Camera.main.ScreenPointToRay (Input.GetTouch (0).position);
 								//ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 								Vector3 rayPoint = ray.GetPoint (distance);
-				if ((touchNumbers.currentSceneNum == 3) || (touchNumbers.currentSceneNum == 2) || (touchNumbers.currentSceneNum ==6)) {
+				if ((touchNumbers.currentSceneNum == 3) || (touchNumbers.currentSceneNum == 2) || (touchNumbers.currentSceneNum ==6)  || (touchNumbers.currentSceneNum ==11)) {
 					if (tObject != null) {
+
 					tObject.GetComponent<Rigidbody2D>().transform.position = rayPoint;
+						if (touchNumbers.currentSceneNum == 11) {
+							//tObject.GetComponent<Animator> ().speed = 0;
+							tObject.GetComponent<Animator> ().enabled = false;
+							//tObject.GetComponent<Animator>().SetInteger ("isWaiting", 3);
+						}
 						if (touchNumbers.currentSceneNum == 6) {
 							distanceBetweenCarrotHippo = Vector3.Distance(tObject.transform.position,touchNumbers.basketPosition);
 							tObject.GetComponent<Animation>().Stop();
@@ -503,7 +527,9 @@ if (flickStarted) {
 
 			}
 		}
-//check if apple in the basket
+
+
+//check if apple in the basket 
 		if (nbTouches == 0 && !isDragging && touchNumbers.currentSceneNum == 6 && doneDraggingCarrot) {
 
 			doneDraggingCarrot = false;
@@ -518,10 +544,11 @@ if (flickStarted) {
 				usedTouchableObject.Add (tObject);
 			}
 				}
-//end hippo/basket_Check_scene4-5
+//end hippo/basket_Check_scene4-5-11
 
 // moving Objects control
 		if (objectMove && !closeScript.closeProcessOnline) {
+			Debug.Log ("Moving!");
 			lerpMoving += Time.deltaTime;
 			if (touchNumbers.currentSceneNum == 1) {
 				tObject.transform.FindChild("cake1").GetComponent<SpriteRenderer>().sortingOrder = 3;
@@ -568,7 +595,21 @@ if (flickStarted) {
 				
 				tObject.transform.position = Vector3.MoveTowards (tObject.transform.position, endPoint, ballSpeed*lerpMoving);
 			}
-			
+
+			if (touchNumbers.currentSceneNum == 11) {
+				tObject.transform.position = Vector3.MoveTowards (tObject.transform.position, endPoint, speedKettle*lerpMoving);
+	
+				if (tObject.transform.position == endPoint) {
+					tObject.GetComponent<Animator> ().enabled = true;
+					tObject.GetComponent<Animator> ().Play("TeaSceneTeapotIdle", -1, 1f);
+					tObject.GetComponent<Animator>().SetInteger ("TeaFlows", 3);
+					tObject.GetComponent<Animator>().SetInteger ("isWaiting", 1);
+					tObject.GetComponent<Animator>().Play("TeaSceneTeapotIdle", -1, 1f);
+					activeMainObject.GetComponent<Animator>().SetInteger ("isPouring", 3);
+				}
+			}
+
+
 			if (tObject.transform.position == endPoint && !(endPoint == rocketEndPoint)) {
 				closeScript.PlaySound ();
 				objectMove = false;
@@ -672,6 +713,9 @@ if (flickStarted) {
 			if (touchNumbers.currentSceneNum == 6) {
 				GetComponent<AudioSource>().PlayOneShot (endChoir);
 				Invoke ("AppleJumps", 0.5f);
+			}
+			if (touchNumbers.currentSceneNum == 11) {
+				tObject.GetComponent<Animator>().SetInteger ("isLeaving", 3);
 			}
 
 

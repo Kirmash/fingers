@@ -19,33 +19,33 @@ public class TouchNumbers : MonoBehaviour
     //	public AudioClip number9;
     //	public AudioClip number10;
 
-    int[] randomScene1 = new int[] { 2, 3, 4, 5, 6, 7, 8, 9 };
-    int[] randomScene2 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-    int[] randomScene3 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-    int[] randomScene4 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-    int[] randomScene5 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-    int[] randomScene6 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-    int[] randomScene7 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-    int[] randomScene8 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-    int[] randomScene9 = new int[] { 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-    int[] randomScene10 = new int[] { 2, 3, 4, 6, 7, 8, 9, 10 };
+    int[] randomScene1 = new int[] { 2, 3, 4, 5, 6, 7, 8, 9, 11 };
+    int[] randomScene2 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
+    int[] randomScene3 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
+    int[] randomScene4 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
+    int[] randomScene5 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
+    int[] randomScene6 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
+    int[] randomScene7 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
+    int[] randomScene8 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
+    int[] randomScene9 = new int[] { 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
+    int[] randomScene10 = new int[] { 2, 3, 4, 6, 7, 8, 9, 10, 11 };
 	
 	bool is1stSceneLoaded;
 	bool is2ndSceneLoaded;
 
-    private List<int> scenes1 = new List<int> { 2, 3, 4, 5, 6, 7, 8, 9};
-    private List<int> scenes2 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-    private List<int> scenes3 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-    private List<int> scenes4 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-    private List<int> scenes5 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-    private List<int> scenes6 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-    private List<int> scenes7 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-    private List<int> scenes8 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-    private List<int> scenes9 = new List<int> { 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-    private List<int> scenes10 = new List<int> { 2, 3, 4, 6, 7, 8, 9, 10 };
+    private List<int> scenes1 = new List<int> { 2, 3, 4, 5, 6, 7, 8, 9, 11};
+    private List<int> scenes2 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
+    private List<int> scenes3 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
+    private List<int> scenes4 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
+    private List<int> scenes5 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
+    private List<int> scenes6 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
+    private List<int> scenes7 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
+    private List<int> scenes8 = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
+    private List<int> scenes9 = new List<int> { 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
+    private List<int> scenes10 = new List<int> { 2, 3, 4, 6, 7, 8, 9, 10, 11 };
 
     private List<int> numScene;
-    private int[] allScenes = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+    private int[] allScenes = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
     [HideInInspector] public int currentSceneNum = 0;
 
 	//private CloseScript closeScript;
@@ -134,6 +134,10 @@ public class TouchNumbers : MonoBehaviour
 
 	//arrays and assets for ChoirScene (10)
 	[HideInInspector] public GameObject[] choirObjects;
+
+	//arrays and assets for TeaScene (11)
+	[HideInInspector] public GameObject[] teaObjects;
+
 
 
 	[HideInInspector] public int touchKey = 0;
@@ -249,7 +253,7 @@ public void InputLock()
                 }
                 SceneDelete();
 
-			//currentSceneNum = 2;
+		//	currentSceneNum = 11;
                 GetTheToys();
 		    break;
 			
@@ -261,8 +265,8 @@ public void InputLock()
                {
                    currentSceneNum = randomScene1[Random.Range(0, randomScene1.Length)];
             }
-                SceneDelete();
-              //currentSceneNum = 6;
+               SceneDelete();
+         //     currentSceneNum = 11;
                 GetTheToys();
 			break;
 			
@@ -440,7 +444,12 @@ public void InputLock()
 			backChange.isBackChanging = true;
 			LoadScene10 (numberFingers);
 			break;
-		
+
+		case 11:
+			teaObjects = Resources.LoadAll ("teaParty", typeof(GameObject)).Cast<GameObject> ().ToArray ();
+			backChange.isBackChanging = true;
+			LoadScene11 (numberFingers);
+			break;
 		}
 		}
 
@@ -653,6 +662,17 @@ numChange.spriteRenderer.color = new Color(1f,1f,1f,0.3f);
 
 	}
 
+	//teaScene loading
+	private void LoadScene11(int numberF) {
+		sceneObjects = new GameObject[numberF+2];
+
+		numChange.spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
+		for (int i = 0; i<numberF+2; i++) {
+			sceneObjects[i] = GameObject.Instantiate(teaObjects[i], teaObjects[i].transform.position,Quaternion.identity) as GameObject;
+		}
+
+	}
+
 	
   ///<summary>
   /// Delete scene && reload if needed
@@ -858,6 +878,14 @@ case 7:
 			Resources.UnloadUnusedAssets ();	
 
 		//	System.GC.Collect ();
+			break;
+
+		case 11: 
+			DestroyTouchableObjects ();
+			for (int i = 0; i < teaObjects.Length; i++) {
+				teaObjects [i] = null;
+			}
+			Resources.UnloadUnusedAssets ();	
 			break;
 		}
 
