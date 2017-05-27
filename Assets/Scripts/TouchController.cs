@@ -168,9 +168,9 @@ public class TouchController : MonoBehaviour {
 				//	Debug.Log(hit.transform.position);			
 					if (!usedTouchableObject.Contains (hit.transform.gameObject)) {
 												tObject = GameObject.Find (hit.transform.gameObject.name);
-						if (touchNumbers.currentSceneNum == 6 && tObject.transform.FindChild ("apple_calm").gameObject.activeSelf) {
-							tObject.transform.FindChild ("apple_calm").gameObject.SetActive (false);
-							tObject.transform.FindChild ("apple_open").gameObject.SetActive (true);
+						if (touchNumbers.currentSceneNum == 6 && tObject.transform.Find ("apple_calm").gameObject.activeSelf) {
+							tObject.transform.Find ("apple_calm").gameObject.SetActive (false);
+							tObject.transform.Find ("apple_open").gameObject.SetActive (true);
 						}
 					//	Debug.Log(tObject);
 //return to start position control
@@ -343,7 +343,7 @@ if (flickStarted) {
 										}
 					usedTouchableObject.Add (tObject);
 										objectMove = true;
-										tObject.transform.FindChild ("football_ten").GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 0);
+										tObject.transform.Find ("football_ten").GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 0);
 					
 								}
 
@@ -406,26 +406,26 @@ if (flickStarted) {
 				}
 				if (touchNumbers.currentSceneNum == 1) {
 					if (tObject != null) {
-						tObject.transform.FindChild("cake1").GetComponent<SpriteRenderer>().sortingOrder = 4;
+						tObject.transform.Find("cake1").GetComponent<SpriteRenderer>().sortingOrder = 4;
 					tObject.GetComponent<Rigidbody2D>().transform.position = rayPoint - childStartPoint;
 					}
 				}
 				if (touchNumbers.currentSceneNum == 5) {
 					if (tObject != null ) {
 					//Debug.Log ("Dragging carrots");
-						if (tObject.transform.FindChild("insideCarrot").gameObject.GetComponent<SpriteRenderer>().sortingLayerName != "octopus" ) {
+						if (tObject.transform.Find("insideCarrot").gameObject.GetComponent<SpriteRenderer>().sortingLayerName != "octopus" ) {
 						tempVectorY = tObject.GetComponent<Rigidbody2D>().transform.position;
 						tempVectorY.y = rayPoint.y;
 						if ((tempVectorY.y - tObject.GetComponent<Rigidbody2D>().transform.position.y) > 0 ) {
 						tObject.GetComponent<Rigidbody2D>().transform.position = tempVectorY;
 						}
 							//Debug.Log(tObject.GetComponent<BoxCollider2D>().size.y/2);
-							if (tObject.GetComponent<Rigidbody2D>().transform.position.y > tObject.transform.FindChild("insideCarrot").gameObject.GetComponent<BoxCollider2D>().size.y) {
+							if (tObject.GetComponent<Rigidbody2D>().transform.position.y > tObject.transform.Find("insideCarrot").gameObject.GetComponent<BoxCollider2D>().size.y) {
 								//tObject.GetComponent<Rigidbody2D>().mass = 1;
 							tObject.GetComponent<Rigidbody2D>().gravityScale = 1;
                                 tObject.GetComponent<Rigidbody2D>().isKinematic = false;
-								tObject.transform.FindChild("insideCarrot").gameObject.layer = 10;
-								tObject.transform.FindChild("insideCarrot").gameObject.GetComponent<SpriteRenderer>().sortingLayerName = "octopus";
+								tObject.transform.Find("insideCarrot").gameObject.layer = 10;
+								tObject.transform.Find("insideCarrot").gameObject.GetComponent<SpriteRenderer>().sortingLayerName = "octopus";
 								tObject.layer = 11;
 
 						}
@@ -551,7 +551,7 @@ if (flickStarted) {
 			Debug.Log ("Moving!");
 			lerpMoving += Time.deltaTime;
 			if (touchNumbers.currentSceneNum == 1) {
-				tObject.transform.FindChild("cake1").GetComponent<SpriteRenderer>().sortingOrder = 3;
+				tObject.transform.Find("cake1").GetComponent<SpriteRenderer>().sortingOrder = 3;
 				Quaternion newRotation = Quaternion.AngleAxis (5, Vector3.forward);
 				tObject.transform.position = Vector3.MoveTowards (tObject.transform.position, endPoint, speedCake*lerpMoving);
 				tObject.transform.rotation = Quaternion.Slerp (tObject.transform.rotation, newRotation, .05f); 
@@ -630,12 +630,12 @@ if (flickStarted) {
 					speedRocket = 2f;
 					deltaSpeedRocket = 0.05f;
 					isDistanceGot = false;	
-						usedMainObjects [closeScript.touchCounter - 1].transform.FindChild ("flag_3").GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 1);
-					if (usedMainObjects [closeScript.touchCounter - 1].transform.FindChild ("fingers_space_hum2")) {
-						usedMainObjects [closeScript.touchCounter - 1].transform.FindChild ("fingers_space_hum2").GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 1);
+						usedMainObjects [closeScript.touchCounter - 1].transform.Find ("flag_3").GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 1);
+					if (usedMainObjects [closeScript.touchCounter - 1].transform.Find ("fingers_space_hum2")) {
+						usedMainObjects [closeScript.touchCounter - 1].transform.Find ("fingers_space_hum2").GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 1);
 					}
-					if (usedMainObjects [closeScript.touchCounter - 1].transform.FindChild ("fingers_space_hum1")) {
-						usedMainObjects [closeScript.touchCounter - 1].transform.FindChild ("fingers_space_hum1").GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 1);
+					if (usedMainObjects [closeScript.touchCounter - 1].transform.Find ("fingers_space_hum1")) {
+						usedMainObjects [closeScript.touchCounter - 1].transform.Find ("fingers_space_hum1").GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 1);
 					}
 				}
 				
@@ -737,7 +737,7 @@ if (flickStarted) {
 //return object to the start point after drag
 		if (isReturning) {
 			lerpMoving += Time.deltaTime;
-			tObject.transform.FindChild("cake1").GetComponent<SpriteRenderer>().sortingOrder = 3;
+			tObject.transform.Find("cake1").GetComponent<SpriteRenderer>().sortingOrder = 3;
 			tObject.transform.position = Vector3.MoveTowards (tObject.transform.position, startPosition, speedCake * lerpMoving);
 			if (tObject.transform.position == startPosition) {
 				isReturning = false;
@@ -747,7 +747,7 @@ if (flickStarted) {
 
 //rotation of rocket, scene 2
 		if (rocketRotate) {
-			Transform nose = tObject.transform.FindChild("nose");
+			Transform nose = tObject.transform.Find("nose");
 			targetDirection = (endPoint - nose.position);
 			targetDirection.z = 0;
 			rocketDirection = (nose.position - tObject.transform.position);

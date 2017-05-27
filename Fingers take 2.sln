@@ -1,9 +1,9 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2008
-
-Project("{C0A60EC9-BA66-A9F6-B2BD-27A9CA4D4961}") = "Fingers take 2", "Assembly-CSharp.csproj", "{41AB635F-8729-5AF5-4939-14EBF7D5600D}"
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fingers take 2", "Assembly-CSharp.csproj", "{41AB635F-8729-5AF5-4939-14EBF7D5600D}"
 EndProject
-Project("{C0A60EC9-BA66-A9F6-B2BD-27A9CA4D4961}") = "Fingers take 2", "Assembly-CSharp-Editor.csproj", "{556BF58E-A162-A870-45AF-664140B50BD4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fingers take 2", "Assembly-CSharp-Editor.csproj", "{556BF58E-A162-A870-45AF-664140B50BD4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
