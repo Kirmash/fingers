@@ -11,12 +11,23 @@ public class CloseScript : MonoBehaviour {
 //	public bool inputLocked = false;
 	[HideInInspector]public bool closeProcessOnline;
 	private OptionsScript optionsScript;
+	private Vector3 leftShirmaOpenedState = new Vector3 (-13.62f,5.14f,0);
+	private Vector3 rightShirmaOpenedState = new Vector3 (13.73f,5.14f,0);
+	private Vector3 leftShirmaClosedState = new Vector3 (-6.76f,5.14f,0);
+	private Vector3 rightShirmaClosedState = new Vector3 (6.87f,5.14f,0);
+	private int closeCounter = 60;
+	private float rightShirmaStep;
+	private float leftShirmaStep;
+	private Vector3 positionVector;
 
 
 	// Use this for initialization
 	void Start () {
 		touchNumbers = (TouchNumbers)GameObject.Find("shirmas").GetComponent(typeof(TouchNumbers));
 		optionsScript = (OptionsScript)GameObject.Find("backOptions").GetComponent(typeof(OptionsScript));
+		rightShirmaStep = (rightShirmaClosedState.x - rightShirmaOpenedState.x) / closeCounter; 
+		leftShirmaStep = (leftShirmaClosedState.x - leftShirmaOpenedState.x) / closeCounter; 
+		positionVector = leftShirmaClosedState;
 	}
 
   private void nullCounter () {
@@ -37,20 +48,42 @@ public class CloseScript : MonoBehaviour {
 
 								if (hit.collider != null && hit.transform != null && hit.collider.tag == "cross") {
 										touchKey += 1;
-								}
-	
-								if (touchKey == 66) {
-										CloseShirmas ();
-										touchNumbers.InputLock ();
-										touchKey = 0;
+					hit.collider.gameObject.layer = 0; 
+					touchNumbers.shirmaRCollider.layer = 2;
+					touchNumbers.animator.enabled = false;
+					positionVector.x = touchNumbers.shirmaL.transform.position.x;
+					positionVector.x +=  leftShirmaStep;
+					touchNumbers.shirmaL.transform.position = positionVector;
+
+					positionVector.x = touchNumbers.shirmaR.transform.position.x;
+					positionVector.x += rightShirmaStep;
+					touchNumbers.shirmaR.transform.position = positionVector;
 
 								}
+	
+					if (touchNumbers.shirmaL.transform.position.x>= leftShirmaClosedState.x && touchNumbers.shirmaR.transform.position.x >= rightShirmaClosedState.x) {
+					Debug.Log("Done");
+					this.gameObject.layer = 9; 
+					touchNumbers.shirmaRCollider.layer = 8;
+					CloseShirmas ();
+										touchNumbers.InputShortLock ();
+										touchKey = 0;
+									}
 						}	
 				}
 
 	//	if (!Input.GetMouseButton(0) && touchKey != 0) {
 		if (Input.touchCount == 0 && touchKey != 0) {
 			touchKey -= 1;
+			this.gameObject.layer = 9; 
+			touchNumbers.shirmaRCollider.layer = 8;
+			positionVector.x = touchNumbers.shirmaL.transform.position.x;
+			positionVector.x -= leftShirmaStep;
+			touchNumbers.shirmaL.transform.position = positionVector;
+
+			positionVector.x = touchNumbers.shirmaR.transform.position.x;
+			positionVector.x -= rightShirmaStep;
+			touchNumbers.shirmaR.transform.position = positionVector;
 		}	
 }
 
@@ -63,22 +96,35 @@ public class CloseScript : MonoBehaviour {
 		touchNumbers.cakeEndMove = true;
 		touchNumbers.InputLock ();
 		if ( touchNumbers.currentSceneNum == 2 || touchNumbers.currentSceneNum == 10 || touchNumbers.currentSceneNum == 11) {
-			Invoke ("CloseShirmas", 4.5f);
+			Invoke ("CloseShirmasClean", 4.5f);
 		} else if (touchNumbers.currentSceneNum == 8  ) {
-				Invoke ("CloseShirmas", 3.5f);
+				Invoke ("CloseShirmasClean", 3.5f);
 				} 
 				else
 				{
-						Invoke ("CloseShirmas", 2f);
+						Invoke ("CloseShirmasClean", 2f);
 				}
 		}
 
 
-		
+	void CloseShirmasClean()
+	{
+		touchNumbers.animator.SetFloat ("isOpen", 0);
+		touchNumbers.animator.SetFloat ("isClosed", 2);
+		Invoke ("nullCounter", 1f);
+		Invoke ("destroyToys", 1f);
+		closeProcessOnline = false;
+		touchNumbers.touchKey = 0;
+		touchKey = 0;
+
+	}
+
 	void CloseShirmas()
 	{
 		touchNumbers.animator.SetFloat ("isOpen", 0);
 		touchNumbers.animator.SetFloat ("isClosed", 2);
+		touchNumbers.animator.enabled = true;
+		touchNumbers.animator.Play ("curtains_idle");
 		Invoke ("nullCounter", 1f);
 		Invoke ("destroyToys", 1f);
 		closeProcessOnline = false;

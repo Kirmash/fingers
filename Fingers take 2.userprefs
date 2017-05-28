@@ -1,12 +1,12 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\TouchController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\CloseScript.cs">
     <Files>
-      <File FileName="Assets\Scripts\TouchNumbers.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\TouchController.cs" Line="154" Column="57" />
+      <File FileName="Assets\Scripts\TouchNumbers.cs" Line="240" Column="3" />
+      <File FileName="Assets\Scripts\TouchController.cs" Line="410" Column="37" />
       <File FileName="Assets\Scripts\PlateController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\TeaPouring.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\CloseScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\CloseScript.cs" Line="115" Column="30" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

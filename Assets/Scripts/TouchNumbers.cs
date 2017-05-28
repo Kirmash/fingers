@@ -72,6 +72,10 @@ public class TouchNumbers : MonoBehaviour
 
 	private int currCoordinateIndex;
 
+	[HideInInspector] public GameObject shirmaL;
+	[HideInInspector] public GameObject shirmaR;
+	[HideInInspector] public GameObject shirmaLCollider;
+	[HideInInspector] public GameObject shirmaRCollider;
 
 	[HideInInspector] public GameObject[] sceneObjects;
 
@@ -160,6 +164,10 @@ public class TouchNumbers : MonoBehaviour
 		numberLeftChange = (numberLeftChange)GameObject.Find("numberLeft").GetComponent(typeof(numberLeftChange));
 		numberRightChange = (numberRightChange)GameObject.Find("numberRight").GetComponent(typeof(numberRightChange));
 		SplashScreen.Hide();
+		shirmaL = GameObject.Find ("shirma_l");
+		shirmaR =GameObject.Find ("shirma_r");
+		//shirmaLCollider = GameObject.Find ("shirmaLCollider");
+		shirmaRCollider = GameObject.Find ("ShirmaRCollider");
 	}
 
 	void Update () 
