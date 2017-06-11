@@ -142,7 +142,7 @@ public class TouchController : MonoBehaviour {
 							//	Debug.Log("Hitting hard!");
 //touch on space object / or teaParty object 
 				if (hit.transform != null && hit.collider != null && hit.collider.tag == "spacestuff") {
-										if (!usedMainObjects.Contains (hit.transform.gameObject)) {
+					if (!usedMainObjects.Contains (hit.transform.gameObject) && ((touchNumbers.currentSceneNum == 11) ||(touchNumbers.currentSceneNum == 2) )) {
 						thisTouched = true;
 					tObject = GameObject.Find (hit.transform.gameObject.name);
 					usedMainObjects.Add (tObject);
@@ -324,6 +324,8 @@ if ((touchNumbers.currentSceneNum == 1) || ((touchNumbers.currentSceneNum == 2)&
 					GetComponent<AudioSource>().PlayOneShot (appleOhh[randBubblePop]);
 					tObject.GetComponent<Rigidbody2D>().gravityScale = 9.81f;
 					tObject.GetComponent<Rigidbody2D>().angularDrag = 0.05f;
+					tObject.layer = 12;
+					Debug.Log (tObject.layer);
 					tObject.GetComponent<Animation>().Stop();
 				}
 
@@ -424,7 +426,7 @@ if (flickStarted) {
 								//tObject.GetComponent<Rigidbody2D>().mass = 1;
 							tObject.GetComponent<Rigidbody2D>().gravityScale = 1;
                                 tObject.GetComponent<Rigidbody2D>().isKinematic = false;
-								tObject.transform.Find("insideCarrot").gameObject.layer = 10;
+								tObject.transform.Find("insideCarrot").gameObject.layer = 12;
 								tObject.transform.Find("insideCarrot").gameObject.GetComponent<SpriteRenderer>().sortingLayerName = "octopus";
 								tObject.layer = 11;
 

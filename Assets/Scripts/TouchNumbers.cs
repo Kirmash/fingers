@@ -230,13 +230,13 @@ public class TouchNumbers : MonoBehaviour
 public void InputLock()
 	{
 		isInputLocked = true;
-		Invoke ("InputUnlock", 2f);
+		Invoke ("InputUnlock", 3f);
 	}
 	
 	public void InputShortLock()
 	{
 		isInputLocked = true;
-		Invoke ("InputUnlock", 0.5f);
+		Invoke ("InputUnlock", 1.5f);
 	}
 
 
@@ -308,13 +308,13 @@ public void InputLock()
 		case 4: 
 			//audio.PlayOneShot(number4);
 			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("four"));
-		    currentSceneNum = randomScene4[Random.Range(0, randomScene4.Length)];
-                while (!scenes4.Contains(currentSceneNum))
-                {
-                    currentSceneNum = randomScene4[Random.Range(0, randomScene4.Length)];
-                }
-                SceneDelete();
-                //currentSceneNum = 4;
+//		    currentSceneNum = randomScene4[Random.Range(0, randomScene4.Length)];
+//                while (!scenes4.Contains(currentSceneNum))
+//                {
+//                    currentSceneNum = randomScene4[Random.Range(0, randomScene4.Length)];
+//                }
+//                SceneDelete();
+                currentSceneNum = 3;
                 GetTheToys();
 			break;
 			
@@ -366,7 +366,7 @@ public void InputLock()
                     currentSceneNum = randomScene8[Random.Range(0, randomScene8.Length)];
                 }
                 SceneDelete();
-			//currentSceneNum = currentSceneNum + 1;
+			//currentSceneNum = 1;
                 GetTheToys();
 			break;
 			
@@ -391,8 +391,9 @@ public void InputLock()
 	void GetTheToys () {
 				switch (currentSceneNum) {
 		case 1:
-			plates = Resources.LoadAll("plates", typeof(GameObject)).Cast<GameObject> ().ToArray ();
-			cake = Resources.LoadAll("cakes", typeof(GameObject)).Cast<GameObject> ().ToArray ();
+
+			plates = Resources.LoadAll ("plates", typeof(GameObject)).Cast<GameObject> ().ToArray ();
+			cake = Resources.LoadAll ("cakes", typeof(GameObject)).Cast<GameObject> ().ToArray ();
 			backChange.isBackChanging = true;
 			LoadScene1(numberFingers);
 			break;
@@ -736,6 +737,7 @@ numChange.spriteRenderer.color = new Color(1f,1f,1f,0.3f);
 
     public void DestroySomeToys()
 	{
+
 		cakeEndMove = false;
 		touchController.isDragging = false;
 		switch (currentSceneNum) {
@@ -745,12 +747,12 @@ numChange.spriteRenderer.color = new Color(1f,1f,1f,0.3f);
 			touchController.usedTouchableObject.Clear();
 			for (int i = 0; i<plates.Length; i++)
 			{
-				Destroy (plates [i]);
+				//Destroy (plates [i]);
 				plates [i] = null;
 			}
 			for (int i = 0; i<cake.Length; i++)
 			{
-				Destroy (cake [i]);
+			//	Destroy  (cake [i]);
 				cake [i] = null;
 			}
 
@@ -763,11 +765,11 @@ numChange.spriteRenderer.color = new Color(1f,1f,1f,0.3f);
 			for (int i = 0; i<9; i++) {
 				if (i <sceneObjects.Length)
 				{
-					DestroyImmediate (sceneObjects[i]);
+					Destroy(sceneObjects[i]);
 				}
 				if (i < cakeScene.Length)
 				{
-					DestroyImmediate (cakeScene[i]);
+					Destroy(cakeScene[i]);
 				}				
 			}
 
@@ -899,23 +901,18 @@ case 7:
 
 	}
 	
-		private void DestroyTouchableObjects () {
+private void DestroyTouchableObjects () {
 		numChange.spriteRenderer.sprite = null;
 		backChange.spriteRenderer.sprite = null;
 		touchController.usedTouchableObject.Clear();
 for (int i = 0; i<sceneObjects.Length; i++)
-		{		
-//			for (int j = sceneObjects [i].transform.childCount - 1; j >= 0; j--){
-//			//	Debug.Log ("Childs of gameobject: " + sceneObjects [i].transform.GetChild (j).gameObject);
-//				Destroy (sceneObjects [i].transform.GetChild(j).gameObject);
-//
-//			}
-			//Debug.Log ("SceneObject to destroy: " + sceneObjects [i]);
-		 	
+		{				 	
 				Destroy (sceneObjects[i]);
 			sceneObjects [i] = null;
 			}
 	}
+
+
 	}
 	
 

@@ -24,7 +24,7 @@ public class NumChange : MonoBehaviour {
 
 		if (changeBack) {
 		//	Debug.Log("ChangeBack " + touchNumbers.numberFingers);
-						spriteRenderer.sprite = numbers [touchNumbers.numberFingers - 1];
+		spriteRenderer.sprite = numbers [touchNumbers.numberFingers - 1];
 			changeBack = false;
 
 				}

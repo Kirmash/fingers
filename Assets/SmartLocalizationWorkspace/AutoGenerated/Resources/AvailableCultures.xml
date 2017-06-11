@@ -20,5 +20,11 @@
       <nativeName>Русский</nativeName>
       <isRightToLeft>false</isRightToLeft>
     </CultureInfo>
+    <CultureInfo>
+      <languageCode>ru-RU</languageCode>
+      <englishName>Russian (Russia)</englishName>
+      <nativeName>Русский (Россия)</nativeName>
+      <isRightToLeft>false</isRightToLeft>
+    </CultureInfo>
   </CultureInfos>
 </SmartCultureCollections>

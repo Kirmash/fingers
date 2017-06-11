@@ -96,9 +96,9 @@ public class CloseScript : MonoBehaviour {
 		touchNumbers.cakeEndMove = true;
 		touchNumbers.InputLock ();
 		if ( touchNumbers.currentSceneNum == 2 || touchNumbers.currentSceneNum == 10 || touchNumbers.currentSceneNum == 11) {
-			Invoke ("CloseShirmasClean", 4.5f);
+			Invoke ("CloseShirmasClean", 5.5f);
 		} else if (touchNumbers.currentSceneNum == 8  ) {
-				Invoke ("CloseShirmasClean", 3.5f);
+				Invoke ("CloseShirmasClean", 4.5f);
 				} 
 				else
 				{
