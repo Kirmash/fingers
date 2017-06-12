@@ -102,7 +102,7 @@ public class CloseScript : MonoBehaviour {
 				} 
 				else
 				{
-						Invoke ("CloseShirmasClean", 2f);
+						Invoke ("CloseShirmasClean", 3.5f);
 				}
 		}
 

@@ -15,7 +15,7 @@ public class OptionsScript : MonoBehaviour {
 	// ru, ko, en
 	Vector3[] selectorPositionArray = new [] { new Vector3(-3.29f, 2.89f, -1f), new Vector3(0.14f, 2.89f, -1f), new Vector3(3.57f, 2.89f, -1f)};
 	//blocker for disabling colliders (0 - ru, 1 - ko, 2 - en)
-	private int colliderBlocker;
+	[HideInInspector] public int colliderBlocker;
 	private int russianChoice;
 	Transform shirmasTransform;
 	Transform crossTransform;
@@ -36,7 +36,7 @@ public class OptionsScript : MonoBehaviour {
 	void Update () {
 		int nbTouches = Input.touchCount;
 		if (isOpenedSettings && !blockedOptions) {
-						transform.position = Vector3.zero;
+			//			transform.position = Vector3.zero;
 			crossTransform.position = positionStart;
 			blockedOptions = true;
 				}

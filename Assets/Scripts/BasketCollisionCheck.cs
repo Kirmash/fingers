@@ -13,8 +13,8 @@ public class BasketCollisionCheck : MonoBehaviour
 
 	void OnTriggerEnter2D(Collider2D coll) {
 
-		if(coll.gameObject.GetComponent<Collider2D>().tag == "cakerocket")
-		{  //Debug.Log (coll.gameObject);
+		if(coll.gameObject.GetComponent<Collider2D>().tag == "cakerocket" && !touchController.isDragging)
+		{ 
 			touchController.AppleDisappear(coll.gameObject);
 
 		}

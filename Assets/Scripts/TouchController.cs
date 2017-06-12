@@ -13,7 +13,7 @@ public class TouchController : MonoBehaviour {
 	public Animation anim;
 
 	
-	public AudioClip munch;
+
 	public AudioClip endSpace;
 	public AudioClip[] bubblePop;
 	public AudioClip[] starFall;
@@ -56,7 +56,13 @@ public class TouchController : MonoBehaviour {
 	[HideInInspector]public bool overMainObject = false; 
 	[HideInInspector]public Vector3 mainObjectCoordinates;
 
-//Scene rocket 2
+	//Scene cakes 1
+	public AudioClip cakeCut;
+	public AudioClip munchSingle;
+	public AudioClip munchMany;
+	private bool ifPlayedCutSound;
+
+	//Scene rocket 2
 	private bool rocketRotate;
 	float speedRocket = 2f;
 	float deltaSpeedRocket = 0.05f;
@@ -92,6 +98,8 @@ public class TouchController : MonoBehaviour {
 	[HideInInspector]public byte ballAnimationIndex = 0;
 	[HideInInspector]public byte animationIndex = 0;
 	[HideInInspector]public bool isFinishingFootball = false;
+	public AudioClip[] ballFlick;
+	public AudioClip[] endOfGame;
 
 //Scene bubbles 4
 	int randBubblePop;
@@ -171,6 +179,8 @@ public class TouchController : MonoBehaviour {
 						if (touchNumbers.currentSceneNum == 6 && tObject.transform.Find ("apple_calm").gameObject.activeSelf) {
 							tObject.transform.Find ("apple_calm").gameObject.SetActive (false);
 							tObject.transform.Find ("apple_open").gameObject.SetActive (true);
+							randBubblePop = Random.Range (0, 15);
+							GetComponent<AudioSource>().PlayOneShot (appleOhh[randBubblePop]);
 						}
 					//	Debug.Log(tObject);
 //return to start position control
@@ -295,6 +305,7 @@ if (touchNumbers.currentSceneNum == 8) {
 								if (counter < 10 && !isDragging && (touchNumbers.currentSceneNum != 6)) {
 										if (touchNumbers.currentSceneNum == 1) {
 												usedTouchableObject.Add (tObject);
+						GetComponent<AudioSource>().PlayOneShot (cakeCut);
 										}
 
 if ((touchNumbers.currentSceneNum == 1) || ((touchNumbers.currentSceneNum == 2)&&!thisTouched) ) {
@@ -319,13 +330,9 @@ if ((touchNumbers.currentSceneNum == 1) || ((touchNumbers.currentSceneNum == 2)&
 					thisTouched = false;				
 				}
 				if (counter < 10 && !isDragging && (touchNumbers.currentSceneNum == 6) && (tObject.GetComponent<Rigidbody2D>().gravityScale!=1)) {
-				//	Debug.Log("Executing touch");
-					randBubblePop = Random.Range (0, 6);
-					GetComponent<AudioSource>().PlayOneShot (appleOhh[randBubblePop]);
 					tObject.GetComponent<Rigidbody2D>().gravityScale = 9.81f;
 					tObject.GetComponent<Rigidbody2D>().angularDrag = 0.05f;
 					tObject.layer = 12;
-					Debug.Log (tObject.layer);
 					tObject.GetComponent<Animation>().Stop();
 				}
 
@@ -345,6 +352,9 @@ if (flickStarted) {
 										}
 					usedTouchableObject.Add (tObject);
 										objectMove = true;
+					randBubblePop = Random.Range (0, 2);
+					GetComponent<AudioSource> ().PlayOneShot (ballFlick [randBubblePop]);
+
 										tObject.transform.Find ("football_ten").GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 0);
 					
 								}
@@ -381,6 +391,7 @@ if (flickStarted) {
 										counter = 0;
 										isDragging = false;
 										overMainObject = false;
+					ifPlayedCutSound = false;
 								}
 						}
 //end check and execute touch
@@ -403,12 +414,17 @@ if (flickStarted) {
 						if (touchNumbers.currentSceneNum == 6) {
 							distanceBetweenCarrotHippo = Vector3.Distance(tObject.transform.position,touchNumbers.basketPosition);
 							tObject.GetComponent<Animation>().Stop();
+					
 						}
 					}
 				}
 				if (touchNumbers.currentSceneNum == 1) {
 					if (tObject != null) {
 						tObject.transform.Find("cake1").GetComponent<SpriteRenderer>().sortingOrder = 4;
+						if (!ifPlayedCutSound) {
+							GetComponent<AudioSource> ().PlayOneShot (cakeCut);
+							ifPlayedCutSound = true;
+						}
 					tObject.GetComponent<Rigidbody2D>().transform.position = rayPoint - childStartPoint;
 					}
 				}
@@ -509,6 +525,9 @@ if (flickStarted) {
 						isDragging = false;
 			tObject.GetComponent<Rigidbody2D>().gravityScale = 5f;
 			tObject.GetComponent<Rigidbody2D>().angularDrag = 0.05f;
+			if (touchNumbers.currentSceneNum == 6) {
+				tObject.layer = 12;
+			}
 			isForceNeedToBeAdded = true;
 			doneDraggingCarrot = true;
 		//	Debug.Log ("dragging off");
@@ -536,27 +555,20 @@ if (flickStarted) {
 
 			doneDraggingCarrot = false;
 			if (distanceBetweenCarrotHippo <=2.5f) {
-				tObject.transform.localScale -= new Vector3 (1f,1f,1f);
-				closeScript.PlaySound();
-				numChange.BackChange();
-				closeScript.touchCounter +=1;
-				distanceBetweenCarrotHippo = 100f;
-				isTouched = false;
-				counter = 0;
-				usedTouchableObject.Add (tObject);
+				AppleDisappear (tObject);
 			}
 				}
 //end hippo/basket_Check_scene4-5-11
 
 // moving Objects control
 		if (objectMove && !closeScript.closeProcessOnline) {
-			Debug.Log ("Moving!");
 			lerpMoving += Time.deltaTime;
 			if (touchNumbers.currentSceneNum == 1) {
 				tObject.transform.Find("cake1").GetComponent<SpriteRenderer>().sortingOrder = 3;
 				Quaternion newRotation = Quaternion.AngleAxis (5, Vector3.forward);
 				tObject.transform.position = Vector3.MoveTowards (tObject.transform.position, endPoint, speedCake*lerpMoving);
 				tObject.transform.rotation = Quaternion.Slerp (tObject.transform.rotation, newRotation, .05f); 
+
 			}
 			
 			if (touchNumbers.currentSceneNum == 2 ) {
@@ -653,6 +665,8 @@ if (flickStarted) {
 			closeProcessOnline = true;
 			if (touchNumbers.currentSceneNum == 3) {
 			//	Debug.Log ("Here!");
+				randBubblePop = Random.Range(0,2);
+				GetComponent<AudioSource> ().PlayOneShot (endOfGame [randBubblePop]);
 				isFinishingFootball = true;
 			}
 			
@@ -661,10 +675,14 @@ if (flickStarted) {
 			if (touchNumbers.currentSceneNum == 1) {
 			
 				for (int i=0; i<touchNumbers.sceneObjects.Length-1; i++) {
-					speedExit [i] = Random.Range (1, 10);
+					speedExit [i] = Random.Range (5, 10);
 				}
-				
-				GetComponent<AudioSource>().PlayOneShot (munch);
+				if (touchNumbers.numberFingers <= 3) {
+					GetComponent<AudioSource> ().PlayOneShot (munchSingle); 
+				} else {
+					GetComponent<AudioSource> ().PlayOneShot (munchMany); 
+				}
+
 			}
 			
 			if (touchNumbers.currentSceneNum == 2) {
@@ -778,12 +796,11 @@ if (flickStarted) {
 }
 
 	public void AppleDisappear(GameObject objectDisappear) {
-	//	Debug.Log ("Disappearing!");
 		//objectDisappear.transform.localScale -= new Vector3 (1f,1f,1f);
 		objectDisappear.transform.position = new Vector3 (2.91f, -5.48f, 0f);
-		tObject.GetComponent<Rigidbody2D>().gravityScale = 0f;
-		tObject.GetComponent<Rigidbody2D>().mass = 0f;
-		tObject.GetComponent<Rigidbody2D> ().simulated = false;
+		objectDisappear.GetComponent<Rigidbody2D>().gravityScale = 0f;
+		objectDisappear.GetComponent<Rigidbody2D>().mass = 0f;
+		objectDisappear.GetComponent<Rigidbody2D> ().simulated = false;
 		objectDisappear.GetComponent<CircleCollider2D> ().enabled = false;
 		usedMainObjects.Add (objectDisappear);
 		isDragging = false;

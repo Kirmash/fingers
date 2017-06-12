@@ -72,12 +72,17 @@ public class TouchNumbers : MonoBehaviour
 
 	private int currCoordinateIndex;
 
+	private int randomLanguage;
+
 	[HideInInspector] public GameObject shirmaL;
 	[HideInInspector] public GameObject shirmaR;
 	[HideInInspector] public GameObject shirmaLCollider;
 	[HideInInspector] public GameObject shirmaRCollider;
 
 	[HideInInspector] public GameObject[] sceneObjects;
+
+	//OptionsHelper
+	Transform optionsTransform;
 
 	//arrays and assets for PlatesScene 1
 	[HideInInspector] public Object[] plates;
@@ -163,6 +168,7 @@ public class TouchNumbers : MonoBehaviour
 		optionsScript = (OptionsScript)GameObject.Find("backOptions").GetComponent(typeof(OptionsScript));
 		numberLeftChange = (numberLeftChange)GameObject.Find("numberLeft").GetComponent(typeof(numberLeftChange));
 		numberRightChange = (numberRightChange)GameObject.Find("numberRight").GetComponent(typeof(numberRightChange));
+		optionsTransform = (Transform)GameObject.Find("backOptions").GetComponent(typeof(Transform));
 		SplashScreen.Hide();
 		shirmaL = GameObject.Find ("shirma_l");
 		shirmaR =GameObject.Find ("shirma_r");
@@ -191,6 +197,7 @@ public class TouchNumbers : MonoBehaviour
 			//	Debug.Log ("Touching options");
 				optionsScript.isOpenedSettings = true;
 				transform.position = new Vector3 (-12f, 0f, 0f);
+				optionsTransform.position = Vector3.zero;
 				}
 
 				}
@@ -308,13 +315,13 @@ public void InputLock()
 		case 4: 
 			//audio.PlayOneShot(number4);
 			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("four"));
-//		    currentSceneNum = randomScene4[Random.Range(0, randomScene4.Length)];
-//                while (!scenes4.Contains(currentSceneNum))
-//                {
-//                    currentSceneNum = randomScene4[Random.Range(0, randomScene4.Length)];
-//                }
-//                SceneDelete();
-                currentSceneNum = 3;
+		    currentSceneNum = randomScene4[Random.Range(0, randomScene4.Length)];
+                while (!scenes4.Contains(currentSceneNum))
+                {
+                    currentSceneNum = randomScene4[Random.Range(0, randomScene4.Length)];
+                }
+                SceneDelete();
+             //   currentSceneNum = 6;
                 GetTheToys();
 			break;
 			
@@ -389,9 +396,27 @@ public void InputLock()
 
 	//Choosing the scene for particular numbers
 	void GetTheToys () {
-				switch (currentSceneNum) {
+		switch (optionsScript.colliderBlocker) {
+		//ru
+		case 0:
+			randomLanguage = Random.Range (0, 2);
+				if (randomLanguage == 0) {
+					optionsScript.languageManager.ChangeLanguage ("ru"); 
+				}
+				if (randomLanguage == 1) {
+					optionsScript.languageManager.ChangeLanguage ("ru-RU"); 
+				}
+			break;
+		//ko
 		case 1:
+			break;
+		//en
+		case 2:
+			break;
+		}
 
+		switch (currentSceneNum) {
+		case 1:
 			plates = Resources.LoadAll ("plates", typeof(GameObject)).Cast<GameObject> ().ToArray ();
 			cake = Resources.LoadAll ("cakes", typeof(GameObject)).Cast<GameObject> ().ToArray ();
 			backChange.isBackChanging = true;
