@@ -34,9 +34,9 @@ public class OctopusAnimation : MonoBehaviour {
 				}
 
 		if (ballTouch.isFinishingFootball) {
-			animator.Play ("octopus_jump");
-			ballTouch.isFinishingFootball = false;
-		}
+	ballTouch.isFinishingFootball = false;
+            Invoke("PlayJumpAnimation", 1.5f);
+        }
 		}
 
 	private void playLeft () {
@@ -48,6 +48,12 @@ public class OctopusAnimation : MonoBehaviour {
 		animator.Play ("octopus_strike_right");
 		ballTouch.animationIndex = 0;
 	}
+
+    private void PlayJumpAnimation ()
+    {
+        animator.Play("octopus_jump");
+        GetComponent<AudioSource>().PlayOneShot(ballTouch.endOfGame[Random.Range(0, 2)]);
+    }
 
 
 }

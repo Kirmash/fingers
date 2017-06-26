@@ -21,9 +21,21 @@
       <isRightToLeft>false</isRightToLeft>
     </CultureInfo>
     <CultureInfo>
+      <languageCode>ko-KR</languageCode>
+      <englishName>Korean (South Korea)</englishName>
+      <nativeName>한국어 (대한민국)</nativeName>
+      <isRightToLeft>false</isRightToLeft>
+    </CultureInfo>
+    <CultureInfo>
       <languageCode>ru-RU</languageCode>
       <englishName>Russian (Russia)</englishName>
       <nativeName>Русский (Россия)</nativeName>
+      <isRightToLeft>false</isRightToLeft>
+    </CultureInfo>
+    <CultureInfo>
+      <languageCode>kok-IN</languageCode>
+      <englishName>Konkani (India)</englishName>
+      <nativeName>कोंकणी (भारत)</nativeName>
       <isRightToLeft>false</isRightToLeft>
     </CultureInfo>
   </CultureInfos>

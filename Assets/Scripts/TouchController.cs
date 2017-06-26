@@ -82,6 +82,9 @@ public class TouchController : MonoBehaviour {
 	float halfTheDistance;
 	bool isDistanceGot;
 	private Vector3 rocketEndPoint = new Vector3 (10f, 7f, 0f);
+	private Vector3 rocketOffset = new Vector3 (0f, -0.3f, 0f);
+	public AudioClip rocketLaunch;
+	public AudioClip[] peopleLanding;
 
 //Scene football 3
 	float startFlickPositionY;
@@ -107,6 +110,11 @@ public class TouchController : MonoBehaviour {
 //Scene carrots 5
 	float distanceBetweenCarrotHippo;
 	bool doneDraggingCarrot = false;
+	public AudioClip[] hippoMunch;
+	public AudioClip[] hippoOpenMouth;
+	public AudioClip hippoFinalMunch;
+	private AudioClip lastPlayedOpenMouth;
+
 
 //Scene apples 6
 	bool isForceNeedToBeAdded = false;
@@ -120,9 +128,10 @@ public class TouchController : MonoBehaviour {
 //Scene choir 10 
 	[HideInInspector]public bool isChoirFinish;
 
-//Scene tea 11
-	private Vector3 teaOffset = new Vector3 (-2.1f, -2.7f, 0);
+    //Scene tea 11
+    private Vector3 teaOffset = new Vector3 (-2.1f, -2.7f, 0);
 	private float speedKettle = 1f;
+	public AudioClip teaPouring;
 
 	void Start () {
 		//plates, planets
@@ -162,7 +171,7 @@ public class TouchController : MonoBehaviour {
 							tObject = GameObject.Find ("002. teapot(Clone)");
 							objectMove = true;
 						} else {
-							endPoint = tObject.transform.position;
+							endPoint = tObject.transform.position + rocketOffset;
 							tObject.GetComponent<BoxCollider2D>().enabled = false;
 							tObject.GetComponent<Animator>().SetBool("isStill",true);	
 							tObject = GameObject.Find("spaceObject11(Clone)");
@@ -179,7 +188,7 @@ public class TouchController : MonoBehaviour {
 						if (touchNumbers.currentSceneNum == 6 && tObject.transform.Find ("apple_calm").gameObject.activeSelf) {
 							tObject.transform.Find ("apple_calm").gameObject.SetActive (false);
 							tObject.transform.Find ("apple_open").gameObject.SetActive (true);
-							randBubblePop = Random.Range (0, 15);
+							randBubblePop = Random.Range (0, 10);
 							GetComponent<AudioSource>().PlayOneShot (appleOhh[randBubblePop]);
 						}
 					//	Debug.Log(tObject);
@@ -189,7 +198,7 @@ public class TouchController : MonoBehaviour {
 														startPosition = tObject.transform.position;
 												}
 //drag control
-						if ((touchNumbers.currentSceneNum == 1) || (touchNumbers.currentSceneNum == 2) || (touchNumbers.currentSceneNum ==6) || (touchNumbers.currentSceneNum == 11)) {
+						if ((touchNumbers.currentSceneNum == 1) || (touchNumbers.currentSceneNum == 2) || (touchNumbers.currentSceneNum ==6)) {
 														if (!distanceGet) {
 																distance = Vector3.Distance (tObject.transform.position, Camera.main.transform.position);								                         
 																if (touchNumbers.currentSceneNum == 1) {
@@ -245,8 +254,10 @@ if (touchNumbers.currentSceneNum == 8) {
 							closeScript.PlaySound();
 							numChange.BackChange();
 						usedTouchableObject.Add (tObject);
-					//	Debug.Log(tObject);
-			closeScript.touchCounter += 1;
+                            randBubblePop = Random.Range(0, 4);                      
+                            GetComponent<AudioSource>().PlayOneShot(starFall[randBubblePop]);
+                            //	Debug.Log(tObject);
+                            closeScript.touchCounter += 1;
 			tObject.GetComponentInChildren<Animator>().SetInteger ("TransTime", 3);
 							butteflyScaleRandomizer = Random.Range (0.75f, 1f);
 							butterflyScale = new Vector3 (butteflyScaleRandomizer, butteflyScaleRandomizer, butteflyScaleRandomizer);
@@ -262,19 +273,13 @@ if (touchNumbers.currentSceneNum == 8) {
 							tObject.GetComponent<AudioSource>().Play();
 							closeScript.touchCounter += 1;
 						}
-
-
 						isTouched = true;
 										}
-
 								}
-				
 						}
 
-					
-
 			if (isTouched) {
-				if ((touchNumbers.currentSceneNum == 1) || (touchNumbers.currentSceneNum == 2) || (touchNumbers.currentSceneNum == 5) || (touchNumbers.currentSceneNum == 6) || (touchNumbers.currentSceneNum == 11))  {
+				if ((touchNumbers.currentSceneNum == 1) || (touchNumbers.currentSceneNum == 2) || (touchNumbers.currentSceneNum == 5) || (touchNumbers.currentSceneNum == 6))  {
 								if (counter < 10) {
 						Debug.Log("Counter counting");
 										counter += 1;
@@ -323,7 +328,9 @@ if ((touchNumbers.currentSceneNum == 1) || ((touchNumbers.currentSceneNum == 2)&
 										}
 
 										if (touchNumbers.currentSceneNum == 2 && !thisTouched) {
-												endPoint = touchNumbers.sceneObjects [arrayCounter].transform.position;
+						endPoint = touchNumbers.sceneObjects [arrayCounter].transform.position + rocketOffset;
+						Debug.Log ("CountPlaying");
+						GetComponent<AudioSource> ().PlayOneShot (rocketLaunch);
 						touchNumbers.sceneObjects [arrayCounter].GetComponent<Animator>().SetBool("isStill",true);
 												rocketRotate = true;
 										}
@@ -361,7 +368,7 @@ if (flickStarted) {
 
 
 // movement over Main objects
-				if ((touchNumbers.currentSceneNum == 1) || (touchNumbers.currentSceneNum == 2) || (touchNumbers.currentSceneNum == 11)) {
+				if ((touchNumbers.currentSceneNum == 1) || (touchNumbers.currentSceneNum == 2)) {
 
 										if (overMainObject && !isReturning && isDragging) {
 												usedMainObjects.Add (activeMainObject);
@@ -372,11 +379,9 @@ if (flickStarted) {
 												}
 
 												if (touchNumbers.currentSceneNum == 2) {
-														endPoint = mainObjectCoordinates;
+							endPoint = mainObjectCoordinates + rocketOffset;
 												}
-						if (touchNumbers.currentSceneNum == 11) {
-							endPoint = mainObjectCoordinates - teaOffset;
-						}
+				
 
 
 												objectMove = true;
@@ -406,11 +411,6 @@ if (flickStarted) {
 					if (tObject != null) {
 
 					tObject.GetComponent<Rigidbody2D>().transform.position = rayPoint;
-						if (touchNumbers.currentSceneNum == 11) {
-							//tObject.GetComponent<Animator> ().speed = 0;
-							tObject.GetComponent<Animator> ().enabled = false;
-							//tObject.GetComponent<Animator>().SetInteger ("isWaiting", 3);
-						}
 						if (touchNumbers.currentSceneNum == 6) {
 							distanceBetweenCarrotHippo = Vector3.Distance(tObject.transform.position,touchNumbers.basketPosition);
 							tObject.GetComponent<Animation>().Stop();
@@ -440,6 +440,7 @@ if (flickStarted) {
 							//Debug.Log(tObject.GetComponent<BoxCollider2D>().size.y/2);
 							if (tObject.GetComponent<Rigidbody2D>().transform.position.y > tObject.transform.Find("insideCarrot").gameObject.GetComponent<BoxCollider2D>().size.y) {
 								//tObject.GetComponent<Rigidbody2D>().mass = 1;
+							
 							tObject.GetComponent<Rigidbody2D>().gravityScale = 1;
                                 tObject.GetComponent<Rigidbody2D>().isKinematic = false;
 								tObject.transform.Find("insideCarrot").gameObject.layer = 12;
@@ -465,41 +466,75 @@ if (flickStarted) {
 								else if ((distanceBetweenCarrotHippo <= 6.5f)&&(distanceBetweenCarrotHippo>6f))
 								{
                                     touchNumbers.sceneObjects[1].GetComponent<Animator>().Play("scene4_hippoOpenMouth", 0, (1f / 60f) * 7);
+									if (lastPlayedOpenMouth != hippoOpenMouth [0]) {
+										GetComponent<AudioSource>().PlayOneShot (hippoOpenMouth[0]);
+										lastPlayedOpenMouth = hippoOpenMouth [0];
+									}
+										
                                    // touchNumbers.sceneObjects[1].GetComponent<Animator>().Play("scene4_hippoIdle");
                                 }
 								else if ((distanceBetweenCarrotHippo <= 6f)&&(distanceBetweenCarrotHippo>5.5f))
 								{
                                     touchNumbers.sceneObjects[1].GetComponent<Animator>().Play("scene4_hippoOpenMouth", 0, (1f / 60f) * 15);
+									if (lastPlayedOpenMouth != hippoOpenMouth [1]) {
+										GetComponent<AudioSource>().PlayOneShot (hippoOpenMouth[1]);
+										lastPlayedOpenMouth = hippoOpenMouth [1];
+									}
+
                                    // touchNumbers.sceneObjects[1].GetComponent<Animator>().Play("scene4_hippoIdle");
                                 }
 								else if ((distanceBetweenCarrotHippo <= 5.5f)&&(distanceBetweenCarrotHippo>5f))
 								{
                                     touchNumbers.sceneObjects[1].GetComponent<Animator>().Play("scene4_hippoOpenMouth", 0, (1f / 60f) * 23);
+									if (lastPlayedOpenMouth != hippoOpenMouth [2]) {
+										GetComponent<AudioSource>().PlayOneShot (hippoOpenMouth[2]);
+										lastPlayedOpenMouth = hippoOpenMouth [2];
+									}
                                     //touchNumbers.sceneObjects[1].GetComponent<Animator>().Play("scene4_hippoIdle");
                                 }
 								else if ((distanceBetweenCarrotHippo <= 5f)&&(distanceBetweenCarrotHippo>4.5f))
 								{
                                     touchNumbers.sceneObjects[1].GetComponent<Animator>().Play("scene4_hippoOpenMouth", 0, (1f / 60f) * 31);
+									if (lastPlayedOpenMouth != hippoOpenMouth [3]) {
+										GetComponent<AudioSource>().PlayOneShot (hippoOpenMouth[3]);
+										lastPlayedOpenMouth = hippoOpenMouth [3];
+									}
                                     //touchNumbers.sceneObjects[1].GetComponent<Animator>().Play("scene4_hippoIdle");
                                 }
 								else if ((distanceBetweenCarrotHippo <= 4.5f)&&(distanceBetweenCarrotHippo>4f))
 								{
                                     touchNumbers.sceneObjects[1].GetComponent<Animator>().Play("scene4_hippoOpenMouth", 0, (1f / 60f) * 39);
+									if (lastPlayedOpenMouth != hippoOpenMouth [4]) {
+										GetComponent<AudioSource>().PlayOneShot (hippoOpenMouth[4]);
+										lastPlayedOpenMouth = hippoOpenMouth [4];
+									}
                                     //touchNumbers.sceneObjects[1].GetComponent<Animator>().Play("scene4_hippoIdle");
                                 }
 								else if ((distanceBetweenCarrotHippo <= 4f)&&(distanceBetweenCarrotHippo>3.5f))
 								{
                                     touchNumbers.sceneObjects[1].GetComponent<Animator>().Play("scene4_hippoOpenMouth", 0, (1f / 60f) * 45);
+									if (lastPlayedOpenMouth != hippoOpenMouth [5]) {
+										GetComponent<AudioSource>().PlayOneShot (hippoOpenMouth[5]);
+										lastPlayedOpenMouth = hippoOpenMouth [5];
+									}
                                  //   touchNumbers.sceneObjects[1].GetComponent<Animator>().Play("scene4_hippoIdle");
                                 }
 								else if ((distanceBetweenCarrotHippo <= 3.5f)&&(distanceBetweenCarrotHippo>3f))
 								{
                                     touchNumbers.sceneObjects[1].GetComponent<Animator>().Play("scene4_hippoOpenMouth", 0, (1f / 60f) *53);
+									if (lastPlayedOpenMouth != hippoOpenMouth [6]) {
+										GetComponent<AudioSource>().PlayOneShot (hippoOpenMouth[6]);
+										lastPlayedOpenMouth = hippoOpenMouth [6];
+									}
                                    // touchNumbers.sceneObjects[1].GetComponent<Animator>().Play("scene4_hippoIdle");
                                 }
 								else if ((distanceBetweenCarrotHippo <= 3f)&&(distanceBetweenCarrotHippo>2.5f))
 								{
                                     touchNumbers.sceneObjects[1].GetComponent<Animator>().Play("scene4_hippoOpenMouth", 0, (1f / 60f) * 59);
+									if (lastPlayedOpenMouth != hippoOpenMouth [7]) {
+										GetComponent<AudioSource>().PlayOneShot (hippoOpenMouth[7]);
+										lastPlayedOpenMouth = hippoOpenMouth [7];
+									}
                                 //    touchNumbers.sceneObjects[1].GetComponent<Animator>().Play("scene4_hippoIdle");
                                 }
 								else if (distanceBetweenCarrotHippo <= 2.5f)
@@ -537,6 +572,7 @@ if (flickStarted) {
 		if (nbTouches == 0 && !isDragging && touchNumbers.currentSceneNum == 5 && doneDraggingCarrot) {
             //	Debug.Log ("Here!");
             touchNumbers.sceneObjects[1].GetComponent<Animator>().Play("scene4_hippoIdle");
+
             doneDraggingCarrot = false;
 			if (distanceBetweenCarrotHippo <= 3.5f) {
 				tObject.transform.localScale -= new Vector3 (1f,1f,1f);
@@ -544,6 +580,8 @@ if (flickStarted) {
 				numChange.BackChange();
 				closeScript.touchCounter +=1;
 				distanceBetweenCarrotHippo = 100f;
+				randBubblePop = Random.Range(0,2);
+				GetComponent<AudioSource> ().PlayOneShot (hippoMunch[randBubblePop]);
 				counter = 0;
 
 			}
@@ -573,7 +611,10 @@ if (flickStarted) {
 			
 			if (touchNumbers.currentSceneNum == 2 ) {
 				distanceBetweenObjects =  Vector3.Distance (tObject.transform.position, endPoint);
+				Debug.Log ("CountPlaying");
+
 				if (!isDistanceGot) {
+					GetComponent<AudioSource> ().PlayOneShot (rocketLaunch);
 					halfTheDistance = 3*distanceBetweenObjects/4;
 					rotationFlightSpeed = 0.2f;
 				//	Debug.Log(halfTheDistance);
@@ -619,7 +660,9 @@ if (flickStarted) {
 					tObject.GetComponent<Animator>().SetInteger ("TeaFlows", 3);
 					tObject.GetComponent<Animator>().SetInteger ("isWaiting", 1);
 					tObject.GetComponent<Animator>().Play("TeaSceneTeapotIdle", -1, 1f);
+					GetComponent<AudioSource> ().PlayOneShot (teaPouring);
 					activeMainObject.GetComponent<Animator>().SetInteger ("isPouring", 3);
+
 				}
 			}
 
@@ -644,6 +687,8 @@ if (flickStarted) {
 					speedRocket = 2f;
 					deltaSpeedRocket = 0.05f;
 					isDistanceGot = false;	
+					randBubblePop = Random.Range(0,2);
+					GetComponent<AudioSource> ().PlayOneShot (peopleLanding [randBubblePop]);
 						usedMainObjects [closeScript.touchCounter - 1].transform.Find ("flag_3").GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 1);
 					if (usedMainObjects [closeScript.touchCounter - 1].transform.Find ("fingers_space_hum2")) {
 						usedMainObjects [closeScript.touchCounter - 1].transform.Find ("fingers_space_hum2").GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 1);
@@ -664,9 +709,6 @@ if (flickStarted) {
 		if (closeScript.touchCounter == touchNumbers.numberFingers && !closeProcessOnline) {
 			closeProcessOnline = true;
 			if (touchNumbers.currentSceneNum == 3) {
-			//	Debug.Log ("Here!");
-				randBubblePop = Random.Range(0,2);
-				GetComponent<AudioSource> ().PlayOneShot (endOfGame [randBubblePop]);
 				isFinishingFootball = true;
 			}
 			
@@ -687,6 +729,7 @@ if (flickStarted) {
 			
 			if (touchNumbers.currentSceneNum == 2) {
 				GetComponent<AudioSource>().PlayOneShot (endSpace);
+				GetComponent<AudioSource> ().PlayOneShot (rocketLaunch);
 				distanceBetweenObjects =  Vector3.Distance (tObject.transform.position, rocketEndPoint);
 				rocketRotate = true;
 				if (!isDistanceGot) {
@@ -727,12 +770,14 @@ if (flickStarted) {
 			}
 
 			if (touchNumbers.currentSceneNum == 10) {
-				GetComponent<AudioSource>().PlayOneShot (endChoir);
-				isChoirFinish = true;
+                Invoke("ChoirFinish", 2f);
 			}
 			if (touchNumbers.currentSceneNum == 6) {
 				GetComponent<AudioSource>().PlayOneShot (endChoir);
 				Invoke ("AppleJumps", 0.5f);
+			}
+			if (touchNumbers.currentSceneNum == 5) {
+				GetComponent<AudioSource>().PlayOneShot (hippoFinalMunch);
 			}
 			if (touchNumbers.currentSceneNum == 11) {
 				tObject.GetComponent<Animator>().SetInteger ("isLeaving", 3);
@@ -820,6 +865,12 @@ if (flickStarted) {
 		}
 
 	}
+
+    private void ChoirFinish()
+    {
+        GetComponent<AudioSource>().PlayOneShot(endChoir);
+        isChoirFinish = true;
+    }
 
 }
 

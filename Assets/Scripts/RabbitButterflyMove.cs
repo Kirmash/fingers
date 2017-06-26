@@ -14,13 +14,16 @@ public class RabbitButterflyMove : MonoBehaviour {
 	}
 
 	void Update() {
+
 		StartCoroutine(Nudge());
 		}
 
 
 	IEnumerator Nudge() {
 	if (childObj1.active || childObj2.active ) {
-		while (true) {
+            Debug.Log("Coroutine starts");
+            Debug.Log(this);
+            while (true) {
 			GetComponent<Rigidbody2D>().AddForce(Random.insideUnitSphere * force);
 				if (force >= 1.0f) {
 					force = force - 0.3f;

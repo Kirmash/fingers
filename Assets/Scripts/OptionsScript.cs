@@ -16,7 +16,7 @@ public class OptionsScript : MonoBehaviour {
 	Vector3[] selectorPositionArray = new [] { new Vector3(-3.29f, 2.89f, -1f), new Vector3(0.14f, 2.89f, -1f), new Vector3(3.57f, 2.89f, -1f)};
 	//blocker for disabling colliders (0 - ru, 1 - ko, 2 - en)
 	[HideInInspector] public int colliderBlocker;
-	private int russianChoice;
+	private int languageChoice;
 	Transform shirmasTransform;
 	Transform crossTransform;
 	Transform selectorTransform;
@@ -44,14 +44,22 @@ public class OptionsScript : MonoBehaviour {
 
 			hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.GetTouch (0).position), Vector2.zero);
 			if (hit.collider != null && hit.transform != null && hit.collider.tag == "korean" && colliderBlocker != 1) {
-				languageManager.ChangeLanguage ("ko");
+				languageChoice = Random.Range(0,3);
+				//ko -1_SinoKorean ; ko-KR: 2_SinoKorean; kok-IN: 3_SinoKorean;
+				if (languageChoice == 0) {
+					languageManager.ChangeLanguage ("ko");
+				} else if (languageChoice == 1) {
+					languageManager.ChangeLanguage ("ko-KR");
+				} else if (languageChoice == 2) {
+					languageManager.ChangeLanguage ("kok-IN");
+				}				
 				selectorTransform.position = selectorPositionArray [1];
 				LanguageSelectSound ();
 				colliderBlocker = 1;
 			}
 			if (hit.collider != null && hit.transform != null && hit.collider.tag == "russian" && colliderBlocker != 0) {
-				russianChoice = Random.Range(0,2);
-				if (russianChoice == 0) {
+				languageChoice = Random.Range(0,2);
+					if (languageChoice == 0) {
 					//Debug.Log ("First ru select");
 					languageManager.ChangeLanguage ("ru"); 
 				} else {

@@ -100,6 +100,7 @@ public class TouchNumbers : MonoBehaviour
 	//[HideInInspector] public GameObject[] activeSpaceObjects;
 	[HideInInspector] public GameObject rocket;
 	private List<int> usedCoordinates;
+	private Vector3 bigPlanetSpawnPoint = new Vector3(-5.71f, -3.51f, 0f);
 
 	//arrays and assets for FootballScene (3)
 	Vector3[] ballPositionArray = new [] { new Vector3(1.1939f,-1.940f,0), new Vector3(-0.845f,-2.014f,0), new Vector3(-1.122f,-3.797f,0), new Vector3(1.2436f,-3.805f,0), new Vector3(-2.785f,-1.915f,0), new Vector3(3.1588f,-1.989f,0), new Vector3(-3.531f,-3.830f,0), new Vector3(3.6314f,-3.805f,0), new Vector3(-4.825f,-1.915f,0),new Vector3(5.1735f,-1.915f,0)};
@@ -130,8 +131,8 @@ public class TouchNumbers : MonoBehaviour
 
     //arrays and assetd for StarScene (7)
 	[HideInInspector] public GameObject[] starObjects;
-	Vector3[] starPositionsArray = new [] { new Vector3(-5.38f,3.83f,0),new Vector3(-4.15f,1.53f,0),new Vector3(-4.022f,-2.96f,0),new Vector3(-0.76f,2.34f,0),new Vector3(2.6f,3.93f,0),new Vector3(5.35f,2.6f,0), new Vector3(3.02f,0.73f,0),new Vector3(3.2f,-2.37f,0),new Vector3(0.63f,-4.22f,0),new Vector3(-0.34f,-1.05f,0)};
-    private List<int> starUsedCoordinates;
+	Vector3[] starPositionsArray = new [] {new Vector3(-0.34f,-1.05f,0), new Vector3(-0.76f,2.34f,0), new Vector3(0.63f,-4.22f,0), new Vector3(3.02f,0.73f,0), new Vector3(-4.022f,-2.96f,0), new Vector3(3.2f,-2.37f,0), new Vector3(-4.15f,1.53f,0), new Vector3(2.6f,3.93f,0), new Vector3(-5.38f,3.83f,0), new Vector3(5.35f,2.6f,0) };
+
 	
 	//arrays and assets for CloudScene (8)
 	[HideInInspector] public GameObject[] cloudObjects;
@@ -268,7 +269,7 @@ public void InputLock()
                 }
                 SceneDelete();
 
-		//	currentSceneNum = 11;
+//			currentSceneNum = 2;
                 GetTheToys();
 		    break;
 			
@@ -281,7 +282,7 @@ public void InputLock()
                    currentSceneNum = randomScene1[Random.Range(0, randomScene1.Length)];
             }
                SceneDelete();
-         //     currentSceneNum = 11;
+//             currentSceneNum = 2;
                 GetTheToys();
 			break;
 			
@@ -289,13 +290,13 @@ public void InputLock()
 			//audio.PlayOneShot(number2);
 			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("two"));
 			currentSceneNum = randomScene2[Random.Range(0, randomScene2.Length)];
-                while (!scenes2.Contains(currentSceneNum))
+               while (!scenes2.Contains(currentSceneNum))
                 {
                     currentSceneNum = randomScene2[Random.Range(0, randomScene2.Length)];
                 }
                 scenes2.Remove(currentSceneNum);
                 SceneDelete();
-            //  currentSceneNum = 2;
+//             currentSceneNum = 6;
                 GetTheToys();
 			break;
 			
@@ -321,7 +322,7 @@ public void InputLock()
                     currentSceneNum = randomScene4[Random.Range(0, randomScene4.Length)];
                 }
                 SceneDelete();
-             //   currentSceneNum = 6;
+//              currentSceneNum = 9;
                 GetTheToys();
 			break;
 			
@@ -369,11 +370,11 @@ public void InputLock()
 			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("eight"));
 		    currentSceneNum = randomScene8[Random.Range(0, randomScene8.Length)];
                 while (!scenes8.Contains(currentSceneNum))
-                {
-                    currentSceneNum = randomScene8[Random.Range(0, randomScene8.Length)];
-                }
+               {
+                   currentSceneNum = randomScene8[Random.Range(0, randomScene8.Length)];
+               }
                 SceneDelete();
-			//currentSceneNum = 1;
+		//	currentSceneNum = 10;
                 GetTheToys();
 			break;
 			
@@ -409,6 +410,15 @@ public void InputLock()
 			break;
 		//ko
 		case 1:
+			randomLanguage = Random.Range(0,3);
+			//ko -1_SinoKorean ; ko-KR: 2_SinoKorean; kok-IN: 3_SinoKorean;
+			if (randomLanguage == 0) {
+				optionsScript.languageManager.ChangeLanguage ("ko");
+			} else if (randomLanguage == 1) {
+				optionsScript.languageManager.ChangeLanguage ("ko-KR");
+			} else if (randomLanguage == 2) {
+				optionsScript.languageManager.ChangeLanguage ("kok-IN");
+			}				
 			break;
 		//en
 		case 2:
@@ -564,22 +574,24 @@ public void InputLock()
 //space 
 	void LoadScene2 (int numberF)
 	{
-        spaceCoordinatesArray = new Vector3[]  { new Vector3(-3.852236f, 3.1f, 0f), new Vector3(-2.534921f, -1.356382f, 0f), new Vector3(-5.007737f, 0.8001435f, 0f), new Vector3(-3.846421f, -3.674136f, 0f), new Vector3(0.2980204f, 2.75679f, 0f), new Vector3(4.4626f, 3.274817f, 0f), new Vector3(1.330779f, -2.177835f, 0f), new Vector3(5.25f, -1.369833f, 0f), new Vector3(0.373147f, -3.8f, 0f), new Vector3(4.802197f, -3.464654f, 0f) };
+        spaceCoordinatesArray = new Vector3[]  { new Vector3(-3.852236f, 3.1f, 0f), new Vector3(-2.534921f, -1.356382f, 0f),  new Vector3(-5.07f, 0.21f, 0f), new Vector3(0.2980204f, 2.75679f, 0f), new Vector3(4.4626f, 3.274817f, 0f), new Vector3(1.330779f, -2.177835f, 0f), new Vector3(5.25f, -1.369833f, 0f), new Vector3(0.373147f, -3.8f, 0f), new Vector3(4.802197f, -3.464654f, 0f) };
         backScene = GameObject.Instantiate (spaceObjects[11], Vector3.zero, Quaternion.identity) as GameObject;
 		sceneObjects = new GameObject[numberF+1];
 		sceneObjects[0] = GameObject.Instantiate (spaceObjects[0], rocketCoordinates, Quaternion.identity) as GameObject;
-		currCoordinateIndex = Random.Range (0, 4);
-		numChange.spriteRenderer.color = new Color(1f,1f,1f,0.3f);
-		for (int i = 1; i <= numberF; i++) {
-			while (usedCoordinates.Contains(currCoordinateIndex))
-			{
-				currCoordinateIndex = Random.Range (0, 10);
-			}
-            sceneObjects[i] = GameObject.Instantiate(spaceObjects[i], spaceCoordinatesArray[currCoordinateIndex],Quaternion.identity) as GameObject;
+		sceneObjects[1] = GameObject.Instantiate (spaceObjects[1], bigPlanetSpawnPoint, Quaternion.identity) as GameObject;
+		numChange.spriteRenderer.color = new Color (1f, 1f, 1f, 0.3f);
+		if (numberF > 1) {
+			currCoordinateIndex = Random.Range (0, 4);
+			for (int i = 2; i <= numberF; i++) {
+				while (usedCoordinates.Contains (currCoordinateIndex)) {
+					currCoordinateIndex = Random.Range (0, 9);
+				}
+				sceneObjects [i] = GameObject.Instantiate (spaceObjects [i], spaceCoordinatesArray [currCoordinateIndex], Quaternion.identity) as GameObject;
 
-			usedCoordinates.Add (currCoordinateIndex);
+				usedCoordinates.Add (currCoordinateIndex);
+			}
+			usedCoordinates.Clear ();
 		}
-		usedCoordinates.Clear ();
 		
 	}
 
@@ -638,15 +650,9 @@ public void InputLock()
  sceneObjects = new GameObject [numberF + 1];
   numChange.spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
  sceneObjects[0] = GameObject.Instantiate(starObjects[10], transform.position, Quaternion.identity) as GameObject;
- currCoordinateIndex = Random.Range (0, 4);
 numChange.spriteRenderer.color = new Color(1f,1f,1f,0.3f);
  for (int i = 1; i <= numberF; i++) {
-			while (usedCoordinates.Contains(currCoordinateIndex))
-			{
-				currCoordinateIndex = Random.Range (0, 10);
-			}
-            sceneObjects[i] = GameObject.Instantiate(starObjects[currCoordinateIndex], starPositionsArray[currCoordinateIndex],Quaternion.identity) as GameObject;
-			usedCoordinates.Add (currCoordinateIndex);
+			sceneObjects[i] = GameObject.Instantiate(starObjects[i-1], starPositionsArray[i-1],Quaternion.identity) as GameObject;
 		}
 		usedCoordinates.Clear ();
 
@@ -688,22 +694,63 @@ numChange.spriteRenderer.color = new Color(1f,1f,1f,0.3f);
 	//choirScene loading
 	private void LoadScene10(int numberF) {
 		sceneObjects = new GameObject[numberF+1];
-
+		sceneObjects[0] = GameObject.Instantiate(choirObjects[0], choirObjects[0].transform.position,Quaternion.identity) as GameObject;
 		numChange.spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
-		for (int i = 0; i<numberF+1; i++) {
-		   sceneObjects[i] = GameObject.Instantiate(choirObjects[i], choirObjects[i].transform.position,Quaternion.identity) as GameObject;
+		if (numberF > 5) {
+			currCoordinateIndex = Random.Range (1, 11);
+			for (int i = 1; i<numberF+1; i++) {
+				while (usedCoordinates.Contains(currCoordinateIndex))
+				{
+					currCoordinateIndex = Random.Range (1, 11);
 				}
+				sceneObjects[i] = GameObject.Instantiate(choirObjects[currCoordinateIndex], choirObjects[currCoordinateIndex].transform.position,Quaternion.identity) as GameObject;
+				usedCoordinates.Add (currCoordinateIndex);
+			}
 
-	}
+		} else {
+			currCoordinateIndex = Random.Range (1, 6);
+			for (int i = 1; i < numberF + 1; i++) {
+				while (usedCoordinates.Contains (currCoordinateIndex)) {
+					currCoordinateIndex = Random.Range (1, 6);
+				}
+				sceneObjects [i] = GameObject.Instantiate (choirObjects [currCoordinateIndex], choirObjects [currCoordinateIndex].transform.position, Quaternion.identity) as GameObject;
+				usedCoordinates.Add (currCoordinateIndex);
+			}
+		}
+		usedCoordinates.Clear ();
+        GetComponent<AudioSource>().PlayOneShot(touchController.endChoir);
+
+    }
 
 	//teaScene loading
 	private void LoadScene11(int numberF) {
 		sceneObjects = new GameObject[numberF+2];
-
 		numChange.spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
-		for (int i = 0; i<numberF+2; i++) {
-			sceneObjects[i] = GameObject.Instantiate(teaObjects[i], teaObjects[i].transform.position,Quaternion.identity) as GameObject;
+		sceneObjects[0] = GameObject.Instantiate(teaObjects[0], teaObjects[0].transform.position,Quaternion.identity) as GameObject;
+		sceneObjects[1] = GameObject.Instantiate(teaObjects[1], teaObjects[1].transform.position,Quaternion.identity) as GameObject;
+		if (numberF > 5) {
+			currCoordinateIndex = Random.Range (2, 12);
+			for (int i = 2; i<numberF+2; i++) {
+				while (usedCoordinates.Contains(currCoordinateIndex))
+				{
+					currCoordinateIndex = Random.Range (2, 12);
+				}
+				sceneObjects[i] = GameObject.Instantiate(teaObjects[currCoordinateIndex], teaObjects[currCoordinateIndex].transform.position,Quaternion.identity) as GameObject;
+				usedCoordinates.Add (currCoordinateIndex);
+			}
+
+		} else {
+			currCoordinateIndex = Random.Range (2, 7);
+			for (int i = 2; i < numberF + 2; i++) {
+				while (usedCoordinates.Contains (currCoordinateIndex)) {
+					currCoordinateIndex = Random.Range (2, 7);
+				}
+				sceneObjects [i] = GameObject.Instantiate (teaObjects [currCoordinateIndex], teaObjects [currCoordinateIndex].transform.position, Quaternion.identity) as GameObject;
+				usedCoordinates.Add (currCoordinateIndex);
+			}
 		}
+ 
+		usedCoordinates.Clear ();
 
 	}
 
