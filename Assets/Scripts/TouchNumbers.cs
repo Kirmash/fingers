@@ -266,10 +266,10 @@ public void InputLock()
             currentSceneNum = randomScene10[Random.Range(0, randomScene10.Length)];
                while (!scenes10.Contains(currentSceneNum)) { 
                    currentSceneNum = randomScene10[Random.Range(0, randomScene10.Length)];
-                }
-                SceneDelete();
+               }
+               SceneDelete();
 
-//			currentSceneNum = 2;
+//			currentSceneNum = 1;
                 GetTheToys();
 		    break;
 			
@@ -368,13 +368,13 @@ public void InputLock()
 		case 8: 
 			//audio.PlayOneShot(number8);
 			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("eight"));
-		    currentSceneNum = randomScene8[Random.Range(0, randomScene8.Length)];
-                while (!scenes8.Contains(currentSceneNum))
-               {
-                   currentSceneNum = randomScene8[Random.Range(0, randomScene8.Length)];
-               }
-                SceneDelete();
-		//	currentSceneNum = 10;
+//		    currentSceneNum = randomScene8[Random.Range(0, randomScene8.Length)];
+ //               while (!scenes8.Contains(currentSceneNum))
+//               {
+//                   currentSceneNum = randomScene8[Random.Range(0, randomScene8.Length)];
+//               }
+//                SceneDelete();
+			currentSceneNum = 1;
                 GetTheToys();
 			break;
 			
@@ -676,6 +676,7 @@ numChange.spriteRenderer.color = new Color(1f,1f,1f,0.3f);
         numChange.spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
 		for (int i = 0; i<numberF+1; i++) {
 			sceneObjects[i] = GameObject.Instantiate(cloudObjects[i], cloudObjects[i].transform.position,Quaternion.identity) as GameObject;
+            Debug.Log(sceneObjects[i]);
 		}
 	}
 		

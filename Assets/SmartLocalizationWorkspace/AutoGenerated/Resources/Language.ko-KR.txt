@@ -117,33 +117,33 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
 	<data name="[type=AUDIO]eight" xml:space="preserve">
-		<value />
+		<value>f4176fcda1b793b4683e7e41822821c0</value>
 	</data>
 	<data name="[type=AUDIO]five" xml:space="preserve">
-		<value />
+		<value>80ea350d390b1ea4482b2ffdb15b00cc</value>
 	</data>
 	<data name="[type=AUDIO]four" xml:space="preserve">
-		<value />
+		<value>1ed707d9cbdc4c04cab9c546bf4a6d6b</value>
 	</data>
 	<data name="[type=AUDIO]nine" xml:space="preserve">
-		<value />
+		<value>9fbfd8b78c6d76b4f883b7047c55f26c</value>
 	</data>
 	<data name="[type=AUDIO]one" xml:space="preserve">
-		<value />
+		<value>33fb71823545a9f4c86181f95b0e36b7</value>
 	</data>
 	<data name="[type=AUDIO]seven" xml:space="preserve">
-		<value />
+		<value>71c8a1ab71914ff43978fb6fcce96294</value>
 	</data>
 	<data name="[type=AUDIO]six" xml:space="preserve">
-		<value />
+		<value>2017ee31301a9dd40b4c2234b61b476b</value>
 	</data>
 	<data name="[type=AUDIO]ten" xml:space="preserve">
-		<value />
+		<value>9be08ab4b98f99541b6ec6805fe74f79</value>
 	</data>
 	<data name="[type=AUDIO]three" xml:space="preserve">
-		<value />
+		<value>8361a3b87a053744893b9a4f8ce1d745</value>
 	</data>
 	<data name="[type=AUDIO]two" xml:space="preserve">
-		<value />
+		<value>f54b34b4abb291e44bf2775a83005ed3</value>
 	</data>
 </root>

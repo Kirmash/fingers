@@ -11,10 +11,10 @@ public class TouchController : MonoBehaviour {
 	[HideInInspector]public bool distanceGet;
 
 	public Animation anim;
+    private OptionsScript optionsScript;
 
-	
 
-	public AudioClip endSpace;
+    public AudioClip endSpace;
 	public AudioClip[] bubblePop;
 	public AudioClip[] starFall;
 	public AudioClip endChoir;
@@ -141,8 +141,9 @@ public class TouchController : MonoBehaviour {
 		touchNumbers = (TouchNumbers)GameObject.Find("shirmas").GetComponent(typeof(TouchNumbers));
 		closeScript = (CloseScript)GameObject.Find("Redcross").GetComponent(typeof(CloseScript));
 		numChange = GameObject.Find("numb_container").GetComponent<NumChange>();
+        optionsScript = (OptionsScript)GameObject.Find("backOptions").GetComponent(typeof(OptionsScript));
 
-		usedBallsAnimation = new List<int>();
+        usedBallsAnimation = new List<int>();
 			}
 
 	void Update() {
@@ -188,8 +189,15 @@ public class TouchController : MonoBehaviour {
 						if (touchNumbers.currentSceneNum == 6 && tObject.transform.Find ("apple_calm").gameObject.activeSelf) {
 							tObject.transform.Find ("apple_calm").gameObject.SetActive (false);
 							tObject.transform.Find ("apple_open").gameObject.SetActive (true);
-							randBubblePop = Random.Range (0, 10);
-							GetComponent<AudioSource>().PlayOneShot (appleOhh[randBubblePop]);
+                            if (optionsScript.colliderBlocker == 1)
+                            {
+                                randBubblePop = Random.Range(0, 4);
+                                GetComponent<AudioSource>().PlayOneShot(appleOhh[randBubblePop]);
+                            } else {
+                                randBubblePop = Random.Range(0, 10);
+                                GetComponent<AudioSource>().PlayOneShot(appleOhh[randBubblePop]);
+                            }
+							
 						}
 					//	Debug.Log(tObject);
 //return to start position control
