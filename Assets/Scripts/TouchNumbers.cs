@@ -148,6 +148,9 @@ public class TouchNumbers : MonoBehaviour
 	//arrays and assets for TeaScene (11)
 	[HideInInspector] public GameObject[] teaObjects;
 
+    //for Debug
+    private int lastSceneNumber;
+
 
 
 	[HideInInspector] public int touchKey = 0;
@@ -296,7 +299,15 @@ public void InputLock()
                 }
                 scenes2.Remove(currentSceneNum);
                 SceneDelete();
-//             currentSceneNum = 6;
+  //              currentSceneNum = 1;
+                //Debug
+  //              if (lastSceneNumber != currentSceneNum)
+ //               {
+ //                   lastSceneNumber = currentSceneNum;
+ //               } else
+ //               {
+ //                   currentSceneNum = 2;
+ //               }
                 GetTheToys();
 			break;
 			
@@ -964,7 +975,8 @@ case 7:
 			break;
 
 		case 11: 
-			DestroyTouchableObjects ();
+			DestroyTouchableObjects ();           
+			touchController.usedMainObjects.Clear ();
 			for (int i = 0; i < teaObjects.Length; i++) {
 				teaObjects [i] = null;
 			}

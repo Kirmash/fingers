@@ -147,7 +147,7 @@ public class TouchController : MonoBehaviour {
 			}
 
 	void Update() {
-						int nbTouches = Input.touchCount;
+        int nbTouches = Input.touchCount;
 		
 							if (nbTouches > 0) {
 						if (Input.GetTouch (0).phase == TouchPhase.Began && !touchNumbers.isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo (0).IsName ("curtains_open_idle") && !touchNumbers.cakeEndMove && !objectMove) {
@@ -181,11 +181,12 @@ public class TouchController : MonoBehaviour {
 					}
 				}
 				if (hit.transform != null && hit.collider != null && hit.collider.tag == "cakerocket" && !thisTouched) {
-					
+                    
 					//Debug.Log(hit.transform);	
 				//	Debug.Log(hit.transform.position);			
 					if (!usedTouchableObject.Contains (hit.transform.gameObject)) {
 												tObject = GameObject.Find (hit.transform.gameObject.name);
+
 						if (touchNumbers.currentSceneNum == 6 && tObject.transform.Find ("apple_calm").gameObject.activeSelf) {
 							tObject.transform.Find ("apple_calm").gameObject.SetActive (false);
 							tObject.transform.Find ("apple_open").gameObject.SetActive (true);
@@ -201,19 +202,20 @@ public class TouchController : MonoBehaviour {
 						}
 					//	Debug.Log(tObject);
 //return to start position control
-												if (touchNumbers.currentSceneNum == 1) {
+						if (touchNumbers.currentSceneNum == 1) {
 
 														startPosition = tObject.transform.position;
-												}
+                            childStartPoint = tObject.transform.Find("cake1").localPosition;
+                        }
 //drag control
 						if ((touchNumbers.currentSceneNum == 1) || (touchNumbers.currentSceneNum == 2) || (touchNumbers.currentSceneNum ==6)) {
-														if (!distanceGet) {
-																distance = Vector3.Distance (tObject.transform.position, Camera.main.transform.position);								                         
-																if (touchNumbers.currentSceneNum == 1) {
-																		childStartPoint = tObject.transform.Find ("cake1").localPosition;
+                            if (!distanceGet) {
+								distance = Vector3.Distance (tObject.transform.position, Camera.main.transform.position);								                         
+								if (touchNumbers.currentSceneNum == 1) {
+									childStartPoint = tObject.transform.Find ("cake1").localPosition;
 																}
-																distanceGet = true;
-															}
+									distanceGet = true;
+											}
 						}
 //flick control
 														
@@ -287,9 +289,9 @@ if (touchNumbers.currentSceneNum == 8) {
 						}
 
 			if (isTouched) {
+
 				if ((touchNumbers.currentSceneNum == 1) || (touchNumbers.currentSceneNum == 2) || (touchNumbers.currentSceneNum == 5) || (touchNumbers.currentSceneNum == 6))  {
 								if (counter < 10) {
-						Debug.Log("Counter counting");
 										counter += 1;
 								}
 				
@@ -322,7 +324,6 @@ if (touchNumbers.currentSceneNum == 8) {
 										}
 
 if ((touchNumbers.currentSceneNum == 1) || ((touchNumbers.currentSceneNum == 2)&&!thisTouched) ) {
-						//Debug.Log("And also here");
 												arrayCounter = 1;
 						while (usedMainObjects.Contains(touchNumbers.sceneObjects[arrayCounter])) {
 							arrayCounter += 1;
@@ -330,17 +331,17 @@ if ((touchNumbers.currentSceneNum == 1) || ((touchNumbers.currentSceneNum == 2)&
 						usedMainObjects.Add (touchNumbers.sceneObjects [arrayCounter]);
 					}
 					if (touchNumbers.currentSceneNum == 1) {
-		endPoint = touchNumbers.sceneObjects [arrayCounter].transform.position - childStartPoint;
-												objectMove = true;
-
+                      
+		endPoint = touchNumbers.sceneObjects [arrayCounter].transform.position - childStartPoint;                     
+                        objectMove = true;
 										}
 
-										if (touchNumbers.currentSceneNum == 2 && !thisTouched) {
+					if (touchNumbers.currentSceneNum == 2 && !thisTouched) {
 						endPoint = touchNumbers.sceneObjects [arrayCounter].transform.position + rocketOffset;
-						Debug.Log ("CountPlaying");
-						GetComponent<AudioSource> ().PlayOneShot (rocketLaunch);
-						touchNumbers.sceneObjects [arrayCounter].GetComponent<Animator>().SetBool("isStill",true);
-												rocketRotate = true;
+						//GetComponent<AudioSource> ().PlayOneShot (rocketLaunch);
+                      //  Debug.Log("Playing sound");
+                        touchNumbers.sceneObjects [arrayCounter].GetComponent<Animator>().SetBool("isStill",true);
+						rocketRotate = true;
 										}
 					thisTouched = false;				
 				}
@@ -427,7 +428,7 @@ if (flickStarted) {
 					}
 				}
 				if (touchNumbers.currentSceneNum == 1) {
-					if (tObject != null) {
+                    if (tObject != null) {
 						tObject.transform.Find("cake1").GetComponent<SpriteRenderer>().sortingOrder = 4;
 						if (!ifPlayedCutSound) {
 							GetComponent<AudioSource> ().PlayOneShot (cakeCut);
@@ -607,22 +608,20 @@ if (flickStarted) {
 //end hippo/basket_Check_scene4-5-11
 
 // moving Objects control
-		if (objectMove && !closeScript.closeProcessOnline) {
-			lerpMoving += Time.deltaTime;
+		if (objectMove && !closeProcessOnline) {
+            lerpMoving += Time.deltaTime;
 			if (touchNumbers.currentSceneNum == 1) {
 				tObject.transform.Find("cake1").GetComponent<SpriteRenderer>().sortingOrder = 3;
 				Quaternion newRotation = Quaternion.AngleAxis (5, Vector3.forward);
 				tObject.transform.position = Vector3.MoveTowards (tObject.transform.position, endPoint, speedCake*lerpMoving);
-				tObject.transform.rotation = Quaternion.Slerp (tObject.transform.rotation, newRotation, .05f); 
-
-			}
+				tObject.transform.rotation = Quaternion.Slerp (tObject.transform.rotation, newRotation, .05f);
+            }
 			
 			if (touchNumbers.currentSceneNum == 2 ) {
 				distanceBetweenObjects =  Vector3.Distance (tObject.transform.position, endPoint);
-				Debug.Log ("CountPlaying");
-
 				if (!isDistanceGot) {
 					GetComponent<AudioSource> ().PlayOneShot (rocketLaunch);
+                    Debug.Log("Playing sound");
 					halfTheDistance = 3*distanceBetweenObjects/4;
 					rotationFlightSpeed = 0.2f;
 				//	Debug.Log(halfTheDistance);
@@ -716,14 +715,12 @@ if (flickStarted) {
 // close after every plate has been touched
 		if (closeScript.touchCounter == touchNumbers.numberFingers && !closeProcessOnline) {
 			closeProcessOnline = true;
+            isTouched = false;
 			if (touchNumbers.currentSceneNum == 3) {
 				isFinishingFootball = true;
 			}
-			
-			lerpMoving = 0f;
-			
+
 			if (touchNumbers.currentSceneNum == 1) {
-			
 				for (int i=0; i<touchNumbers.sceneObjects.Length-1; i++) {
 					speedExit [i] = Random.Range (5, 10);
 				}
@@ -732,13 +729,13 @@ if (flickStarted) {
 				} else {
 					GetComponent<AudioSource> ().PlayOneShot (munchMany); 
 				}
-
 			}
 			
 			if (touchNumbers.currentSceneNum == 2) {
 				GetComponent<AudioSource>().PlayOneShot (endSpace);
 				GetComponent<AudioSource> ().PlayOneShot (rocketLaunch);
-				distanceBetweenObjects =  Vector3.Distance (tObject.transform.position, rocketEndPoint);
+                Debug.Log("Playing sound");
+                distanceBetweenObjects =  Vector3.Distance (tObject.transform.position, rocketEndPoint);
 				rocketRotate = true;
 				if (!isDistanceGot) {
 					endPoint = rocketEndPoint;
@@ -750,31 +747,6 @@ if (flickStarted) {
 					isDistanceGot = true;
 				}
 
-				tObject.transform.position = Vector3.MoveTowards (tObject.transform.position, endPoint, lerpMoving*speedRocket);
-
-				tObject.transform.localScale = Vector3.Lerp(tObject.transform.localScale, new Vector3(targetScale, targetScale, targetScale), Time.deltaTime*shrinkSpeed); 
-				if (distanceBetweenObjects <=halfTheDistance) {
-					//Debug.Log (speedRocket);
-					if (speedRocket > 0.3f) {
-						speedRocket -= deltaSpeedRocket;
-						deltaSpeedRocket += 0.05f;
-					}
-
-				}
-				if (distanceBetweenObjects <= (halfTheDistance/2)) {
-					if ((tObject.transform.rotation.z <0.5) &&(tObject.transform.rotation.z >-0.5)&& (tObject.transform.rotation.z !=0)) {
-						//						Debug.Log (tObject.transform.rotation.z);
-						//						Debug.Log("rotateRight");
-						tObject.transform.rotation = Quaternion.Slerp (tObject.transform.rotation, leftAngle, rotationFlightSpeed);
-					} else if ((tObject.transform.rotation.z !=1) &&(tObject.transform.rotation.z !=0) ) {
-						//					Debug.Log (tObject.transform.rotation.z);
-						//					Debug.Log("rotateLeft");
-						tObject.transform.rotation = Quaternion.Slerp (tObject.transform.rotation, rightAngle, rotationFlightSpeed);
-					}
-				}
-				if (tObject.transform.position == endPoint) {
-					objectMove = false;
-				}
 			}
 
 			if (touchNumbers.currentSceneNum == 10) {
@@ -783,6 +755,7 @@ if (flickStarted) {
 			if (touchNumbers.currentSceneNum == 6) {
 				GetComponent<AudioSource>().PlayOneShot (endChoir);
 				Invoke ("AppleJumps", 0.5f);
+                distanceGet = false;
 			}
 			if (touchNumbers.currentSceneNum == 5) {
 				GetComponent<AudioSource>().PlayOneShot (hippoFinalMunch);
@@ -790,12 +763,26 @@ if (flickStarted) {
 			if (touchNumbers.currentSceneNum == 11) {
 				tObject.GetComponent<Animator>().SetInteger ("isLeaving", 3);
 			}
-
-
-			objectMove = false;
+            
 			closeScript.startClosing();
-		}
+            lerpMoving = 0f;
+        }
 //end if_closeProcess
+
+//finishing move for rocket
+        if (closeProcessOnline && isDistanceGot)
+        {
+            lerpMoving += Time.deltaTime;
+            tObject.transform.position = Vector3.MoveTowards(tObject.transform.position, endPoint, lerpMoving*speedRocket*0.5f);
+            tObject.transform.localScale = Vector3.Lerp(tObject.transform.localScale, new Vector3(targetScale, targetScale, targetScale), Time.deltaTime * shrinkSpeed);
+            if (tObject.transform.position == endPoint)
+            {
+                isDistanceGot = false;
+                rocketRotate = false;
+                lerpMoving = 0f;
+            }
+
+        }
 
 //finishing move for cakes
 		if (touchNumbers.currentSceneNum == 1) {
