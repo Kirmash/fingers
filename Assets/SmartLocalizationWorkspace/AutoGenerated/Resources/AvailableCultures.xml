@@ -21,6 +21,18 @@
       <isRightToLeft>false</isRightToLeft>
     </CultureInfo>
     <CultureInfo>
+      <languageCode>kn</languageCode>
+      <englishName>Kannada</englishName>
+      <nativeName>ಕನ್ನಡ</nativeName>
+      <isRightToLeft>false</isRightToLeft>
+    </CultureInfo>
+    <CultureInfo>
+      <languageCode>kok</languageCode>
+      <englishName>Konkani</englishName>
+      <nativeName>कोंकणी</nativeName>
+      <isRightToLeft>false</isRightToLeft>
+    </CultureInfo>
+    <CultureInfo>
       <languageCode>ko-KR</languageCode>
       <englishName>Korean (South Korea)</englishName>
       <nativeName>한국어 (대한민국)</nativeName>
@@ -30,6 +42,12 @@
       <languageCode>ru-RU</languageCode>
       <englishName>Russian (Russia)</englishName>
       <nativeName>Русский (Россия)</nativeName>
+      <isRightToLeft>false</isRightToLeft>
+    </CultureInfo>
+    <CultureInfo>
+      <languageCode>kn-IN</languageCode>
+      <englishName>Kannada (India)</englishName>
+      <nativeName>ಕನ್ನಡ (ಭಾರತ)</nativeName>
       <isRightToLeft>false</isRightToLeft>
     </CultureInfo>
     <CultureInfo>

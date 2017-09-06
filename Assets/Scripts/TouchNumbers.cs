@@ -131,7 +131,7 @@ public class TouchNumbers : MonoBehaviour
 
     //arrays and assetd for StarScene (7)
 	[HideInInspector] public GameObject[] starObjects;
-	Vector3[] starPositionsArray = new [] {new Vector3(-0.34f,-1.05f,0), new Vector3(-0.76f,2.34f,0), new Vector3(0.63f,-4.22f,0), new Vector3(3.02f,0.73f,0), new Vector3(-4.022f,-2.96f,0), new Vector3(3.2f,-2.37f,0), new Vector3(-4.15f,1.53f,0), new Vector3(2.6f,3.93f,0), new Vector3(-5.38f,3.83f,0), new Vector3(5.35f,2.6f,0) };
+	Vector3[] starPositionsArray = new [] {new Vector3(-0.32f,-0.96f,0), new Vector3(-3.92f,1.43f,0), new Vector3(2.44f,3.68f,0), new Vector3(-3.76f,-2.82f,0), new Vector3(2.84f,-2.2f,0), new Vector3(5.02f,2.43f,0), new Vector3(2.82f,0.66f,0), new Vector3(-0.7f,2.18f,0), new Vector3(0.6f,-3.95f,0), new Vector3(-5.04f,3.6f,0) };
 
 	
 	//arrays and assets for CloudScene (8)
@@ -271,8 +271,7 @@ public void InputLock()
                    currentSceneNum = randomScene10[Random.Range(0, randomScene10.Length)];
                }
                SceneDelete();
-
-//			currentSceneNum = 1;
+//		currentSceneNum = 7;
                 GetTheToys();
 		    break;
 			
@@ -285,7 +284,7 @@ public void InputLock()
                    currentSceneNum = randomScene1[Random.Range(0, randomScene1.Length)];
             }
                SceneDelete();
-//             currentSceneNum = 2;
+ //            currentSceneNum = 7;
                 GetTheToys();
 			break;
 			
@@ -297,17 +296,7 @@ public void InputLock()
                 {
                     currentSceneNum = randomScene2[Random.Range(0, randomScene2.Length)];
                 }
-                scenes2.Remove(currentSceneNum);
                 SceneDelete();
-  //              currentSceneNum = 1;
-                //Debug
-  //              if (lastSceneNumber != currentSceneNum)
- //               {
- //                   lastSceneNumber = currentSceneNum;
- //               } else
- //               {
- //                   currentSceneNum = 2;
- //               }
                 GetTheToys();
 			break;
 			
@@ -372,20 +361,20 @@ public void InputLock()
                     currentSceneNum = randomScene7[Random.Range(0, randomScene7.Length)];
                 }
                 SceneDelete();
-              //  currentSceneNum = 7;
+//               currentSceneNum = 7;
                 GetTheToys();
 			break;
 			
 		case 8: 
 			//audio.PlayOneShot(number8);
 			GetComponent<AudioSource>().PlayOneShot(optionsScript.languageManager.GetAudioClip("eight"));
-//		    currentSceneNum = randomScene8[Random.Range(0, randomScene8.Length)];
- //               while (!scenes8.Contains(currentSceneNum))
-//               {
-//                   currentSceneNum = randomScene8[Random.Range(0, randomScene8.Length)];
-//               }
-//                SceneDelete();
-			currentSceneNum = 1;
+		    currentSceneNum = randomScene8[Random.Range(0, randomScene8.Length)];
+                while (!scenes8.Contains(currentSceneNum))
+               {
+                   currentSceneNum = randomScene8[Random.Range(0, randomScene8.Length)];
+               }
+                SceneDelete();
+		//	currentSceneNum = 1;
                 GetTheToys();
 			break;
 			
@@ -421,15 +410,26 @@ public void InputLock()
 			break;
 		//ko
 		case 1:
-			randomLanguage = Random.Range(0,3);
-			//ko -1_SinoKorean ; ko-KR: 2_SinoKorean; kok-IN: 3_SinoKorean;
-			if (randomLanguage == 0) {
-				optionsScript.languageManager.ChangeLanguage ("ko");
-			} else if (randomLanguage == 1) {
-				optionsScript.languageManager.ChangeLanguage ("ko-KR");
-			} else if (randomLanguage == 2) {
-				optionsScript.languageManager.ChangeLanguage ("kok-IN");
-			}				
+			randomLanguage = Random.Range (0, 3);
+			if (optionsScript.isSinoKoreanSelected) {
+				//ko -1_SinoKorean ; ko-KR: 2_SinoKorean; kok-IN: 3_SinoKorean;
+				if (randomLanguage == 0) {
+					optionsScript.languageManager.ChangeLanguage ("ko");
+				} else if (randomLanguage == 1) {
+					optionsScript.languageManager.ChangeLanguage ("ko-KR");
+				} else if (randomLanguage == 2) {
+					optionsScript.languageManager.ChangeLanguage ("kok-IN");
+				}			
+			} else {
+				if (randomLanguage == 0) {
+					optionsScript.languageManager.ChangeLanguage ("kok");
+				} else if (randomLanguage == 1) {
+					optionsScript.languageManager.ChangeLanguage ("kn");
+				} else if (randomLanguage == 2) {
+					optionsScript.languageManager.ChangeLanguage ("kn-IN");
+				}			
+			}
+
 			break;
 		//en
 		case 2:

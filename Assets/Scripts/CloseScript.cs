@@ -62,7 +62,7 @@ public class CloseScript : MonoBehaviour {
 								}
 	
 					if (touchNumbers.shirmaL.transform.position.x>= leftShirmaClosedState.x && touchNumbers.shirmaR.transform.position.x >= rightShirmaClosedState.x) {
-					Debug.Log("Done");
+					//Debug.Log("Done");
 					this.gameObject.layer = 9; 
 					touchNumbers.shirmaRCollider.layer = 8;
 					CloseShirmas ();
