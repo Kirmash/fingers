@@ -6,7 +6,8 @@ using System.Collections.Generic;
 public class RabbitButterflyMove : MonoBehaviour {
     GameObject childObj1;
 	GameObject childObj2;
-	private float force = 15.0f;
+	private float force = 12.0f;
+    private bool offsetChange = false;
 	
 	void Start() {
 	childObj1 = transform.GetChild(0).GetChild(5).gameObject;
@@ -21,15 +22,36 @@ public class RabbitButterflyMove : MonoBehaviour {
 
 	IEnumerator Nudge() {
 	if (childObj1.active || childObj2.active ) {
-            Debug.Log("Coroutine starts");
-            Debug.Log(this);
+            Debug.Log(force);
+           if (!offsetChange)
+            {
+                this.GetComponent<CircleCollider2D>().offset = new Vector2(transform.GetChild(0).transform.position.x, transform.GetChild(0).transform.position.y);
+                offsetChange = true;
+            }
             while (true) {
-			GetComponent<Rigidbody2D>().AddForce(Random.insideUnitSphere * force);
-				if (force >= 1.0f) {
-					force = force - 0.3f;
-				}
+                if (this.gameObject.transform.position.y < 0f) {
+                    GetComponent<Rigidbody2D>().AddForce(new Vector2(Mathf.Abs(Random.insideUnitCircle.x) * force, Mathf.Abs(Random.insideUnitCircle.y) * force));
+                    if (force >= 1.0f)
+                    {
+                        force = force - 0.5f;
+                    }
 
-			yield return new WaitForSeconds(0f);
+                } else if (this.gameObject.transform.position.y > 4.9f)
+                {
+                    GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.insideUnitCircle.x * force, -Mathf.Abs(Random.insideUnitCircle.y) * force));
+                    if (force >= 1.0f)
+                    { 
+                        force = force - 0.5f;
+                    }
+                }
+                else {
+                    GetComponent<Rigidbody2D>().AddForce(Random.insideUnitCircle * force);
+                    if (force >= 1.0f)
+                    {
+                        force = force - 0.3f;
+                    }
+                }
+			yield return new WaitForSeconds(Random.Range(0f, 1f));
 		}  
 		}
 	}

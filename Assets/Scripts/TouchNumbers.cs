@@ -334,8 +334,9 @@ public void InputLock()
                 {
                     currentSceneNum = randomScene5[Random.Range(0, randomScene5.Length)];
                 }
+                currentSceneNum = 7;
                 SceneDelete();
-                //   currentSceneNum = 5;
+                 
                 GetTheToys();
 			break;
 			
