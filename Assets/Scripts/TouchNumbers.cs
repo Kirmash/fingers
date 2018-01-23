@@ -206,7 +206,7 @@ public class TouchNumbers : MonoBehaviour
 
 				}
 		numTouch = nbTouches;
-		if (touchKey == 25) {
+		if (touchKey == 15) {
 			InputLock ();
 			numberFingers = nbTouches;
 			openSesame ();
@@ -334,7 +334,7 @@ public void InputLock()
                 {
                     currentSceneNum = randomScene5[Random.Range(0, randomScene5.Length)];
                 }
-                currentSceneNum = 7;
+                currentSceneNum = 11;
                 SceneDelete();
                  
                 GetTheToys();
@@ -660,9 +660,8 @@ public void InputLock()
 //starsScene loading
  private void LoadScene7 (int numberF) {
  sceneObjects = new GameObject [numberF + 1];
-  numChange.spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
  sceneObjects[0] = GameObject.Instantiate(starObjects[10], transform.position, Quaternion.identity) as GameObject;
-numChange.spriteRenderer.color = new Color(1f,1f,1f,0.3f);
+numChange.spriteRenderer.color = new Color(1f,1f,1f,0.2f);
  for (int i = 1; i <= numberF; i++) {
 			sceneObjects[i] = GameObject.Instantiate(starObjects[i-1], starPositionsArray[i-1],Quaternion.identity) as GameObject;
 		}

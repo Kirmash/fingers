@@ -132,6 +132,8 @@ public class TouchController : MonoBehaviour {
     private Vector3 teaOffset = new Vector3 (-2.1f, -2.7f, 0);
 	private float speedKettle = 1f;
 	public AudioClip teaPouring;
+    private Vector3 worldCenter;
+    private bool kettleFinishMoveEnded = false;
 
 	void Start () {
 		//plates, planets
@@ -142,7 +144,7 @@ public class TouchController : MonoBehaviour {
 		closeScript = (CloseScript)GameObject.Find("Redcross").GetComponent(typeof(CloseScript));
 		numChange = GameObject.Find("numb_container").GetComponent<NumChange>();
         optionsScript = (OptionsScript)GameObject.Find("backOptions").GetComponent(typeof(OptionsScript));
-
+        worldCenter = new Vector3(Screen.width / 2, Screen.height / 2, 0f);
         usedBallsAnimation = new List<int>();
 			}
 
@@ -760,9 +762,6 @@ if (flickStarted) {
 			if (touchNumbers.currentSceneNum == 5) {
 				GetComponent<AudioSource>().PlayOneShot (hippoFinalMunch);
 			}
-			if (touchNumbers.currentSceneNum == 11) {
-				tObject.GetComponent<Animator>().SetInteger ("isLeaving", 3);
-			}
             
 			closeScript.startClosing();
             lerpMoving = 0f;
@@ -782,6 +781,18 @@ if (flickStarted) {
                 lerpMoving = 0f;
             }
 
+        }
+
+        if (closeProcessOnline && touchNumbers.currentSceneNum == 11 && !kettleFinishMoveEnded)
+        {
+            lerpMoving += Time.deltaTime;
+            tObject.transform.position = Vector3.MoveTowards(tObject.transform.position, worldCenter, lerpMoving * speedKettle * 0.5f);
+            if (tObject.transform.position == worldCenter && !kettleFinishMoveEnded)
+            {
+                lerpMoving = 0f;
+                tObject.GetComponent<Animator>().SetInteger("isLeaving", 3);
+                kettleFinishMoveEnded = true;
+            }
         }
 
 //finishing move for cakes
