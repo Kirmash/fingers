@@ -556,6 +556,7 @@ MonoBehaviour:
   usedMainObjects: []
   usedTouchableObject: []
   objectMove: 0
+  closeProcessOnline: 0
   activeMainObject: {fileID: 0}
   overMainObject: 0
   mainObjectCoordinates: {x: 0, y: 0, z: 0}
@@ -603,7 +604,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.3
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -778,6 +779,7 @@ GameObject:
   - component: {fileID: 1027980390}
   - component: {fileID: 1027980389}
   - component: {fileID: 1027980394}
+  - component: {fileID: 1027980395}
   m_Layer: 9
   m_Name: Redcross
   m_TagString: cross
@@ -976,6 +978,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &1027980395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1027980388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 512135c9a76f15a4e90f155eec169d87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crosses:
+  - {fileID: 21300000, guid: 440add1d219f3e1408f94d3eee116680, type: 3}
+  - {fileID: 21300000, guid: a3d9c7e340f5eec47bce854bdd2bc812, type: 3}
 --- !u!1001 &1827033249
 Prefab:
   m_ObjectHideFlags: 0
@@ -1018,6 +1034,10 @@ Prefab:
     - target: {fileID: 100000, guid: 1b944eefaf81f204cb2d67bfe6d9d3c7, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8200000, guid: 1b944eefaf81f204cb2d67bfe6d9d3c7, type: 2}
+      propertyPath: Priority
+      value: 127
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1b944eefaf81f204cb2d67bfe6d9d3c7, type: 2}

@@ -91,9 +91,11 @@ public class TouchNumbers : MonoBehaviour
 	[HideInInspector] public GameObject[] cakeScene;
 	Vector3 centerPlatePosition;
 	[HideInInspector]public bool cakeEndMove = false;
+    private CrossChangePlates crossChangePlates;
+    private GameObject cross;
 
-	//arrays and assets for SpaceScene (2)
-	[HideInInspector] public Object[] spaceObjects;
+    //arrays and assets for SpaceScene (2)
+    [HideInInspector] public Object[] spaceObjects;
 
     [HideInInspector] public Vector3[] spaceCoordinatesArray;
 [HideInInspector] public Vector3 rocketCoordinates = new Vector3 (3.635082f,0.4855805f,0f);
@@ -178,7 +180,9 @@ public class TouchNumbers : MonoBehaviour
 		shirmaR =GameObject.Find ("shirma_r");
 		//shirmaLCollider = GameObject.Find ("shirmaLCollider");
 		shirmaRCollider = GameObject.Find ("ShirmaRCollider");
-	}
+        crossChangePlates = (CrossChangePlates)GameObject.Find("Redcross").GetComponent(typeof(CrossChangePlates));
+         cross = GameObject.Find("Redcross");
+    }
 
 	void Update () 
 	{
@@ -241,8 +245,10 @@ public class TouchNumbers : MonoBehaviour
 public void InputLock()
 	{
 		isInputLocked = true;
-		Invoke ("InputUnlock", 3f);
-	}
+        if (currentSceneNum == 11) { Invoke("InputUnlock", 4f); } 
+        else Invoke("InputUnlock", 3f);
+
+    }
 	
 	public void InputShortLock()
 	{
@@ -321,8 +327,8 @@ public void InputLock()
                 {
                     currentSceneNum = randomScene4[Random.Range(0, randomScene4.Length)];
                 }
+            //   currentSceneNum = 1;
                 SceneDelete();
-//              currentSceneNum = 9;
                 GetTheToys();
 			break;
 			
@@ -348,8 +354,8 @@ public void InputLock()
                 {
                     currentSceneNum = randomScene6[Random.Range(0, randomScene6.Length)];
                 }
-                SceneDelete();
-                //currentSceneNum = 3;
+           //     currentSceneNum = 1;
+                SceneDelete(); 
                 GetTheToys();
 			break;
 			
@@ -361,8 +367,9 @@ public void InputLock()
                 {
                     currentSceneNum = randomScene7[Random.Range(0, randomScene7.Length)];
                 }
+           //    currentSceneNum = 1;
                 SceneDelete();
-//               currentSceneNum = 7;
+
                 GetTheToys();
 			break;
 			
@@ -374,8 +381,8 @@ public void InputLock()
                {
                    currentSceneNum = randomScene8[Random.Range(0, randomScene8.Length)];
                }
+                currentSceneNum = 1;
                 SceneDelete();
-		//	currentSceneNum = 1;
                 GetTheToys();
 			break;
 			
@@ -579,6 +586,7 @@ public void InputLock()
 				plateRandCounter = Random.Range(1,7);
 				sceneObjects [i] = GameObject.Instantiate (plates[plateRandCounter], platePositionArray8[i-1], Quaternion.identity) as GameObject;
 				}
+                cross.GetComponent<SpriteRenderer>().sprite = crossChangePlates.crosses[1];
 					break;
 		}
 		}
@@ -730,7 +738,8 @@ numChange.spriteRenderer.color = new Color(1f,1f,1f,0.2f);
 			}
 		}
 		usedCoordinates.Clear ();
-        GetComponent<AudioSource>().PlayOneShot(touchController.endChoir);
+        Debug.Log(touchController.endChoir);
+        GetComponent<AudioSource>().PlayOneShot(touchController.endChoir,1f);
 
     }
 
@@ -856,8 +865,10 @@ numChange.spriteRenderer.color = new Color(1f,1f,1f,0.2f);
 					Destroy(cakeScene[i]);
 				}				
 			}
+               
+                cross.GetComponent<SpriteRenderer>().sprite = crossChangePlates.crosses[0];
 
-			Resources.UnloadUnusedAssets();
+                Resources.UnloadUnusedAssets();
 		//	System.GC.Collect ();
 			
 			break;

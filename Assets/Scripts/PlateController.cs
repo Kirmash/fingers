@@ -56,13 +56,17 @@ public class PlateController : MonoBehaviour {
 	public void TeaStopToIdle () {
 		touchController.tObject.GetComponent<Animator> ().SetInteger ("TeaFlows", 1);
 		touchController.tObject.GetComponent<Animator> ().SetInteger ("isWaiting", 1);
+
 	}
 
 
 	public void TeaStop () {
 		touchController.tObject.GetComponent<Animator> ().SetInteger ("TeaFlows", 1);
 		touchController.tObject.GetComponent<Animator> ().SetInteger ("isWaiting", 3);
-	}
+     //  touchController.closeProcessOnline = false;
+    }
+
+
 
 }
 

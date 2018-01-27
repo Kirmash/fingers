@@ -5,7 +5,7 @@ using SmartLocalization;
 public class CloseScript : MonoBehaviour {
 
 	private TouchNumbers touchNumbers;
-//	private TouchController touchController;
+	private TouchController touchController;
 	[HideInInspector]public int touchCounter = 0;
 	private int touchKey = 0;
 //	public bool inputLocked = false;
@@ -15,7 +15,7 @@ public class CloseScript : MonoBehaviour {
 	private Vector3 rightShirmaOpenedState = new Vector3 (13.73f,5.14f,0);
 	private Vector3 leftShirmaClosedState = new Vector3 (-6.76f,5.14f,0);
 	private Vector3 rightShirmaClosedState = new Vector3 (6.87f,5.14f,0);
-	private int closeCounter = 60;
+	private int closeCounter = 40;
 	private float rightShirmaStep;
 	private float leftShirmaStep;
 	private Vector3 positionVector;
@@ -28,7 +28,8 @@ public class CloseScript : MonoBehaviour {
 		rightShirmaStep = (rightShirmaClosedState.x - rightShirmaOpenedState.x) / closeCounter; 
 		leftShirmaStep = (leftShirmaClosedState.x - leftShirmaOpenedState.x) / closeCounter; 
 		positionVector = leftShirmaClosedState;
-	}
+        touchController = (TouchController)GameObject.Find("Main Camera").GetComponent(typeof(TouchController));
+    }
 
   private void nullCounter () {
 
@@ -41,13 +42,15 @@ public class CloseScript : MonoBehaviour {
 	int nbTouches = Input.touchCount;
 		
 	if (nbTouches > 0) {
-						if (!touchNumbers.isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo (0).IsName ("curtains_open_idle")) {
+						if (!touchNumbers.isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo (0).IsName ("curtains_open_idle") && !touchController.closeProcessOnline) {
+            
 					//			if (Input.GetMouseButton(0) && !touchNumbers.isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_open_idle")) {
 								RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.GetTouch (0).position), Vector2.zero);
 					//		RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 
 								if (hit.collider != null && hit.transform != null && hit.collider.tag == "cross") {
-										touchKey += 1;
+                    Debug.Log("closing");
+                    touchKey += 1;
 					hit.collider.gameObject.layer = 0; 
 					touchNumbers.shirmaRCollider.layer = 2;
 					touchNumbers.animator.enabled = false;
@@ -60,7 +63,6 @@ public class CloseScript : MonoBehaviour {
 					touchNumbers.shirmaR.transform.position = positionVector;
 
 								}
-	
 					if (touchNumbers.shirmaL.transform.position.x>= leftShirmaClosedState.x && touchNumbers.shirmaR.transform.position.x >= rightShirmaClosedState.x) {
 					//Debug.Log("Done");
 					this.gameObject.layer = 9; 
@@ -93,7 +95,8 @@ public class CloseScript : MonoBehaviour {
 	
 	public void startClosing() 
 	{
-		touchNumbers.cakeEndMove = true;
+        Debug.Log("Actually closing");
+        touchNumbers.cakeEndMove = true;
 		touchNumbers.InputLock ();
 		if ( touchNumbers.currentSceneNum == 2 || touchNumbers.currentSceneNum == 10 || touchNumbers.currentSceneNum == 11) {
 			Invoke ("CloseShirmasClean", 5.5f);
