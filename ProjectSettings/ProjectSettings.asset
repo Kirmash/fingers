@@ -121,7 +121,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 1.3
+  bundleVersion: 1.31
   preloadedAssets: []
   metroInputSource: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -145,7 +145,7 @@ PlayerSettings:
     iOS: com.DrygZaDryga.Fingers
     tvOS: com.DrygZaDryga.Fingers
   buildNumber:
-    iOS: 0
+    iOS: 1
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 16
   AndroidTargetSdkVersion: 0
