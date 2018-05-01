@@ -108,7 +108,7 @@ MonoBehaviour:
   m_MinSize: {x: 713, y: 492}
   m_MaxSize: {x: 18008, y: 14042}
   vertical: 1
-  controlID: 28
+  controlID: 106
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_MinSize: {x: 713, y: 492}
   m_MaxSize: {x: 18008, y: 14042}
   vertical: 0
-  controlID: 29
+  controlID: 107
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_MinSize: {x: 232, y: 492}
   m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
-  controlID: 30
+  controlID: 108
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -257,12 +257,12 @@ MonoBehaviour:
     height: 731
   m_MinSize: {x: 277, y: 71}
   m_MaxSize: {x: 4002, y: 4021}
-  m_ActualView: {fileID: 12}
+  m_ActualView: {fileID: 20}
   m_Panes:
   - {fileID: 20}
   - {fileID: 12}
-  m_Selected: 1
-  m_LastSelected: 0
+  m_Selected: 0
+  m_LastSelected: 1
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -622,19 +622,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Sprites
+    - Assets/Sprites/icon
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Sprites/cifri_ex_2
+  - Assets/Sprites/icon
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\Projects\Fingers\Fingers take 2
   m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 397}
-    m_SelectedIDs: 2c620000
-    m_LastClickedID: 25132
-    m_ExpandedIDs: 00000000fa6000000c6100003c61000072610000b8610000d86100002c6200003462000002630000046300003a6300000464000008640000386400005a640000866400005665000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 496}
+    m_SelectedIDs: e6290000
+    m_LastClickedID: 10726
+    m_ExpandedIDs: 00000000262800004c280000f8280000be290000f22a0000842b0000a82c0000ec2c00000c30000010300000be3000008e3400009834000060350000e2350000743600000239000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -662,7 +662,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000fa6000000c6100003c61000072610000b8610000d86100002c6200003462000002630000046300003a6300000464000008640000386400005a6400008664000056650000
+    m_ExpandedIDs: 00000000262800004c280000f8280000be290000f22a0000842b0000a82c0000ec2c00000c30000010300000be3000008e3400009834000060350000e23500007436000002390000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -746,9 +746,9 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 5e010000
+    m_SelectedIDs: 123c0000
     m_LastClickedID: 0
-    m_ExpandedIDs: f652ffff00000000
+    m_ExpandedIDs: 9efbffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -798,7 +798,7 @@ MonoBehaviour:
     width: 299
     height: 710
   m_PersistentViewDataDictionary: {fileID: 0}
-  m_ScrollPosition: {x: 0, y: 360}
+  m_ScrollPosition: {x: 0, y: 0}
   m_InspectorMode: 0
   m_PreviewResizer:
     m_CachedPref: 153
