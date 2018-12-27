@@ -99,12 +99,16 @@ public class CloseScript : MonoBehaviour {
         touchNumbers.cakeEndMove = true;
 		touchNumbers.InputLock ();
 		if ( touchNumbers.currentSceneNum == 2 || touchNumbers.currentSceneNum == 10 || touchNumbers.currentSceneNum == 11) {
-			Invoke ("CloseShirmasClean", 5.5f);
+			Invoke ("CloseShirmasClean", 6f);
 		} else if (touchNumbers.currentSceneNum == 8  ) {
 				Invoke ("CloseShirmasClean", 4.5f);
 				} 
-				else
-				{
+				else if (touchNumbers.currentSceneNum == 7 || touchNumbers.currentSceneNum == 4)
+        {
+            Invoke("CloseShirmasClean", 1f);
+        }
+        else
+                {
 						Invoke ("CloseShirmasClean", 3.5f);
 				}
 		}
@@ -137,7 +141,6 @@ public class CloseScript : MonoBehaviour {
 	}
 
 	public void PlaySound() {
-		
 		switch (touchCounter) {
 			
 		case 9: 

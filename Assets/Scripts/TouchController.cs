@@ -19,6 +19,7 @@ public class TouchController : MonoBehaviour {
 	public AudioClip[] starFall;
 	public AudioClip endChoir;
 	public AudioClip[] appleOhh;
+    public AudioClip[] cloudPop;
 
 	private Vector3 startPosition;
 
@@ -119,10 +120,14 @@ public class TouchController : MonoBehaviour {
 //Scene apples 6
 	bool isForceNeedToBeAdded = false;
 	private AnimationClip[] appleAnimation;
-	
-//Scene stars 7
-//Scene rabbits 9
-	private float butteflyScaleRandomizer;
+
+    //Scene stars 7
+
+    //Scene clouds 8
+    public AudioClip sunFinal;
+
+    //Scene rabbits 9
+    private float butteflyScaleRandomizer;
 	private Vector3 butterflyScale;
 
 //Scene choir 10 
@@ -130,8 +135,9 @@ public class TouchController : MonoBehaviour {
 
     //Scene tea 11
     private Vector3 teaOffset = new Vector3 (-2.1f, -2.7f, 0);
-	private float speedKettle = 1f;
+	private float speedKettle = 3f;
 	public AudioClip teaPouring;
+
     private Vector3 worldCenter;
 
 	void Start () {
@@ -164,8 +170,8 @@ public class TouchController : MonoBehaviour {
                         tObject = GameObject.Find(hit.transform.gameObject.name);
                         usedMainObjects.Add(tObject);
                         if (touchNumbers.currentSceneNum == 11) {
-                            mainObjectCoordinates.x = hit.collider.gameObject.transform.position.x + hit.collider.gameObject.GetComponent<BoxCollider2D>().offset.x;
-                            mainObjectCoordinates.y = hit.collider.gameObject.transform.position.y + hit.collider.gameObject.GetComponent<BoxCollider2D>().offset.y;
+                            mainObjectCoordinates.x = hit.collider.gameObject.transform.position.x + hit.collider.gameObject.GetComponent<CircleCollider2D>().offset.x;
+                            mainObjectCoordinates.y = hit.collider.gameObject.transform.position.y + hit.collider.gameObject.GetComponent<CircleCollider2D>().offset.y;
                             endPoint = mainObjectCoordinates - teaOffset;
                             activeMainObject = hit.collider.gameObject;
                             tObject = GameObject.Find("002. teapot(Clone)");
@@ -253,6 +259,8 @@ public class TouchController : MonoBehaviour {
                             //		Debug.Log(closeScript.touchCounter);
                             numChange.BackChange();
                             usedTouchableObject.Add(tObject);
+                            randBubblePop = Random.Range(0, 3);
+                            GetComponent<AudioSource>().PlayOneShot(cloudPop[randBubblePop]);
                             //	Debug.Log(tObject);
                             tObject.GetComponent<Animator>().SetFloat("fallTime", 3.0f);
                             touchNumbers.InputShortLock();
@@ -582,7 +590,7 @@ public class TouchController : MonoBehaviour {
             touchNumbers.sceneObjects[1].GetComponent<Animator>().Play("scene4_hippoIdle");
 
             doneDraggingCarrot = false;
-            if (distanceBetweenCarrotHippo <= 3.5f) {
+            if (distanceBetweenCarrotHippo <= 4.5f) {
                 tObject.transform.localScale -= new Vector3(1f, 1f, 1f);
                 closeScript.PlaySound();
                 numChange.BackChange();
@@ -676,6 +684,7 @@ public class TouchController : MonoBehaviour {
 
             if (tObject.transform.position == endPoint && !(endPoint == rocketEndPoint)) {
                 closeScript.PlaySound();
+                Debug.Log("PlayedSound");
                 objectMove = false;
                 thisTouched = false;
                 if (touchNumbers.currentSceneNum == 3) {
@@ -759,6 +768,11 @@ public class TouchController : MonoBehaviour {
             }
             if (touchNumbers.currentSceneNum == 5) {
                 GetComponent<AudioSource>().PlayOneShot(hippoFinalMunch);
+            }
+
+            if (touchNumbers.currentSceneNum == 8)
+            {
+                GetComponent<AudioSource>().PlayOneShot(sunFinal);
             }
 
             closeScript.startClosing();
@@ -878,5 +892,6 @@ public class TouchController : MonoBehaviour {
         isChoirFinish = true;
     }
 
+   
 }
 

@@ -167,8 +167,8 @@ public class TouchNumbers : MonoBehaviour
 	{
 		animator = GetComponent<Animator>();
 		usedCoordinates = new List<int>();
-       	//closeScript = (CloseScript)GameObject.Find("Redcross").GetComponent(typeof(CloseScript));
-		numChange = (NumChange)GameObject.Find("numb_container").GetComponent(typeof(NumChange));
+        //closeScript = (CloseScript)GameObject.Find("Redcross").GetComponent(typeof(CloseScript));
+        numChange = (NumChange)GameObject.Find("numb_container").GetComponent(typeof(NumChange));
 		backChange = (BackChange)GameObject.Find("background").GetComponent(typeof(BackChange));
 		touchController = (TouchController)GameObject.Find("Main Camera").GetComponent(typeof(TouchController));
 		optionsScript = (OptionsScript)GameObject.Find("backOptions").GetComponent(typeof(OptionsScript));
@@ -187,8 +187,7 @@ public class TouchNumbers : MonoBehaviour
 	void Update () 
 	{
 	nbTouches = Input.touchCount;
-		
-		if (nbTouches > 0 && !optionsScript.isOpenedSettings) {
+        if (nbTouches > 0 && !optionsScript.isOpenedSettings) {
 						RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.GetTouch (0).position), Vector2.zero);
 						if (hit.collider != null && hit.transform != null && hit.collider.tag == "shirma") {	
 				if (numTouch == nbTouches && !isInputLocked && this.animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_idle")) {
@@ -202,7 +201,6 @@ public class TouchNumbers : MonoBehaviour
 								}
 						}	
 			if (hit.collider != null && hit.transform != null && hit.collider.tag == "settings") {
-			//	Debug.Log ("Touching options");
 				optionsScript.isOpenedSettings = true;
 				transform.position = new Vector3 (-12f, 0f, 0f);
 				optionsTransform.position = Vector3.zero;
@@ -277,7 +275,7 @@ public void InputLock()
                    currentSceneNum = randomScene10[Random.Range(0, randomScene10.Length)];
                }
                SceneDelete();
-//		currentSceneNum = 8;
+                currentSceneNum = 2;
                 GetTheToys();
 		    break;
 			
@@ -290,7 +288,7 @@ public void InputLock()
                    currentSceneNum = randomScene1[Random.Range(0, randomScene1.Length)];
             }
                SceneDelete();
- //            currentSceneNum = 7;
+ //          currentSceneNum = 4;
                 GetTheToys();
 			break;
 			
@@ -340,7 +338,7 @@ public void InputLock()
                 {
                     currentSceneNum = randomScene5[Random.Range(0, randomScene5.Length)];
                 }
-                currentSceneNum = 11;
+            //    currentSceneNum = 11;
                 SceneDelete();
                  
                 GetTheToys();
@@ -354,7 +352,7 @@ public void InputLock()
                 {
                     currentSceneNum = randomScene6[Random.Range(0, randomScene6.Length)];
                 }
-           //     currentSceneNum = 1;
+              // currentSceneNum = 2;
                 SceneDelete(); 
                 GetTheToys();
 			break;
@@ -367,7 +365,7 @@ public void InputLock()
                 {
                     currentSceneNum = randomScene7[Random.Range(0, randomScene7.Length)];
                 }
-           //    currentSceneNum = 1;
+         //     currentSceneNum = 8;
                 SceneDelete();
 
                 GetTheToys();
@@ -381,7 +379,7 @@ public void InputLock()
                {
                    currentSceneNum = randomScene8[Random.Range(0, randomScene8.Length)];
                }
-                currentSceneNum = 1;
+           //     currentSceneNum = 1;
                 SceneDelete();
                 GetTheToys();
 			break;

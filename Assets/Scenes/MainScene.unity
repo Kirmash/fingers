@@ -282,49 +282,35 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 84cc81f7f470dc64097bc082c94e2a2d, type: 2}
       propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 21200000, guid: 84cc81f7f470dc64097bc082c94e2a2d, type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 21200000, guid: 84cc81f7f470dc64097bc082c94e2a2d, type: 2}
+      propertyPath: m_Size.x
+      value: 13.76129
+      objectReference: {fileID: 0}
+    - target: {fileID: 21200000, guid: 84cc81f7f470dc64097bc082c94e2a2d, type: 2}
+      propertyPath: m_Size.y
+      value: 10.32258
+      objectReference: {fileID: 0}
+    - target: {fileID: 21200000, guid: 84cc81f7f470dc64097bc082c94e2a2d, type: 2}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 21200000, guid: 84cc81f7f470dc64097bc082c94e2a2d, type: 2}
+      propertyPath: m_SortingLayerID
+      value: 1656101709
+      objectReference: {fileID: 0}
+    - target: {fileID: 21200000, guid: 84cc81f7f470dc64097bc082c94e2a2d, type: 2}
+      propertyPath: m_SortingLayer
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 84cc81f7f470dc64097bc082c94e2a2d, type: 2}
-      propertyPath: numbers.Array.data[0]
-      value: 
-      objectReference: {fileID: 21300000, guid: 8cb8bf0aaec444645a532dcda5c8ee0e,
-        type: 3}
-    - target: {fileID: 11400000, guid: 84cc81f7f470dc64097bc082c94e2a2d, type: 2}
-      propertyPath: numbers.Array.data[1]
-      value: 
-      objectReference: {fileID: 21300000, guid: 8eedcf2ebdbde3a4d9ca8dbe08e2ab47,
-        type: 3}
-    - target: {fileID: 11400000, guid: 84cc81f7f470dc64097bc082c94e2a2d, type: 2}
-      propertyPath: numbers.Array.data[2]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 84cc81f7f470dc64097bc082c94e2a2d, type: 2}
-      propertyPath: numbers.Array.data[3]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 84cc81f7f470dc64097bc082c94e2a2d, type: 2}
-      propertyPath: numbers.Array.data[4]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 84cc81f7f470dc64097bc082c94e2a2d, type: 2}
-      propertyPath: numbers.Array.data[5]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 84cc81f7f470dc64097bc082c94e2a2d, type: 2}
-      propertyPath: numbers.Array.data[6]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 84cc81f7f470dc64097bc082c94e2a2d, type: 2}
-      propertyPath: numbers.Array.data[7]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 84cc81f7f470dc64097bc082c94e2a2d, type: 2}
-      propertyPath: numbers.Array.data[8]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 84cc81f7f470dc64097bc082c94e2a2d, type: 2}
-      propertyPath: numbers.Array.data[9]
-      value: 
+    - target: {fileID: 21200000, guid: 84cc81f7f470dc64097bc082c94e2a2d, type: 2}
+      propertyPath: m_SortingOrder
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 84cc81f7f470dc64097bc082c94e2a2d, type: 2}
@@ -438,7 +424,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4917893912640492, guid: e7ce279329714424d840165498d75811, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -14
+      value: -15
       objectReference: {fileID: 0}
     - target: {fileID: 4917893912640492, guid: e7ce279329714424d840165498d75811, type: 2}
       propertyPath: m_LocalPosition.y
@@ -467,6 +453,10 @@ Prefab:
     - target: {fileID: 4917893912640492, guid: e7ce279329714424d840165498d75811, type: 2}
       propertyPath: m_RootOrder
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1577386758161030, guid: e7ce279329714424d840165498d75811, type: 2}
+      propertyPath: m_TagString
+      value: optionsAboutCross
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e7ce279329714424d840165498d75811, type: 2}
@@ -603,6 +593,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9342623f51c3fe544bdd9c8a9f6b5b8b, type: 3}
   - {fileID: 8300000, guid: a2a52196386c1ed42bcbb32820b99cf6, type: 3}
   - {fileID: 8300000, guid: 5591eb8059282fd4593c6d3aee5ca9e0, type: 3}
+  cloudPop:
+  - {fileID: 8300000, guid: 5ff4ab74ebdbfd847821fc331bf7e9a8, type: 3}
+  - {fileID: 8300000, guid: a6fe3c15008e13c46b31dc292fd443a6, type: 3}
+  - {fileID: 8300000, guid: caabd892e28ae3f40bcd97136cd0c8b9, type: 3}
   tObject: {fileID: 0}
   usedMainObjects: []
   usedTouchableObject: []
@@ -642,6 +636,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 2fe6fa2461cdead4287bc4ec06b37ad9, type: 3}
   - {fileID: 8300000, guid: 5a682d940f540394f82e67bc0c0a1bc5, type: 3}
   hippoFinalMunch: {fileID: 8300000, guid: 0a5a8779720e33b4aac1cbd466c2951b, type: 3}
+  sunFinal: {fileID: 8300000, guid: b13b98c207674b1438b6c46931f01a8f, type: 3}
   isChoirFinish: 0
   teaPouring: {fileID: 8300000, guid: ff1cd158f155d4a43ac19af3302f5c57, type: 3}
 --- !u!82 &997051402
@@ -773,7 +768,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -360154569
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 6498c11f6c05f734c86c3d3dbeb1fa00, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -932,7 +927,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 209945449
-  m_SortingLayer: 2
+  m_SortingLayer: 4
   m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: 440add1d219f3e1408f94d3eee116680, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -955,7 +950,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1027980394
 AudioSource:
@@ -1093,10 +1088,6 @@ Prefab:
     - target: {fileID: 100000, guid: 1b944eefaf81f204cb2d67bfe6d9d3c7, type: 2}
       propertyPath: m_IsActive
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8200000, guid: 1b944eefaf81f204cb2d67bfe6d9d3c7, type: 2}
-      propertyPath: Priority
-      value: 127
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1b944eefaf81f204cb2d67bfe6d9d3c7, type: 2}

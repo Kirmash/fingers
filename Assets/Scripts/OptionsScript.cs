@@ -26,7 +26,7 @@ public class OptionsScript : MonoBehaviour {
     SpriteRenderer sinoRenderer;
     SpriteRenderer nativeRenderer;
 	[HideInInspector] public LanguageManager languageManager;
-
+    public GameObject optionsAbout;
 
 	// Use this for initialization
 	void Start () {
@@ -36,26 +36,49 @@ public class OptionsScript : MonoBehaviour {
 		selectorTransform = (Transform)GameObject.Find("Selector").GetComponent(typeof(Transform));
         sinoRenderer = (SpriteRenderer)GameObject.Find("sino_orange").GetComponent(typeof(SpriteRenderer));
         nativeRenderer = (SpriteRenderer)GameObject.Find("native_orange").GetComponent(typeof(SpriteRenderer));
-        languageManager.ChangeLanguage ("ru");
+
+        if (Application.systemLanguage == SystemLanguage.Russian)
+        {
+            languageManager.ChangeLanguage("ru");
+            selectorTransform.position = selectorPositionArray[0];
+            colliderBlocker = 0;
+        }
+        else if (Application.systemLanguage == SystemLanguage.Korean)
+        {
+            languageManager.ChangeLanguage("kok");
+            selectorTransform.position = selectorPositionArray[1];
+            colliderBlocker = 1;
+            isSinoKoreanSelected = false;
+            sinoRenderer.color = new Color(255f, 255f, 255f, 0f);
+            nativeRenderer.color = new Color(255f, 255f, 255f, 255f);
+        }
+        else
+        {
+            languageManager.ChangeLanguage("en");
+            selectorTransform.position = selectorPositionArray[2];
+            colliderBlocker = 2;
+        }
+
+        isOpenedSettings = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		int nbTouches = Input.touchCount;
+        if (isOpenedSettings) {
+
+        int nbTouches = Input.touchCount;
 		if (timerSet && updateKoreanSelectTimer <=60) {
 			updateKoreanSelectTimer += 1;
 		}
 		if (timerSet && updateKoreanSelectTimer > 60) {
 			timerSet = false;
 		}
-
-		if (isOpenedSettings && !blockedOptions) {
+		if (!blockedOptions) {
 			//			transform.position = Vector3.zero;
 			crossTransform.position = positionStart;
 			blockedOptions = true;
 				}
-		if (nbTouches > 0 && isOpenedSettings && blockedOptions) {
-
+		if (nbTouches > 0 && blockedOptions) {
 			hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.GetTouch (0).position), Vector2.zero);
 			if (hit.collider != null && hit.transform != null && hit.collider.tag == "korean" && !timerSet) {
 				selectorTransform.position = selectorPositionArray [1];
@@ -143,7 +166,7 @@ public class OptionsScript : MonoBehaviour {
 				cooldownCounter = 30;
 			}
 
-			if (hit.collider != null && hit.transform != null && hit.collider.tag == "optionsCross") {
+			if (hit.collider != null && hit.transform != null && hit.collider.tag == "optionsCross" && !timerSet) {
 				shirmasTransform.position = Vector3.zero;
 				crossTransform.position = crossStartPosition;
 				transform.position = positionStart;
@@ -151,16 +174,33 @@ public class OptionsScript : MonoBehaviour {
 				isOpenedSettings = false;
 				shirmasTransform.position = Vector3.zero;
 			}
-				}
+
+            if (hit.collider != null && hit.transform != null && hit.collider.tag == "optionsAboutCross") {
+
+                optionsAbout.SetActive(false);
+                timerSet = true;
+                updateKoreanSelectTimer = 0;
+                }
+
+                Debug.Log(hit.collider);
+
+            if (hit.collider != null && hit.transform != null && hit.collider.tag == "optionsAbout")
+            {
+                optionsAbout.SetActive(true);
+                    LanguageSelectSound();
+
+                }
+
+        }
 		if (cooldownCounter != 0) {
 			cooldownCounter -= 1;
 		}
 	}
-
-	void LanguageSelectSound () {
+    }
+    void LanguageSelectSound () {
 		GetComponent<Animation> ().Play ("OptionsStars");
 		randLanguageSelectSound = Random.Range (0, 3);
 		GetComponent<AudioSource>().PlayOneShot (touchLanguage[randLanguageSelectSound]);
 	}
-
+   
 }

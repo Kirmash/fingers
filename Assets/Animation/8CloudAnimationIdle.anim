@@ -19,26 +19,26 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: {x: 0.86, y: 0, z: 0}
-        inSlope: {x: -1.1466666, y: 0.45333335, z: 0}
-        outSlope: {x: -1.1466666, y: 0.45333335, z: 0}
+        value: {x: -4.25, y: -2.62, z: 0}
+        inSlope: {x: 0, y: 0, z: 0}
+        outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
       - serializedVersion: 2
-        time: 0.75
-        value: {x: 0, y: 0.34, z: 0}
-        inSlope: {x: -0.17641026, y: 0.0697436, z: 0}
-        outSlope: {x: -0.17641026, y: 0.0697436, z: 0}
+        time: 6.8166666
+        value: {x: -5.64, y: -3.43, z: 0}
+        inSlope: {x: 0, y: 0, z: 0}
+        outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
       - serializedVersion: 2
-        time: 1.8333334
-        value: {x: 0.86, y: 0, z: 0}
-        inSlope: {x: 0.79384613, y: -0.31384614, z: 0}
-        outSlope: {x: 0.79384613, y: -0.31384614, z: 0}
+        time: 14.883333
+        value: {x: -4.25, y: -2.62, z: 0}
+        inSlope: {x: 0, y: 0, z: 0}
+        outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: kit_oblako_01
+    path: cloud_04
   m_ScaleCurves: []
   m_FloatCurves: []
   m_PPtrCurves: []
@@ -50,7 +50,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 2938397890
+      path: 2459322127
       attribute: 1
       script: {fileID: 0}
       typeID: 4
@@ -62,7 +62,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.8333334
+    m_StopTime: 14.883333
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -83,27 +83,27 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: 0.86
-        inSlope: -1.1466666
-        outSlope: -1.1466666
-        tangentMode: 34
+        value: -4.25
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
       - serializedVersion: 2
-        time: 0.75
-        value: 0
-        inSlope: -0.17641026
-        outSlope: -0.17641026
-        tangentMode: 34
+        time: 6.8166666
+        value: -5.64
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
       - serializedVersion: 2
-        time: 1.8333334
-        value: 0.86
-        inSlope: 0.79384613
-        outSlope: 0.79384613
-        tangentMode: 34
+        time: 14.883333
+        value: -4.25
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: kit_oblako_01
+    path: cloud_04
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -111,27 +111,27 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: 0
-        inSlope: 0.45333335
-        outSlope: 0.45333335
-        tangentMode: 34
+        value: -2.62
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
       - serializedVersion: 2
-        time: 0.75
-        value: 0.34
-        inSlope: 0.0697436
-        outSlope: 0.0697436
-        tangentMode: 34
+        time: 6.8166666
+        value: -3.43
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
       - serializedVersion: 2
-        time: 1.8333334
-        value: 0
-        inSlope: -0.31384614
-        outSlope: -0.31384614
-        tangentMode: 34
+        time: 14.883333
+        value: -2.62
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: kit_oblako_01
+    path: cloud_04
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -142,24 +142,24 @@ AnimationClip:
         value: 0
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 136
       - serializedVersion: 2
-        time: 0.75
+        time: 6.8166666
         value: 0
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 136
       - serializedVersion: 2
-        time: 1.8333334
+        time: 14.883333
         value: 0
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 136
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: kit_oblako_01
+    path: cloud_04
     classID: 4
     script: {fileID: 0}
   m_EulerEditorCurves: []

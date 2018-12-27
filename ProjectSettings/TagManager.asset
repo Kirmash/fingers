@@ -21,6 +21,8 @@ TagManager:
   - Kharms
   - Dubdom
   - Skazki
+  - optionsAboutCross
+  - optionsAbout
   layers:
   - Default
   - TransparentFX
@@ -31,12 +33,6 @@ TagManager:
   - 
   - 
   - shirmas
-  - cross
-  - bubble
-  - carrot
-  - carrotOverGround
-  - carrotActive
-  - butterfly
   - Cloud10
   - Cloud9
   - Cloud8
@@ -47,6 +43,12 @@ TagManager:
   - Cloud3
   - Cloud2
   - Cloud1
+  - cross
+  - bubble
+  - carrot
+  - carrotOverGround
+  - carrotActive
+  - butterfly
   - 
   - 
   - 
@@ -61,14 +63,17 @@ TagManager:
   - name: background
     uniqueID: 796708389
     locked: 0
+  - name: Clouds
+    uniqueID: 3559140827
+    locked: 0
+  - name: numbers_back
+    uniqueID: 1656101709
+    locked: 0
   - name: everything
     uniqueID: 209945449
     locked: 0
   - name: numbers
     uniqueID: 2634454249
-    locked: 0
-  - name: Clouds
-    uniqueID: 3559140827
     locked: 0
   - name: octopus
     uniqueID: 747608355

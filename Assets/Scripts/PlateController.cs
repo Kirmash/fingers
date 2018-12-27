@@ -8,28 +8,31 @@ public class PlateController : MonoBehaviour {
 	private Vector3 lastScale;
 	int nbTouches;
 	private RaycastHit2D hitPlate;
+    public AudioClip teaFinal;
 
-	void Start () {
+    void Start () {
 		
 		touchController = (TouchController)GameObject.Find("Main Camera").GetComponent(typeof(TouchController));
 		touchNumbers = (TouchNumbers)GameObject.Find("shirmas").GetComponent(typeof(TouchNumbers));
 	}
 
 	void Update() {
-		nbTouches = Input.touchCount;
+      
+        nbTouches = Input.touchCount;
 		if (touchController.isDragging && (nbTouches > 0)) {
 	//		hitPlate = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.mousePosition), Vector2.zero);
 			hitPlate = Physics2D.Raycast (Camera.main.ScreenToWorldPoint(Input.GetTouch (0).position), Vector2.zero);
 			if (hitPlate != null && hitPlate.collider != null && hitPlate.collider.tag == "spacestuff") {
 				
 				if (!touchController.usedMainObjects.Contains(hitPlate.transform.gameObject)) {
-					//Debug.Log ("Here!");
+				Debug.Log ("Here!");
 			
 					touchController.overMainObject = true;
 				
 					if (touchNumbers.currentSceneNum == 11) {
-						touchController.mainObjectCoordinates.x = hitPlate.collider.gameObject.transform.position.x + hitPlate.collider.gameObject.GetComponent<BoxCollider2D>().offset.x;
-						touchController.mainObjectCoordinates.y = hitPlate.collider.gameObject.transform.position.y + hitPlate.collider.gameObject.GetComponent<BoxCollider2D>().offset.y;
+						touchController.mainObjectCoordinates.x = hitPlate.collider.gameObject.transform.position.x + hitPlate.collider.gameObject.GetComponent<CircleCollider2D>().offset.x;
+                        Debug.Log(hitPlate.collider.gameObject.GetComponent<CircleCollider2D>().offset.x);
+						touchController.mainObjectCoordinates.y = hitPlate.collider.gameObject.transform.position.y + hitPlate.collider.gameObject.GetComponent<CircleCollider2D>().offset.y;
 					} else {
 						hitPlate.collider.gameObject.transform.localScale = new Vector3(1.1f,1.1f,1.1f);
 						touchController.mainObjectCoordinates = hitPlate.collider.gameObject.transform.position;
@@ -39,13 +42,10 @@ public class PlateController : MonoBehaviour {
 				}
 								}
 			else { 
-
-
 				this.transform.localScale = new Vector3(1,1,1);	
 
 				touchController.overMainObject = false;}
 	}
-
 		if (touchController.objectMove) {
 			this.transform.localScale = new Vector3(1,1,1);	
 		}
@@ -66,6 +66,10 @@ public class PlateController : MonoBehaviour {
      //  touchController.closeProcessOnline = false;
     }
 
+    public void TeaFinishSound()
+    {
+        GetComponent<AudioSource>().PlayOneShot(teaFinal);
+    }
 
 
 }
