@@ -40,8 +40,8 @@ public class OptionsScript : MonoBehaviour {
         if (Application.systemLanguage == SystemLanguage.Russian)
         {
             languageManager.ChangeLanguage("ru");
-            selectorTransform.position = selectorPositionArray[0];
-            colliderBlocker = 0;
+           // selectorTransform.position = selectorPositionArray[0];
+           // colliderBlocker = 0;
         }
         else if (Application.systemLanguage == SystemLanguage.Korean)
         {
@@ -67,10 +67,10 @@ public class OptionsScript : MonoBehaviour {
         if (isOpenedSettings) {
 
         int nbTouches = Input.touchCount;
-		if (timerSet && updateKoreanSelectTimer <=60) {
+		if (timerSet && updateKoreanSelectTimer <=30) {
 			updateKoreanSelectTimer += 1;
 		}
-		if (timerSet && updateKoreanSelectTimer > 60) {
+		if (timerSet && updateKoreanSelectTimer > 30) {
 			timerSet = false;
 		}
 		if (!blockedOptions) {
