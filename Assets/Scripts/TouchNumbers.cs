@@ -275,7 +275,7 @@ public void InputLock()
                    currentSceneNum = randomScene10[Random.Range(0, randomScene10.Length)];
                }
                SceneDelete();
-                currentSceneNum = 2;
+             //   currentSceneNum = 5;
                 GetTheToys();
 		    break;
 			
@@ -379,7 +379,7 @@ public void InputLock()
                {
                    currentSceneNum = randomScene8[Random.Range(0, randomScene8.Length)];
                }
-           //     currentSceneNum = 1;
+                currentSceneNum = 5;
                 SceneDelete();
                 GetTheToys();
 			break;

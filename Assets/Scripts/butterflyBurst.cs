@@ -20,8 +20,7 @@ public class butterflyBurst : MonoBehaviour {
             hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position), Vector2.zero);
             if (hit.transform != null && hit.collider != null && hit.collider.tag == "cake")
             {
-             tObject = GameObject.Find(hit.transform.gameObject.name);
-            tObject.GetComponent<ParticleSystem>().Emit(30);
+                GameObject.Find(hit.transform.gameObject.name).GetComponent<ParticleSystem>().Emit(30);
             // new ParticleSystem.Burst(2.0f, 100);
               }
         }

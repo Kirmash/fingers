@@ -157,7 +157,7 @@ public class TouchController : MonoBehaviour {
         int nbTouches = Input.touchCount;
 
         if (nbTouches > 0) {
-            if (Input.GetTouch(0).phase == TouchPhase.Began && !touchNumbers.isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_open_idle") && !touchNumbers.cakeEndMove && !objectMove) {
+            if (Input.GetTouch(0).phase == TouchPhase.Began && !touchNumbers.isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo(0).IsName("curtains_open_idle") && !touchNumbers.cakeEndMove && !objectMove && !rocketRotate) {
                 //if (Input.GetMouseButtonDown (0) && !touchNumbers.isInputLocked && touchNumbers.animator.GetCurrentAnimatorStateInfo (0).IsName ("curtains_open_idle") && !touchNumbers.cakeEndMove && !objectMove) {
                 if (closeProcessOnline) {
                     closeProcessOnline = false;
@@ -177,6 +177,7 @@ public class TouchController : MonoBehaviour {
                             tObject = GameObject.Find("002. teapot(Clone)");
                             objectMove = true;
                         } else {
+                           
                             endPoint = tObject.transform.position + rocketOffset;
                             tObject.GetComponent<BoxCollider2D>().enabled = false;
                             tObject.GetComponent<Animator>().SetBool("isStill", true);
@@ -187,7 +188,7 @@ public class TouchController : MonoBehaviour {
                 }
                 if (hit.transform != null && hit.collider != null && hit.collider.tag == "cakerocket" && !thisTouched) {
 
-                    //Debug.Log(hit.transform);	
+                  //  Debug.Log(hit.transform);	
                     //	Debug.Log(hit.transform.position);			
                     if (!usedTouchableObject.Contains(hit.transform.gameObject)) {
                         tObject = GameObject.Find(hit.transform.gameObject.name);
@@ -423,7 +424,7 @@ public class TouchController : MonoBehaviour {
                 ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
                 //ray = Camera.main.ScreenPointToRay (Input.mousePosition);
                 Vector3 rayPoint = ray.GetPoint(distance);
-                if ((touchNumbers.currentSceneNum == 3) || (touchNumbers.currentSceneNum == 2) || (touchNumbers.currentSceneNum == 6) || (touchNumbers.currentSceneNum == 11)) {
+                if ((touchNumbers.currentSceneNum == 3) || (touchNumbers.currentSceneNum == 2) || (touchNumbers.currentSceneNum == 6)) {
                     if (tObject != null) {
 
                         tObject.GetComponent<Rigidbody2D>().transform.position = rayPoint;
@@ -445,8 +446,8 @@ public class TouchController : MonoBehaviour {
                     }
                 }
                 if (touchNumbers.currentSceneNum == 5) {
-                    if (tObject != null) {
-                        //Debug.Log ("Dragging carrots");
+                  
+                    if (tObject != null) {                     
                         if (tObject.transform.Find("insideCarrot").gameObject.GetComponent<SpriteRenderer>().sortingLayerName != "octopus") {
                             tempVectorY = tObject.GetComponent<Rigidbody2D>().transform.position;
                             tempVectorY.y = rayPoint.y;
